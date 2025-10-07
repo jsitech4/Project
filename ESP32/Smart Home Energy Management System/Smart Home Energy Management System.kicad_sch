@@ -20637,7 +20637,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "05da8179-64ed-42c9-b560-9fa184006d26")
-		(property "Reference" "K13"
+		(property "Reference" "K1"
 			(at 93.98 93.726 90)
 			(effects
 				(font
@@ -20698,7 +20698,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "K13")
+					(reference "K1")
 					(unit 1)
 				)
 			)
@@ -20713,7 +20713,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "06355e4c-95a2-4c6b-bfa9-4621a7917732")
-		(property "Reference" "D21"
+		(property "Reference" "D3"
 			(at 75.438 59.69 90)
 			(effects
 				(font
@@ -20731,7 +20731,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-201AD_P15.24mm_Horizontal"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 67.945 59.69 0)
 			(effects
 				(font
@@ -20767,7 +20767,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D21")
+					(reference "D3")
 					(unit 1)
 				)
 			)
@@ -20782,7 +20782,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "06b20f28-9290-4f87-bb32-3409fc2bdefe")
-		(property "Reference" "R10"
+		(property "Reference" "R21"
 			(at 251.968 128.27 0)
 			(effects
 				(font
@@ -20836,7 +20836,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R10")
+					(reference "R21")
 					(unit 1)
 				)
 			)
@@ -20851,7 +20851,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "07c47913-a5b5-4b2c-b256-50ff29140f9b")
-		(property "Reference" "R13"
+		(property "Reference" "R4"
 			(at 39.116 122.428 90)
 			(effects
 				(font
@@ -20905,7 +20905,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R13")
+					(reference "R4")
 					(unit 1)
 				)
 			)
@@ -20920,7 +20920,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "08a3d6ff-cd71-46eb-9240-59c26ffebec5")
-		(property "Reference" "D24"
+		(property "Reference" "D5"
 			(at 93.98 123.444 0)
 			(effects
 				(font
@@ -20936,7 +20936,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 93.98 114.935 0)
 			(effects
 				(font
@@ -20990,7 +20990,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D24")
+					(reference "D5")
 					(unit 1)
 				)
 			)
@@ -21005,7 +21005,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "09f51164-888d-40b5-b5a2-258495aa7137")
-		(property "Reference" "#PWR016"
+		(property "Reference" "#PWR045"
 			(at 308.61 139.7 0)
 			(effects
 				(font
@@ -21055,7 +21055,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR016")
+					(reference "#PWR045")
 					(unit 1)
 				)
 			)
@@ -21070,7 +21070,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0a7fff19-c6f9-43ca-b459-fdf81cfc2d90")
-		(property "Reference" "TP2"
+		(property "Reference" "TP4"
 			(at 76.708 18.034 0)
 			(effects
 				(font
@@ -21122,7 +21122,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "TP2")
+					(reference "TP4")
 					(unit 1)
 				)
 			)
@@ -21138,7 +21138,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0aeec5d1-9ec8-4451-bbb0-65668b6e8f80")
-		(property "Reference" "U4"
+		(property "Reference" "U6"
 			(at 216.408 165.354 0)
 			(effects
 				(font
@@ -21258,7 +21258,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "U4")
+					(reference "U6")
 					(unit 1)
 				)
 			)
@@ -21273,7 +21273,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0c01c318-8d0b-4ff6-a2d5-8ad41ac4679e")
-		(property "Reference" "C15"
+		(property "Reference" "C7"
 			(at 92.202 29.972 90)
 			(effects
 				(font
@@ -21291,7 +21291,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm"
+		(property "Footprint" "Capacitor_SMD:CP_Elec_10x12.5"
 			(at 95.25 29.972 0)
 			(effects
 				(font
@@ -21327,7 +21327,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C15")
+					(reference "C7")
 					(unit 1)
 				)
 			)
@@ -21342,7 +21342,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0cda36bb-e251-4275-884f-f490c15c81a6")
-		(property "Reference" "C1"
+		(property "Reference" "C15"
 			(at 191.262 26.67 90)
 			(effects
 				(font
@@ -21360,7 +21360,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
+		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A"
 			(at 181.61 26.162 0)
 			(effects
 				(font
@@ -21396,7 +21396,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C1")
+					(reference "C15")
 					(unit 1)
 				)
 			)
@@ -21411,7 +21411,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0e13f6fe-dbdf-4dbb-9918-4cce8fbd9707")
-		(property "Reference" "D17"
+		(property "Reference" "D29"
 			(at 363.22 210.566 0)
 			(effects
 				(font
@@ -21427,7 +21427,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 363.22 219.075 0)
 			(effects
 				(font
@@ -21481,7 +21481,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D17")
+					(reference "D29")
 					(unit 1)
 				)
 			)
@@ -21496,7 +21496,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0f0682df-e087-47ad-8d80-1be61f311b8e")
-		(property "Reference" "JP2"
+		(property "Reference" "JP1"
 			(at 115.824 150.368 0)
 			(effects
 				(font
@@ -21552,7 +21552,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "JP2")
+					(reference "JP1")
 					(unit 1)
 				)
 			)
@@ -21567,7 +21567,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0fc01be9-75ce-486e-b626-3126544ac1f3")
-		(property "Reference" "#PWR026"
+		(property "Reference" "#PWR027"
 			(at 204.47 170.18 0)
 			(effects
 				(font
@@ -21617,7 +21617,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR026")
+					(reference "#PWR027")
 					(unit 1)
 				)
 			)
@@ -21632,7 +21632,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "111df055-d5b1-43d3-91d0-c46edcff5539")
-		(property "Reference" "JP3"
+		(property "Reference" "JP2"
 			(at 115.316 164.592 0)
 			(effects
 				(font
@@ -21688,7 +21688,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "JP3")
+					(reference "JP2")
 					(unit 1)
 				)
 			)
@@ -21785,7 +21785,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "135f315c-9bd8-4301-83d6-852a2ffbc98c")
-		(property "Reference" "K4"
+		(property "Reference" "K9"
 			(at 363.474 64.262 90)
 			(effects
 				(font
@@ -21851,7 +21851,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "K4")
+					(reference "K9")
 					(unit 1)
 				)
 			)
@@ -21866,7 +21866,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "141e1ece-f6f7-4164-b863-c08808ac98da")
-		(property "Reference" "R4"
+		(property "Reference" "R20"
 			(at 240.538 26.162 90)
 			(effects
 				(font
@@ -21920,7 +21920,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R4")
+					(reference "R20")
 					(unit 1)
 				)
 			)
@@ -21935,7 +21935,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "14727f20-b495-4212-b8e2-52e4d2ace7b2")
-		(property "Reference" "Q4"
+		(property "Reference" "Q1"
 			(at 55.626 118.872 0)
 			(effects
 				(font
@@ -22001,7 +22001,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "Q4")
+					(reference "Q1")
 					(unit 2)
 				)
 			)
@@ -22016,7 +22016,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1561f387-514f-49fb-a1f9-c6329c17e7cd")
-		(property "Reference" "#PWR015"
+		(property "Reference" "#PWR050"
 			(at 351.79 101.6 0)
 			(effects
 				(font
@@ -22066,7 +22066,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR015")
+					(reference "#PWR050")
 					(unit 1)
 				)
 			)
@@ -22081,7 +22081,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "156b039c-3ee1-4825-a777-e61fb4dec156")
-		(property "Reference" "R15"
+		(property "Reference" "R8"
 			(at 67.818 93.472 0)
 			(effects
 				(font
@@ -22135,7 +22135,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R15")
+					(reference "R8")
 					(unit 1)
 				)
 			)
@@ -22150,7 +22150,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "157d08d8-aee4-4ffe-a7ae-91023320d529")
-		(property "Reference" "#PWR029"
+		(property "Reference" "#PWR031"
 			(at 223.52 125.73 0)
 			(effects
 				(font
@@ -22200,7 +22200,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR029")
+					(reference "#PWR031")
 					(unit 1)
 				)
 			)
@@ -22215,7 +22215,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "16f40184-2402-481c-a532-dce178ce6cda")
-		(property "Reference" "C16"
+		(property "Reference" "C11"
 			(at 143.51 33.782 90)
 			(effects
 				(font
@@ -22233,7 +22233,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm"
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
 			(at 135.89 32.512 0)
 			(effects
 				(font
@@ -22269,7 +22269,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C16")
+					(reference "C11")
 					(unit 1)
 				)
 			)
@@ -22284,7 +22284,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "17eabb2d-a276-40a6-916b-3be70e0d4e39")
-		(property "Reference" "#PWR09"
+		(property "Reference" "#PWR042"
 			(at 308.61 25.4 0)
 			(effects
 				(font
@@ -22334,7 +22334,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR09")
+					(reference "#PWR042")
 					(unit 1)
 				)
 			)
@@ -22349,7 +22349,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1894be74-c926-4a25-a667-0efef09779a9")
-		(property "Reference" "J10"
+		(property "Reference" "J2"
 			(at 74.422 150.876 0)
 			(effects
 				(font
@@ -22411,7 +22411,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "J10")
+					(reference "J2")
 					(unit 1)
 				)
 			)
@@ -22426,7 +22426,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1ae64802-d677-4278-86e1-b1058bcbcbdb")
-		(property "Reference" "#PWR024"
+		(property "Reference" "#PWR029"
 			(at 212.09 243.84 0)
 			(effects
 				(font
@@ -22476,7 +22476,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR024")
+					(reference "#PWR029")
 					(unit 1)
 				)
 			)
@@ -22491,7 +22491,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1aff4fde-d812-4e20-9eaf-2372bc02b4bc")
-		(property "Reference" "#PWR06"
+		(property "Reference" "#PWR010"
 			(at 77.47 245.11 0)
 			(effects
 				(font
@@ -22541,7 +22541,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR06")
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)
@@ -22556,7 +22556,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1d633874-7e87-4ae1-a865-2d613e5ebf58")
-		(property "Reference" "#PWR04"
+		(property "Reference" "#PWR035"
 			(at 233.68 24.13 0)
 			(effects
 				(font
@@ -22606,7 +22606,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR04")
+					(reference "#PWR035")
 					(unit 1)
 				)
 			)
@@ -22621,7 +22621,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1dd5e216-efc8-410e-8fa7-572f338c268c")
-		(property "Reference" "#PWR012"
+		(property "Reference" "#PWR043"
 			(at 308.61 62.23 0)
 			(effects
 				(font
@@ -22671,7 +22671,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR012")
+					(reference "#PWR043")
 					(unit 1)
 				)
 			)
@@ -22686,7 +22686,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "20c9a5b1-e9a8-42c6-8911-91f4e48f8eee")
-		(property "Reference" "D1"
+		(property "Reference" "D14"
 			(at 220.98 19.05 0)
 			(effects
 				(font
@@ -22740,7 +22740,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D1")
+					(reference "D14")
 					(unit 1)
 				)
 			)
@@ -22755,7 +22755,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "22192bcd-26d0-400e-a865-5d5330d07c9e")
-		(property "Reference" "#PWR038"
+		(property "Reference" "#PWR03"
 			(at 31.75 25.4 0)
 			(effects
 				(font
@@ -22805,7 +22805,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR038")
+					(reference "#PWR03")
 					(unit 1)
 				)
 			)
@@ -22820,7 +22820,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "22b6f8ed-3fa8-4e10-b8ef-cf70a39e006c")
-		(property "Reference" "#PWR02"
+		(property "Reference" "#PWR034"
 			(at 229.87 68.58 0)
 			(effects
 				(font
@@ -22870,7 +22870,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR02")
+					(reference "#PWR034")
 					(unit 1)
 				)
 			)
@@ -22885,7 +22885,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "248c4f4f-6687-45f8-8e79-6eb46fdf575c")
-		(property "Reference" "#PWR047"
+		(property "Reference" "#PWR02"
 			(at 24.13 74.93 0)
 			(effects
 				(font
@@ -22935,7 +22935,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR047")
+					(reference "#PWR02")
 					(unit 1)
 				)
 			)
@@ -22950,7 +22950,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "2576536a-d9f3-4c88-be8b-b059645ee170")
-		(property "Reference" "#FLG02"
+		(property "Reference" "#FLG01"
 			(at 29.21 46.355 0)
 			(effects
 				(font
@@ -23000,7 +23000,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#FLG02")
+					(reference "#FLG01")
 					(unit 1)
 				)
 			)
@@ -23015,7 +23015,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "25d9c00f-2465-4181-b874-9fbcb8ea1566")
-		(property "Reference" "C7"
+		(property "Reference" "C4"
 			(at 65.786 212.852 90)
 			(effects
 				(font
@@ -23033,7 +23033,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 68.58 214.63 0)
 			(effects
 				(font
@@ -23069,7 +23069,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C7")
+					(reference "C4")
 					(unit 1)
 				)
 			)
@@ -23084,7 +23084,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "2ade6e36-4c91-4932-9d8d-45042f45ca9e")
-		(property "Reference" "D18"
+		(property "Reference" "D15"
 			(at 219.71 155.194 0)
 			(effects
 				(font
@@ -23100,7 +23100,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 219.71 161.925 0)
 			(effects
 				(font
@@ -23154,7 +23154,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D18")
+					(reference "D15")
 					(unit 1)
 				)
 			)
@@ -23170,7 +23170,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "2b07b102-a7d2-41fe-a394-feb386ac0bbf")
-		(property "Reference" "J5"
+		(property "Reference" "J9"
 			(at 390.144 162.306 0)
 			(effects
 				(font
@@ -23224,7 +23224,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "J5")
+					(reference "J9")
 					(unit 1)
 				)
 			)
@@ -23239,7 +23239,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "2daa0216-c4bf-4b6d-888f-7b47f4079b44")
-		(property "Reference" "TP6"
+		(property "Reference" "TP8"
 			(at 206.248 56.134 0)
 			(effects
 				(font
@@ -23291,7 +23291,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "TP6")
+					(reference "TP8")
 					(unit 1)
 				)
 			)
@@ -23306,7 +23306,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "30168e44-1686-410f-889f-9d3b645e9dca")
-		(property "Reference" "D12"
+		(property "Reference" "D21"
 			(at 320.04 134.366 0)
 			(effects
 				(font
@@ -23322,7 +23322,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 320.04 142.875 0)
 			(effects
 				(font
@@ -23376,7 +23376,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D12")
+					(reference "D21")
 					(unit 1)
 				)
 			)
@@ -23391,7 +23391,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "3035a555-ce9e-496e-b47c-4ce27f5dda28")
-		(property "Reference" "R2"
+		(property "Reference" "R15"
 			(at 176.022 168.148 90)
 			(effects
 				(font
@@ -23445,7 +23445,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R2")
+					(reference "R15")
 					(unit 1)
 				)
 			)
@@ -23460,7 +23460,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "31462fda-0393-4895-9122-b0744c61f224")
-		(property "Reference" "TP3"
+		(property "Reference" "TP5"
 			(at 86.868 44.704 0)
 			(effects
 				(font
@@ -23512,7 +23512,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "TP3")
+					(reference "TP5")
 					(unit 1)
 				)
 			)
@@ -23527,7 +23527,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "31eaad6e-9956-48fa-a617-84f22e4265ae")
-		(property "Reference" "D20"
+		(property "Reference" "D12"
 			(at 132.588 33.02 90)
 			(effects
 				(font
@@ -23545,7 +23545,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-201AD_P15.24mm_Horizontal"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 125.095 33.02 0)
 			(effects
 				(font
@@ -23581,7 +23581,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D20")
+					(reference "D12")
 					(unit 1)
 				)
 			)
@@ -23596,7 +23596,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "32af891b-12af-4b5e-8a98-fa8a666d49f3")
-		(property "Reference" "C11"
+		(property "Reference" "C24"
 			(at 279.908 234.696 0)
 			(effects
 				(font
@@ -23605,8 +23605,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0.1uF/25V"
-			(at 268.478 238.252 0)
+		(property "Value" "100nF"
+			(at 273.05 238.252 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23679,7 +23679,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C11")
+					(reference "C24")
 					(unit 1)
 				)
 			)
@@ -23694,7 +23694,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "37cbcab9-5331-4607-a9a3-aceeb38b10b4")
-		(property "Reference" "R8"
+		(property "Reference" "R17"
 			(at 193.548 168.148 90)
 			(effects
 				(font
@@ -23748,7 +23748,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R8")
+					(reference "R17")
 					(unit 1)
 				)
 			)
@@ -23763,7 +23763,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "3b5bcbe2-4180-48ea-a111-7b082cf66337")
-		(property "Reference" "C12"
+		(property "Reference" "C17"
 			(at 204.978 159.766 0)
 			(effects
 				(font
@@ -23846,7 +23846,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C12")
+					(reference "C17")
 					(unit 1)
 				)
 			)
@@ -23861,7 +23861,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "3c8e3cd6-f29a-4e04-9178-78921f3be821")
-		(property "Reference" "C24"
+		(property "Reference" "C14"
 			(at 148.844 71.628 90)
 			(effects
 				(font
@@ -23879,7 +23879,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
+		(property "Footprint" "Capacitor_SMD:CP_Elec_8x11.9"
 			(at 140.97 68.072 0)
 			(effects
 				(font
@@ -23915,7 +23915,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C24")
+					(reference "C14")
 					(unit 1)
 				)
 			)
@@ -23931,7 +23931,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "3d61b6ca-0965-4952-8db2-6e9513ad4fd6")
-		(property "Reference" "K7"
+		(property "Reference" "K5"
 			(at 319.786 141.732 90)
 			(effects
 				(font
@@ -23997,7 +23997,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "K7")
+					(reference "K5")
 					(unit 1)
 				)
 			)
@@ -24012,8 +24012,8 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "3df41947-c2b5-42c2-b71d-e36095c600f1")
-		(property "Reference" "C4"
-			(at 207.518 26.924 90)
+		(property "Reference" "C19"
+			(at 207.772 27.94 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24022,7 +24022,7 @@
 			)
 		)
 		(property "Value" "4.7uF/16V"
-			(at 210.566 29.464 90)
+			(at 210.566 29.718 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24030,7 +24030,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
+		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A"
 			(at 207.01 27.432 0)
 			(effects
 				(font
@@ -24066,7 +24066,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C4")
+					(reference "C19")
 					(unit 1)
 				)
 			)
@@ -24081,7 +24081,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "40dbc10c-f957-4342-a6de-091575ed3358")
-		(property "Reference" "#PWR037"
+		(property "Reference" "#PWR014"
 			(at 100.33 156.21 0)
 			(effects
 				(font
@@ -24131,7 +24131,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR037")
+					(reference "#PWR014")
 					(unit 1)
 				)
 			)
@@ -24146,7 +24146,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "4249e211-f05c-4a22-9299-23ab61b0c560")
-		(property "Reference" "D5"
+		(property "Reference" "D13"
 			(at 201.168 85.344 90)
 			(effects
 				(font
@@ -24200,7 +24200,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D5")
+					(reference "D13")
 					(unit 1)
 				)
 			)
@@ -24293,7 +24293,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "440df4b8-66d3-4746-b804-0282cbad1965")
-		(property "Reference" "Q4"
+		(property "Reference" "Q1"
 			(at 55.88 106.426 0)
 			(effects
 				(font
@@ -24359,7 +24359,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "Q4")
+					(reference "Q1")
 					(unit 1)
 				)
 			)
@@ -24374,7 +24374,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "4461e6b4-7eaa-4607-aeff-6bdf3cfa7bdc")
-		(property "Reference" "R5"
+		(property "Reference" "R11"
 			(at 72.39 229.362 0)
 			(effects
 				(font
@@ -24428,7 +24428,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R5")
+					(reference "R11")
 					(unit 1)
 				)
 			)
@@ -24444,7 +24444,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "46becd6f-c51f-422c-81ee-17dc88be387d")
-		(property "Reference" "K8"
+		(property "Reference" "K6"
 			(at 319.786 178.562 90)
 			(effects
 				(font
@@ -24510,7 +24510,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "K8")
+					(reference "K6")
 					(unit 1)
 				)
 			)
@@ -24592,7 +24592,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "48390c13-1e44-4b91-a376-0807c19ec7ae")
-		(property "Reference" "C18"
+		(property "Reference" "C6"
 			(at 87.122 59.944 90)
 			(effects
 				(font
@@ -24610,7 +24610,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm"
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
 			(at 78.74 59.182 0)
 			(effects
 				(font
@@ -24646,7 +24646,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C18")
+					(reference "C6")
 					(unit 1)
 				)
 			)
@@ -24661,7 +24661,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "4967ffff-5baa-4081-ab05-43fc16312a95")
-		(property "Reference" "C10"
+		(property "Reference" "C23"
 			(at 279.908 194.056 0)
 			(effects
 				(font
@@ -24670,8 +24670,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0.1uF/25V"
-			(at 268.478 197.612 0)
+		(property "Value" "100nF"
+			(at 273.05 197.612 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24744,7 +24744,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C10")
+					(reference "C23")
 					(unit 1)
 				)
 			)
@@ -24759,7 +24759,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "4cdadebe-5a71-410c-b570-b73898109786")
-		(property "Reference" "R6"
+		(property "Reference" "R10"
 			(at 67.31 189.484 90)
 			(effects
 				(font
@@ -24813,7 +24813,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R6")
+					(reference "R10")
 					(unit 1)
 				)
 			)
@@ -24828,7 +24828,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "4def296c-d2ed-4a56-8cf1-1d82fda89d47")
-		(property "Reference" "R9"
+		(property "Reference" "R22"
 			(at 255.524 136.652 0)
 			(effects
 				(font
@@ -24882,7 +24882,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R9")
+					(reference "R22")
 					(unit 1)
 				)
 			)
@@ -24897,7 +24897,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "4eadac76-5bf6-4e31-8a13-abe9dc796cf5")
-		(property "Reference" "#PWR023"
+		(property "Reference" "#PWR041"
 			(at 279.4 209.55 0)
 			(effects
 				(font
@@ -24947,7 +24947,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR023")
+					(reference "#PWR041")
 					(unit 1)
 				)
 			)
@@ -25029,7 +25029,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5173ab82-373d-4f1e-9f7f-73675a24a793")
-		(property "Reference" "#PWR051"
+		(property "Reference" "#PWR021"
 			(at 144.78 64.77 0)
 			(effects
 				(font
@@ -25079,7 +25079,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR051")
+					(reference "#PWR021")
 					(unit 1)
 				)
 			)
@@ -25094,7 +25094,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "52768c29-f69f-4d54-af05-40ee53979158")
-		(property "Reference" "#PWR027"
+		(property "Reference" "#PWR033"
 			(at 223.52 167.64 0)
 			(effects
 				(font
@@ -25144,7 +25144,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR027")
+					(reference "#PWR033")
 					(unit 1)
 				)
 			)
@@ -25159,7 +25159,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "53c2c318-2221-4a03-9355-9385e4c880a4")
-		(property "Reference" "#FLG07"
+		(property "Reference" "#FLG08"
 			(at 346.71 20.955 0)
 			(effects
 				(font
@@ -25209,7 +25209,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#FLG07")
+					(reference "#FLG08")
 					(unit 1)
 				)
 			)
@@ -25224,7 +25224,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "540be114-a1e9-4db4-8fdb-7629e3906747")
-		(property "Reference" "D27"
+		(property "Reference" "D10"
 			(at 128.27 62.484 0)
 			(effects
 				(font
@@ -25240,7 +25240,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 128.27 53.975 0)
 			(effects
 				(font
@@ -25294,7 +25294,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D27")
+					(reference "D10")
 					(unit 1)
 				)
 			)
@@ -25309,7 +25309,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "546d9f81-835a-40bf-99d6-10715a436986")
-		(property "Reference" "D10"
+		(property "Reference" "D20"
 			(at 320.04 96.266 0)
 			(effects
 				(font
@@ -25325,7 +25325,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 320.04 104.775 0)
 			(effects
 				(font
@@ -25379,7 +25379,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D10")
+					(reference "D20")
 					(unit 1)
 				)
 			)
@@ -25394,7 +25394,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "580e2d69-aef6-4c9f-a943-bcb57dadcb0c")
-		(property "Reference" "TP7"
+		(property "Reference" "TP3"
 			(at 43.688 43.434 0)
 			(effects
 				(font
@@ -25446,7 +25446,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "TP7")
+					(reference "TP3")
 					(unit 1)
 				)
 			)
@@ -25461,7 +25461,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5c97d354-44e8-483e-81f4-90d47957ab1e")
-		(property "Reference" "K11"
+		(property "Reference" "K12"
 			(at 363.474 178.562 90)
 			(effects
 				(font
@@ -25527,7 +25527,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "K11")
+					(reference "K12")
 					(unit 1)
 				)
 			)
@@ -25542,7 +25542,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5cc8b123-8334-4dd5-811b-95cfc33ce46a")
-		(property "Reference" "#PWR032"
+		(property "Reference" "#PWR024"
 			(at 182.88 140.97 0)
 			(effects
 				(font
@@ -25592,7 +25592,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR032")
+					(reference "#PWR024")
 					(unit 1)
 				)
 			)
@@ -25607,7 +25607,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5d43d175-3879-4e56-9cc3-92de06336b78")
-		(property "Reference" "#PWR028"
+		(property "Reference" "#PWR026"
 			(at 196.85 243.84 0)
 			(effects
 				(font
@@ -25657,7 +25657,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR028")
+					(reference "#PWR026")
 					(unit 1)
 				)
 			)
@@ -25672,7 +25672,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5e4c5f17-35a7-48f1-973f-45fece135207")
-		(property "Reference" "TP1"
+		(property "Reference" "TP6"
 			(at 142.748 18.034 0)
 			(effects
 				(font
@@ -25724,7 +25724,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "TP1")
+					(reference "TP6")
 					(unit 1)
 				)
 			)
@@ -25739,7 +25739,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "60cd3897-f049-493b-858e-6ab71759a9ea")
-		(property "Reference" "R12"
+		(property "Reference" "R2"
 			(at 37.338 114.808 0)
 			(effects
 				(font
@@ -25793,7 +25793,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R12")
+					(reference "R2")
 					(unit 1)
 				)
 			)
@@ -25886,7 +25886,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "64893c41-461e-4e5a-913c-be8b52bd965d")
-		(property "Reference" "D13"
+		(property "Reference" "D22"
 			(at 320.04 171.196 0)
 			(effects
 				(font
@@ -25902,7 +25902,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 320.04 179.705 0)
 			(effects
 				(font
@@ -25956,7 +25956,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D13")
+					(reference "D22")
 					(unit 1)
 				)
 			)
@@ -25971,7 +25971,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "653baca3-df44-4d2b-9505-6ca9eb2d0192")
-		(property "Reference" "R18"
+		(property "Reference" "R9"
 			(at 71.12 108.712 0)
 			(effects
 				(font
@@ -26025,7 +26025,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R18")
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -26040,7 +26040,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "663ec9b4-ab7f-4b94-89d5-e84a10dce501")
-		(property "Reference" "#PWR03"
+		(property "Reference" "#PWR030"
 			(at 214.63 99.06 0)
 			(effects
 				(font
@@ -26090,7 +26090,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR03")
+					(reference "#PWR030")
 					(unit 1)
 				)
 			)
@@ -26106,7 +26106,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "685a02a0-5f4a-419e-82ac-3dde71813764")
-		(property "Reference" "J7"
+		(property "Reference" "J11"
 			(at 390.144 238.506 0)
 			(effects
 				(font
@@ -26161,7 +26161,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "J7")
+					(reference "J11")
 					(unit 1)
 				)
 			)
@@ -26176,7 +26176,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "68f554a8-f180-47b0-954c-de76f4d4730d")
-		(property "Reference" "D16"
+		(property "Reference" "D28"
 			(at 363.22 171.196 0)
 			(effects
 				(font
@@ -26192,7 +26192,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 363.22 179.705 0)
 			(effects
 				(font
@@ -26246,7 +26246,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D16")
+					(reference "D28")
 					(unit 1)
 				)
 			)
@@ -26261,7 +26261,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "69864572-1601-4e47-9973-822767723865")
-		(property "Reference" "R20"
+		(property "Reference" "R14"
 			(at 120.142 74.422 0)
 			(effects
 				(font
@@ -26315,7 +26315,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R20")
+					(reference "R14")
 					(unit 1)
 				)
 			)
@@ -26330,7 +26330,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "6c8527a8-e3bc-4b74-abe1-bfa97f5c0630")
-		(property "Reference" "TP4"
+		(property "Reference" "TP7"
 			(at 147.828 56.134 0)
 			(effects
 				(font
@@ -26382,7 +26382,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "TP4")
+					(reference "TP7")
 					(unit 1)
 				)
 			)
@@ -26397,7 +26397,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "6cf651ec-8b5a-4a54-bab7-8905be9c6341")
-		(property "Reference" "TP8"
+		(property "Reference" "TP1"
 			(at 42.418 95.504 0)
 			(effects
 				(font
@@ -26449,7 +26449,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "TP8")
+					(reference "TP1")
 					(unit 1)
 				)
 			)
@@ -26464,7 +26464,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "6cf92b46-1a56-4b02-a30c-d723249cb41e")
-		(property "Reference" "TP9"
+		(property "Reference" "TP2"
 			(at 42.418 112.014 0)
 			(effects
 				(font
@@ -26516,7 +26516,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "TP9")
+					(reference "TP2")
 					(unit 1)
 				)
 			)
@@ -26531,7 +26531,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "6d8899d9-3c19-4090-8dc3-44ca64a4a919")
-		(property "Reference" "#PWR013"
+		(property "Reference" "#PWR049"
 			(at 351.79 62.23 0)
 			(effects
 				(font
@@ -26581,7 +26581,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR013")
+					(reference "#PWR049")
 					(unit 1)
 				)
 			)
@@ -26597,7 +26597,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "6dc5da15-9201-4285-b4f1-c5ca34ee3ca8")
-		(property "Reference" "J4"
+		(property "Reference" "J8"
 			(at 390.144 124.206 0)
 			(effects
 				(font
@@ -26651,7 +26651,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "J4")
+					(reference "J8")
 					(unit 1)
 				)
 			)
@@ -26666,7 +26666,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "6f89df9c-163a-4606-bb34-2daa86166f40")
-		(property "Reference" "K6"
+		(property "Reference" "K10"
 			(at 363.474 103.632 90)
 			(effects
 				(font
@@ -26732,7 +26732,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "K6")
+					(reference "K10")
 					(unit 1)
 				)
 			)
@@ -26747,7 +26747,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "71ca8cd7-9bfe-4d39-8776-83e054cf198c")
-		(property "Reference" "#PWR046"
+		(property "Reference" "#PWR011"
 			(at 82.55 52.07 0)
 			(effects
 				(font
@@ -26797,7 +26797,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR046")
+					(reference "#PWR011")
 					(unit 1)
 				)
 			)
@@ -26812,7 +26812,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "71e5f295-c48b-4fc0-bd6e-e4122569992e")
-		(property "Reference" "Q1"
+		(property "Reference" "Q3"
 			(at 255.778 165.608 0)
 			(effects
 				(font
@@ -27004,7 +27004,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "Q1")
+					(reference "Q3")
 					(unit 1)
 				)
 			)
@@ -27019,7 +27019,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "72be96d7-3fe0-4f9e-889a-c8663e0b52d5")
-		(property "Reference" "C19"
+		(property "Reference" "C10"
 			(at 132.334 123.952 90)
 			(effects
 				(font
@@ -27037,7 +27037,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
+		(property "Footprint" "Capacitor_THT:CP_Radial_D18.0mm_P7.50mm"
 			(at 132.08 122.682 0)
 			(effects
 				(font
@@ -27073,7 +27073,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C19")
+					(reference "C10")
 					(unit 1)
 				)
 			)
@@ -27088,7 +27088,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "755a8567-307c-4e2f-ac61-851027c49e60")
-		(property "Reference" "#PWR021"
+		(property "Reference" "#PWR053"
 			(at 351.79 215.9 0)
 			(effects
 				(font
@@ -27138,7 +27138,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR021")
+					(reference "#PWR053")
 					(unit 1)
 				)
 			)
@@ -27153,7 +27153,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "75f16570-ce18-40c7-a8f3-489e70ff7a18")
-		(property "Reference" "K10"
+		(property "Reference" "K11"
 			(at 363.474 141.732 90)
 			(effects
 				(font
@@ -27219,7 +27219,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "K10")
+					(reference "K11")
 					(unit 1)
 				)
 			)
@@ -27234,7 +27234,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "76346ec6-a21f-403b-bc02-496ade62885d")
-		(property "Reference" "R7"
+		(property "Reference" "R12"
 			(at 74.93 189.484 90)
 			(effects
 				(font
@@ -27288,7 +27288,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R7")
+					(reference "R12")
 					(unit 1)
 				)
 			)
@@ -27304,7 +27304,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7648b311-34dc-49c2-877c-be4a73604c91")
-		(property "Reference" "J2"
+		(property "Reference" "J6"
 			(at 388.874 48.006 0)
 			(effects
 				(font
@@ -27358,7 +27358,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "J2")
+					(reference "J6")
 					(unit 1)
 				)
 			)
@@ -27373,7 +27373,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "773907d5-1b05-4758-9ecf-f33f53f11815")
-		(property "Reference" "D6"
+		(property "Reference" "D24"
 			(at 363.22 20.066 0)
 			(effects
 				(font
@@ -27389,7 +27389,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 363.22 28.575 0)
 			(effects
 				(font
@@ -27443,7 +27443,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D6")
+					(reference "D24")
 					(unit 1)
 				)
 			)
@@ -27458,7 +27458,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "777da0e7-d964-4fc8-8889-c08fd13e24c1")
-		(property "Reference" "D28"
+		(property "Reference" "D11"
 			(at 128.27 70.104 0)
 			(effects
 				(font
@@ -27474,7 +27474,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 128.27 61.595 0)
 			(effects
 				(font
@@ -27528,7 +27528,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D28")
+					(reference "D11")
 					(unit 1)
 				)
 			)
@@ -27543,7 +27543,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "79107951-cf42-4112-849a-e2d0eb2968ac")
-		(property "Reference" "#PWR042"
+		(property "Reference" "#PWR016"
 			(at 129.54 45.72 0)
 			(effects
 				(font
@@ -27593,7 +27593,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR042")
+					(reference "#PWR016")
 					(unit 1)
 				)
 			)
@@ -27609,7 +27609,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "792f5a4f-8775-4847-b253-c754ce88a630")
-		(property "Reference" "Q3"
+		(property "Reference" "Q2"
 			(at 221.234 41.402 0)
 			(effects
 				(font
@@ -27675,7 +27675,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "Q3")
+					(reference "Q2")
 					(unit 2)
 				)
 			)
@@ -27690,7 +27690,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7a1b777f-86b8-4ce3-be2c-335a1600eef9")
-		(property "Reference" "R11"
+		(property "Reference" "R18"
 			(at 232.918 228.092 90)
 			(effects
 				(font
@@ -27744,7 +27744,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R11")
+					(reference "R18")
 					(unit 1)
 				)
 			)
@@ -27759,7 +27759,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7b8e23b7-82f4-48b4-a5cf-0cab0342d708")
-		(property "Reference" "#PWR010"
+		(property "Reference" "#PWR040"
 			(at 279.4 168.91 0)
 			(effects
 				(font
@@ -27809,7 +27809,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR010")
+					(reference "#PWR040")
 					(unit 1)
 				)
 			)
@@ -27824,7 +27824,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7bcd338f-35e8-4470-bd37-5d29a0071097")
-		(property "Reference" "C9"
+		(property "Reference" "C20"
 			(at 222.758 74.93 90)
 			(effects
 				(font
@@ -27840,7 +27840,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 224.79 73.66 0)
 			(effects
 				(font
@@ -27876,7 +27876,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C9")
+					(reference "C20")
 					(unit 1)
 				)
 			)
@@ -27892,7 +27892,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7bf0f600-4f40-4b0e-a468-fb5b11409bc7")
-		(property "Reference" "T2"
+		(property "Reference" "T1"
 			(at 112.268 95.758 0)
 			(effects
 				(font
@@ -27950,7 +27950,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "T2")
+					(reference "T1")
 					(unit 1)
 				)
 			)
@@ -27965,7 +27965,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7f1601fe-bf82-45e9-866e-0100464af501")
-		(property "Reference" "C17"
+		(property "Reference" "C1"
 			(at 27.432 58.166 90)
 			(effects
 				(font
@@ -27983,7 +27983,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm"
+		(property "Footprint" "Capacitor_SMD:CP_Elec_10x12.5"
 			(at 20.32 57.912 0)
 			(effects
 				(font
@@ -28019,7 +28019,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C17")
+					(reference "C1")
 					(unit 1)
 				)
 			)
@@ -28034,7 +28034,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7f3b27ee-f780-4746-a067-b0b1e7f17e56")
-		(property "Reference" "C14"
+		(property "Reference" "C5"
 			(at 76.2 34.036 90)
 			(effects
 				(font
@@ -28052,7 +28052,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm"
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
 			(at 68.58 32.512 0)
 			(effects
 				(font
@@ -28088,7 +28088,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C14")
+					(reference "C5")
 					(unit 1)
 				)
 			)
@@ -28104,7 +28104,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7fd0108c-aee2-4d41-a46a-721e9b8edb4d")
-		(property "Reference" "J8"
+		(property "Reference" "J3"
 			(at 96.266 151.384 0)
 			(effects
 				(font
@@ -28166,7 +28166,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "J8")
+					(reference "J3")
 					(unit 1)
 				)
 			)
@@ -28181,7 +28181,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "7fec058d-8b75-42d3-baa8-cc67717fc60f")
-		(property "Reference" "#PWR025"
+		(property "Reference" "#PWR028"
 			(at 208.28 160.02 0)
 			(effects
 				(font
@@ -28231,7 +28231,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR025")
+					(reference "#PWR028")
 					(unit 1)
 				)
 			)
@@ -28246,7 +28246,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "809df1fe-7e5a-40f0-bab5-c7bc0db3ab44")
-		(property "Reference" "#PWR041"
+		(property "Reference" "#PWR013"
 			(at 99.06 25.4 0)
 			(effects
 				(font
@@ -28296,7 +28296,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR041")
+					(reference "#PWR013")
 					(unit 1)
 				)
 			)
@@ -28311,7 +28311,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8aab66de-ac4b-4a47-ae0b-c282ed8c9259")
-		(property "Reference" "R3"
+		(property "Reference" "R19"
 			(at 231.394 26.162 90)
 			(effects
 				(font
@@ -28365,7 +28365,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R3")
+					(reference "R19")
 					(unit 1)
 				)
 			)
@@ -28380,7 +28380,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8bd6e4fb-be6a-45c5-989d-1aa7dedfbb8c")
-		(property "Reference" "#FLG04"
+		(property "Reference" "#FLG07"
 			(at 228.6 121.285 0)
 			(effects
 				(font
@@ -28430,7 +28430,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#FLG04")
+					(reference "#FLG07")
 					(unit 1)
 				)
 			)
@@ -28445,7 +28445,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8cbccc18-dee9-4715-b4bf-d202e52b818b")
-		(property "Reference" "R21"
+		(property "Reference" "R6"
 			(at 55.118 229.362 0)
 			(effects
 				(font
@@ -28499,7 +28499,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R21")
+					(reference "R6")
 					(unit 1)
 				)
 			)
@@ -28515,7 +28515,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8d7d0f50-6c57-482f-91c8-a65992da9a15")
-		(property "Reference" "J11"
+		(property "Reference" "J1"
 			(at 54.356 159.004 0)
 			(effects
 				(font
@@ -28570,7 +28570,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "J11")
+					(reference "J1")
 					(unit 1)
 				)
 			)
@@ -28653,7 +28653,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "90791b51-d381-46bb-9636-1456825180bc")
-		(property "Reference" "J6"
+		(property "Reference" "J10"
 			(at 390.144 199.136 0)
 			(effects
 				(font
@@ -28708,7 +28708,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "J6")
+					(reference "J10")
 					(unit 1)
 				)
 			)
@@ -28723,7 +28723,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "90982d5c-b746-426c-872f-86daecaa3f9a")
-		(property "Reference" "#PWR011"
+		(property "Reference" "#PWR038"
 			(at 266.7 208.28 0)
 			(effects
 				(font
@@ -28773,7 +28773,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR011")
+					(reference "#PWR038")
 					(unit 1)
 				)
 			)
@@ -28788,7 +28788,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "910ccfec-2c99-4b5b-8e0d-71a69dd7ba5a")
-		(property "Reference" "C8"
+		(property "Reference" "C21"
 			(at 222.758 87.63 90)
 			(effects
 				(font
@@ -28804,7 +28804,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 224.79 86.36 0)
 			(effects
 				(font
@@ -28840,7 +28840,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C8")
+					(reference "C21")
 					(unit 1)
 				)
 			)
@@ -28856,7 +28856,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9224d0dd-eb93-498f-8d98-f8431c8c8b56")
-		(property "Reference" "J9"
+		(property "Reference" "J5"
 			(at 167.386 120.65 90)
 			(effects
 				(font
@@ -28964,7 +28964,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "J9")
+					(reference "J5")
 					(unit 1)
 				)
 			)
@@ -28979,7 +28979,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "92c31732-ef8d-4a6f-965d-35f271c0bf70")
-		(property "Reference" "D2"
+		(property "Reference" "D16"
 			(at 235.458 33.274 90)
 			(effects
 				(font
@@ -29042,7 +29042,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D2")
+					(reference "D16")
 					(unit 1)
 				)
 			)
@@ -29057,7 +29057,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "939611c9-0849-4c3d-8524-fdbe2462554a")
-		(property "Reference" "#PWR017"
+		(property "Reference" "#PWR046"
 			(at 308.61 176.53 0)
 			(effects
 				(font
@@ -29107,7 +29107,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR017")
+					(reference "#PWR046")
 					(unit 1)
 				)
 			)
@@ -29122,7 +29122,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "93d5aba7-5d62-470e-b05d-ff4e68f25d6c")
-		(property "Reference" "#PWR044"
+		(property "Reference" "#PWR01"
 			(at 24.13 52.07 0)
 			(effects
 				(font
@@ -29172,7 +29172,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR044")
+					(reference "#PWR01")
 					(unit 1)
 				)
 			)
@@ -29187,7 +29187,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "960467b6-2d99-4a30-b817-fbfc451521a9")
-		(property "Reference" "C23"
+		(property "Reference" "C8"
 			(at 107.696 49.53 90)
 			(effects
 				(font
@@ -29239,7 +29239,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C23")
+					(reference "C8")
 					(unit 1)
 				)
 			)
@@ -29254,7 +29254,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "960c136d-f4ce-4b16-b9f9-847692630f64")
-		(property "Reference" "#PWR019"
+		(property "Reference" "#PWR051"
 			(at 351.79 139.7 0)
 			(effects
 				(font
@@ -29304,7 +29304,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR019")
+					(reference "#PWR051")
 					(unit 1)
 				)
 			)
@@ -29384,7 +29384,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9897472f-453f-4571-9550-ca2858cabcfb")
-		(property "Reference" "#PWR05"
+		(property "Reference" "#PWR048"
 			(at 351.79 25.4 0)
 			(effects
 				(font
@@ -29434,7 +29434,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR05")
+					(reference "#PWR048")
 					(unit 1)
 				)
 			)
@@ -29450,7 +29450,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9a55406b-d0ce-4b9c-99c8-d13b9fa3f052")
-		(property "Reference" "J3"
+		(property "Reference" "J7"
 			(at 388.874 84.836 0)
 			(effects
 				(font
@@ -29504,7 +29504,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "J3")
+					(reference "J7")
 					(unit 1)
 				)
 			)
@@ -29519,7 +29519,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9b42678b-50a1-4b99-b770-6dab99dbefc4")
-		(property "Reference" "#PWR035"
+		(property "Reference" "#PWR036"
 			(at 247.65 132.08 0)
 			(effects
 				(font
@@ -29569,7 +29569,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR035")
+					(reference "#PWR036")
 					(unit 1)
 				)
 			)
@@ -29584,7 +29584,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9b73ef56-f1bd-4e90-87ea-e5da26c35ad1")
-		(property "Reference" "#PWR020"
+		(property "Reference" "#PWR052"
 			(at 351.79 176.53 0)
 			(effects
 				(font
@@ -29634,7 +29634,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR020")
+					(reference "#PWR052")
 					(unit 1)
 				)
 			)
@@ -29649,7 +29649,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9dc0d23d-3dcc-49d1-a909-0c29b4752a8f")
-		(property "Reference" "#PWR048"
+		(property "Reference" "#PWR017"
 			(at 135.89 134.62 0)
 			(effects
 				(font
@@ -29699,7 +29699,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR048")
+					(reference "#PWR017")
 					(unit 1)
 				)
 			)
@@ -29714,7 +29714,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9dcb0a11-9267-491b-9118-0bcbddc81e06")
-		(property "Reference" "#FLG01"
+		(property "Reference" "#FLG02"
 			(at 35.56 19.685 0)
 			(effects
 				(font
@@ -29764,7 +29764,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#FLG01")
+					(reference "#FLG02")
 					(unit 1)
 				)
 			)
@@ -29780,7 +29780,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9edb61d4-005d-4c4d-a963-c917f157e67a")
-		(property "Reference" "U2"
+		(property "Reference" "U7"
 			(at 256.54 86.36 0)
 			(effects
 				(font
@@ -29877,7 +29877,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "U2")
+					(reference "U7")
 					(unit 1)
 				)
 			)
@@ -29892,7 +29892,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a13a1181-aab5-4ff2-98d3-6a4085e7b553")
-		(property "Reference" "D19"
+		(property "Reference" "D2"
 			(at 65.278 33.02 90)
 			(effects
 				(font
@@ -29910,7 +29910,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-201AD_P15.24mm_Horizontal"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 57.785 33.02 0)
 			(effects
 				(font
@@ -29946,7 +29946,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D19")
+					(reference "D2")
 					(unit 1)
 				)
 			)
@@ -29961,7 +29961,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a1f0951f-3fc7-43bd-b48f-6d404974a379")
-		(property "Reference" "R14"
+		(property "Reference" "R7"
 			(at 55.118 93.218 0)
 			(effects
 				(font
@@ -30015,7 +30015,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R14")
+					(reference "R7")
 					(unit 1)
 				)
 			)
@@ -30030,7 +30030,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a2117bbc-b011-4be1-b9ed-fa4dbeb54bb8")
-		(property "Reference" "#PWR031"
+		(property "Reference" "#PWR032"
 			(at 223.52 142.24 0)
 			(effects
 				(font
@@ -30080,7 +30080,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR031")
+					(reference "#PWR032")
 					(unit 1)
 				)
 			)
@@ -30096,7 +30096,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a676fc4c-158c-4ea5-9752-1d9ceadf4412")
-		(property "Reference" "J1"
+		(property "Reference" "J4"
 			(at 183.642 77.216 0)
 			(effects
 				(font
@@ -30154,7 +30154,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "J1")
+					(reference "J4")
 					(unit 1)
 				)
 			)
@@ -30169,7 +30169,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a7ee1a34-8212-40d6-80ec-fb1c6b6aa9a6")
-		(property "Reference" "Q2"
+		(property "Reference" "Q4"
 			(at 256.794 206.248 0)
 			(effects
 				(font
@@ -30361,7 +30361,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "Q2")
+					(reference "Q4")
 					(unit 1)
 				)
 			)
@@ -30376,7 +30376,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a83c4eb2-412e-4d56-825d-0641962eefa0")
-		(property "Reference" "D29"
+		(property "Reference" "D1"
 			(at 60.96 235.204 90)
 			(effects
 				(font
@@ -30394,7 +30394,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "SparkFun-LED:LED_0603_1608Metric_Red"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
 			(at 67.31 234.95 0)
 			(effects
 				(font
@@ -30439,7 +30439,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D29")
+					(reference "D1")
 					(unit 1)
 				)
 			)
@@ -30454,7 +30454,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a955e602-cdce-4382-85b1-8a78de62b9e3")
-		(property "Reference" "#PWR049"
+		(property "Reference" "#PWR020"
 			(at 143.51 119.38 0)
 			(effects
 				(font
@@ -30504,7 +30504,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR049")
+					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -30519,7 +30519,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ab5c0bcf-7e7b-4a57-a8a3-e89df2119b0e")
-		(property "Reference" "U6"
+		(property "Reference" "U4"
 			(at 116.84 16.764 0)
 			(effects
 				(font
@@ -30582,7 +30582,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "U6")
+					(reference "U4")
 					(unit 1)
 				)
 			)
@@ -30597,7 +30597,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "abace8f6-2bc3-4047-8fbf-66e4b7332e86")
-		(property "Reference" "U5"
+		(property "Reference" "U1"
 			(at 49.53 17.018 0)
 			(effects
 				(font
@@ -30660,7 +30660,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "U5")
+					(reference "U1")
 					(unit 1)
 				)
 			)
@@ -30675,7 +30675,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ac3081c0-ebd9-4068-b193-11f75794521a")
-		(property "Reference" "K12"
+		(property "Reference" "K13"
 			(at 363.474 217.932 90)
 			(effects
 				(font
@@ -30741,7 +30741,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "K12")
+					(reference "K13")
 					(unit 1)
 				)
 			)
@@ -30756,7 +30756,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "adc926f8-3709-4d53-b65d-e57afb4f8d57")
-		(property "Reference" "D8"
+		(property "Reference" "D19"
 			(at 320.04 56.896 0)
 			(effects
 				(font
@@ -30772,7 +30772,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 320.04 65.405 0)
 			(effects
 				(font
@@ -30826,7 +30826,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D8")
+					(reference "D19")
 					(unit 1)
 				)
 			)
@@ -30841,7 +30841,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ae3bbbeb-4f2c-4b17-9ffd-7b61f48be1a1")
-		(property "Reference" "C20"
+		(property "Reference" "C13"
 			(at 140.97 124.206 0)
 			(effects
 				(font
@@ -30857,7 +30857,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 143.51 121.92 0)
 			(effects
 				(font
@@ -30893,7 +30893,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C20")
+					(reference "C13")
 					(unit 1)
 				)
 			)
@@ -30908,7 +30908,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b33ec2d5-fc5a-4f7f-9710-1e86328434db")
-		(property "Reference" "RV2"
+		(property "Reference" "RV1"
 			(at 225.298 130.048 0)
 			(effects
 				(font
@@ -30965,7 +30965,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "RV2")
+					(reference "RV1")
 					(unit 1)
 				)
 			)
@@ -30980,7 +30980,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b481a89f-4471-4bb7-8b0a-ead5c5ddaf5b")
-		(property "Reference" "#PWR036"
+		(property "Reference" "#PWR015"
 			(at 100.33 168.91 0)
 			(effects
 				(font
@@ -31030,7 +31030,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR036")
+					(reference "#PWR015")
 					(unit 1)
 				)
 			)
@@ -31045,7 +31045,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b619be84-d97c-42c5-a047-5c3581f775c3")
-		(property "Reference" "C21"
+		(property "Reference" "C9"
 			(at 132.334 104.902 90)
 			(effects
 				(font
@@ -31063,7 +31063,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
+		(property "Footprint" "Capacitor_THT:CP_Radial_D18.0mm_P7.50mm"
 			(at 132.08 103.632 0)
 			(effects
 				(font
@@ -31099,7 +31099,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C21")
+					(reference "C9")
 					(unit 1)
 				)
 			)
@@ -31114,7 +31114,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b6e93de3-d77c-4a2a-b4d0-071d848a7d93")
-		(property "Reference" "#PWR018"
+		(property "Reference" "#PWR047"
 			(at 308.61 215.9 0)
 			(effects
 				(font
@@ -31164,7 +31164,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR018")
+					(reference "#PWR047")
 					(unit 1)
 				)
 			)
@@ -31179,7 +31179,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b7868b6f-8fa2-41b5-bbe7-47e79afa130c")
-		(property "Reference" "D7"
+		(property "Reference" "D18"
 			(at 320.04 20.066 0)
 			(effects
 				(font
@@ -31195,7 +31195,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 320.04 28.575 0)
 			(effects
 				(font
@@ -31249,7 +31249,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D7")
+					(reference "D18")
 					(unit 1)
 				)
 			)
@@ -31264,7 +31264,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b792f5b3-49c8-4fe4-ba9e-de1544d9522e")
-		(property "Reference" "L2"
+		(property "Reference" "L3"
 			(at 135.128 24.638 90)
 			(effects
 				(font
@@ -31316,7 +31316,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "L2")
+					(reference "L3")
 					(unit 1)
 				)
 			)
@@ -31331,7 +31331,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b7acbbe8-cb03-4d2e-a03f-91af4c2bdffd")
-		(property "Reference" "#FLG08"
+		(property "Reference" "#FLG05"
 			(at 185.42 17.145 0)
 			(effects
 				(font
@@ -31381,7 +31381,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#FLG08")
+					(reference "#FLG05")
 					(unit 1)
 				)
 			)
@@ -31396,7 +31396,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b81349bb-be90-4b28-b9b5-0f3d6a3c0239")
-		(property "Reference" "C13"
+		(property "Reference" "C2"
 			(at 25.146 29.464 90)
 			(effects
 				(font
@@ -31414,7 +31414,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm"
+		(property "Footprint" "Capacitor_SMD:CP_Elec_10x12.5"
 			(at 27.94 29.972 0)
 			(effects
 				(font
@@ -31450,7 +31450,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C13")
+					(reference "C2")
 					(unit 1)
 				)
 			)
@@ -31465,7 +31465,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b8593cd2-5ac9-4c22-beb6-d6ad88e2010c")
-		(property "Reference" "D3"
+		(property "Reference" "D17"
 			(at 244.348 33.274 90)
 			(effects
 				(font
@@ -31528,7 +31528,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D3")
+					(reference "D17")
 					(unit 1)
 				)
 			)
@@ -31543,7 +31543,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b94dca0b-8ad0-46d2-abaa-9e32c15a82e3")
-		(property "Reference" "C5"
+		(property "Reference" "C22"
 			(at 240.03 87.376 0)
 			(effects
 				(font
@@ -31559,7 +31559,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 242.57 85.09 0)
 			(effects
 				(font
@@ -31595,7 +31595,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C5")
+					(reference "C22")
 					(unit 1)
 				)
 			)
@@ -31610,7 +31610,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "bc6317bf-2aa0-4a09-9f3a-4cb1a44f7855")
-		(property "Reference" "#PWR052"
+		(property "Reference" "#PWR012"
 			(at 86.36 129.54 0)
 			(effects
 				(font
@@ -31660,7 +31660,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR052")
+					(reference "#PWR012")
 					(unit 1)
 				)
 			)
@@ -31675,7 +31675,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "bcfe5ce8-4a51-4578-be1a-5e1eadffc779")
-		(property "Reference" "C2"
+		(property "Reference" "C16"
 			(at 185.928 85.852 90)
 			(effects
 				(font
@@ -31693,7 +31693,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
+		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A"
 			(at 187.96 85.852 0)
 			(effects
 				(font
@@ -31729,7 +31729,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C2")
+					(reference "C16")
 					(unit 1)
 				)
 			)
@@ -31813,7 +31813,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "bfc4fb67-5e42-47f8-83e4-2eb388a069ef")
-		(property "Reference" "D14"
+		(property "Reference" "D23"
 			(at 320.04 210.566 0)
 			(effects
 				(font
@@ -31829,7 +31829,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 320.04 219.075 0)
 			(effects
 				(font
@@ -31883,7 +31883,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D14")
+					(reference "D23")
 					(unit 1)
 				)
 			)
@@ -31898,7 +31898,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "bff9b920-a77c-4a65-a472-f990d7257c0b")
-		(property "Reference" "R1"
+		(property "Reference" "R16"
 			(at 185.928 168.148 90)
 			(effects
 				(font
@@ -31952,7 +31952,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R1")
+					(reference "R16")
 					(unit 1)
 				)
 			)
@@ -31968,7 +31968,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c3d02837-7492-4940-9aa8-e1cae20706af")
-		(property "Reference" "SW4"
+		(property "Reference" "SW3"
 			(at 271.78 111.252 0)
 			(effects
 				(font
@@ -32032,7 +32032,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "SW4")
+					(reference "SW3")
 					(unit 1)
 				)
 			)
@@ -32047,7 +32047,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c4430142-24d8-4342-a543-8142823c228d")
-		(property "Reference" "R16"
+		(property "Reference" "R1"
 			(at 37.338 102.108 0)
 			(effects
 				(font
@@ -32101,7 +32101,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R16")
+					(reference "R1")
 					(unit 1)
 				)
 			)
@@ -32116,7 +32116,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c79068b9-fbc4-4eac-b21a-d265a332526c")
-		(property "Reference" "C22"
+		(property "Reference" "C12"
 			(at 140.97 105.156 0)
 			(effects
 				(font
@@ -32132,7 +32132,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 143.51 102.87 0)
 			(effects
 				(font
@@ -32168,7 +32168,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C22")
+					(reference "C12")
 					(unit 1)
 				)
 			)
@@ -32183,7 +32183,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c85cd730-61af-4c1b-9f65-f4edb4d61289")
-		(property "Reference" "D9"
+		(property "Reference" "D25"
 			(at 363.22 56.896 0)
 			(effects
 				(font
@@ -32199,7 +32199,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 363.22 65.405 0)
 			(effects
 				(font
@@ -32253,7 +32253,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D9")
+					(reference "D25")
 					(unit 1)
 				)
 			)
@@ -32268,7 +32268,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c943c6f3-7013-42aa-a2c2-483da914ded8")
-		(property "Reference" "JP1"
+		(property "Reference" "JP3"
 			(at 234.95 64.008 0)
 			(effects
 				(font
@@ -32321,7 +32321,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "JP1")
+					(reference "JP3")
 					(unit 1)
 				)
 			)
@@ -32336,7 +32336,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ca055ab2-b52b-4855-910e-170b5c1cd320")
-		(property "Reference" "R19"
+		(property "Reference" "R13"
 			(at 106.172 57.912 0)
 			(effects
 				(font
@@ -32390,7 +32390,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R19")
+					(reference "R13")
 					(unit 1)
 				)
 			)
@@ -32483,7 +32483,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "cb76bd2e-44a8-46fa-a488-420e80ba9a1e")
-		(property "Reference" "D15"
+		(property "Reference" "D27"
 			(at 363.22 134.366 0)
 			(effects
 				(font
@@ -32499,7 +32499,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 363.22 142.875 0)
 			(effects
 				(font
@@ -32553,7 +32553,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D15")
+					(reference "D27")
 					(unit 1)
 				)
 			)
@@ -32568,7 +32568,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "cc57f9d7-c86d-4e4d-abdb-a23636451800")
-		(property "Reference" "#PWR033"
+		(property "Reference" "#PWR039"
 			(at 271.78 142.24 0)
 			(effects
 				(font
@@ -32618,7 +32618,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR033")
+					(reference "#PWR039")
 					(unit 1)
 				)
 			)
@@ -32633,7 +32633,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ce7e004f-36c5-4857-b31b-a27bed31244d")
-		(property "Reference" "#PWR040"
+		(property "Reference" "#PWR09"
 			(at 72.39 25.4 0)
 			(effects
 				(font
@@ -32683,7 +32683,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR040")
+					(reference "#PWR09")
 					(unit 1)
 				)
 			)
@@ -32698,7 +32698,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d00bda57-3819-43a2-9693-19aa5f549f2a")
-		(property "Reference" "D25"
+		(property "Reference" "D6"
 			(at 118.11 62.484 0)
 			(effects
 				(font
@@ -32714,7 +32714,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 118.11 53.975 0)
 			(effects
 				(font
@@ -32768,7 +32768,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D25")
+					(reference "D6")
 					(unit 1)
 				)
 			)
@@ -32783,7 +32783,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d03e835e-e28d-4f35-b754-a6ca718ca62b")
-		(property "Reference" "#PWR01"
+		(property "Reference" "#PWR025"
 			(at 185.42 39.37 0)
 			(effects
 				(font
@@ -32833,7 +32833,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR01")
+					(reference "#PWR025")
 					(unit 1)
 				)
 			)
@@ -32848,7 +32848,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d3506085-d342-4c2d-872b-a2f48a678625")
-		(property "Reference" "#PWR053"
+		(property "Reference" "#PWR06"
 			(at 59.69 245.11 0)
 			(effects
 				(font
@@ -32898,7 +32898,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR053")
+					(reference "#PWR06")
 					(unit 1)
 				)
 			)
@@ -32913,7 +32913,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d3f3d5d0-a237-45e5-b13b-f37c873893e3")
-		(property "Reference" "C6"
+		(property "Reference" "C3"
 			(at 57.912 214.122 90)
 			(effects
 				(font
@@ -32931,7 +32931,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 60.96 215.9 0)
 			(effects
 				(font
@@ -32967,7 +32967,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C6")
+					(reference "C3")
 					(unit 1)
 				)
 			)
@@ -32982,7 +32982,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d73f1a5c-a1e3-4502-98a5-b89b600bda94")
-		(property "Reference" "#PWR050"
+		(property "Reference" "#PWR019"
 			(at 143.51 100.33 0)
 			(effects
 				(font
@@ -33032,7 +33032,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR050")
+					(reference "#PWR019")
 					(unit 1)
 				)
 			)
@@ -33047,7 +33047,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d7ce7b08-c2c2-4a71-b90e-1f8333e0d8fe")
-		(property "Reference" "D22"
+		(property "Reference" "D8"
 			(at 126.746 96.52 0)
 			(effects
 				(font
@@ -33106,7 +33106,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D22")
+					(reference "D8")
 					(unit 1)
 				)
 			)
@@ -33122,7 +33122,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d93c01b5-0035-4c88-a6f7-06b784742fe0")
-		(property "Reference" "T1"
+		(property "Reference" "T2"
 			(at 112.268 109.728 0)
 			(effects
 				(font
@@ -33180,7 +33180,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "T1")
+					(reference "T2")
 					(unit 1)
 				)
 			)
@@ -33195,7 +33195,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "da0664df-3cb2-4689-8224-1794f9e25d86")
-		(property "Reference" "#PWR014"
+		(property "Reference" "#PWR044"
 			(at 308.61 101.6 0)
 			(effects
 				(font
@@ -33245,7 +33245,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR014")
+					(reference "#PWR044")
 					(unit 1)
 				)
 			)
@@ -33260,7 +33260,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "dab64903-45b0-4440-92e0-7bce400e143c")
-		(property "Reference" "D11"
+		(property "Reference" "D26"
 			(at 363.22 96.266 0)
 			(effects
 				(font
@@ -33276,7 +33276,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 363.22 104.775 0)
 			(effects
 				(font
@@ -33330,7 +33330,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D11")
+					(reference "D26")
 					(unit 1)
 				)
 			)
@@ -33346,7 +33346,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "dad28685-6ae0-4678-9275-29b218bc45d8")
-		(property "Reference" "K9"
+		(property "Reference" "K7"
 			(at 319.786 217.932 90)
 			(effects
 				(font
@@ -33412,7 +33412,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "K9")
+					(reference "K7")
 					(unit 1)
 				)
 			)
@@ -33427,7 +33427,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "dc1850e9-dc32-4448-9393-2ac0ebb30e26")
-		(property "Reference" "#FLG06"
+		(property "Reference" "#FLG04"
 			(at 182.88 29.845 0)
 			(effects
 				(font
@@ -33477,7 +33477,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#FLG06")
+					(reference "#FLG04")
 					(unit 1)
 				)
 			)
@@ -33492,7 +33492,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "dd73fc27-88c0-4cb6-9295-1b3062e5cc62")
-		(property "Reference" "#PWR030"
+		(property "Reference" "#PWR022"
 			(at 163.83 125.73 0)
 			(effects
 				(font
@@ -33542,7 +33542,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR030")
+					(reference "#PWR022")
 					(unit 1)
 				)
 			)
@@ -33557,7 +33557,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ddfd78ed-9f09-4cc6-855a-5b35c60da90c")
-		(property "Reference" "TP5"
+		(property "Reference" "TP9"
 			(at 208.788 16.764 0)
 			(effects
 				(font
@@ -33609,7 +33609,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "TP5")
+					(reference "TP9")
 					(unit 1)
 				)
 			)
@@ -33624,7 +33624,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "dea12932-4341-4c91-8e98-9f842df9bd1a")
-		(property "Reference" "#PWR022"
+		(property "Reference" "#PWR037"
 			(at 256.54 246.38 0)
 			(effects
 				(font
@@ -33674,7 +33674,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR022")
+					(reference "#PWR037")
 					(unit 1)
 				)
 			)
@@ -33689,7 +33689,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e195506d-f489-4a4f-8c3f-0524e8cf56be")
-		(property "Reference" "#PWR034"
+		(property "Reference" "#PWR023"
 			(at 170.18 140.97 0)
 			(effects
 				(font
@@ -33739,7 +33739,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR034")
+					(reference "#PWR023")
 					(unit 1)
 				)
 			)
@@ -33754,7 +33754,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e1b76d04-6889-412a-bc51-17a81f3fbb4b")
-		(property "Reference" "C3"
+		(property "Reference" "C18"
 			(at 211.328 85.09 0)
 			(effects
 				(font
@@ -33770,7 +33770,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 208.28 85.09 0)
 			(effects
 				(font
@@ -33806,7 +33806,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "C3")
+					(reference "C18")
 					(unit 1)
 				)
 			)
@@ -33821,7 +33821,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e2c90ac5-8ce5-425c-8c2c-028c090a5d5b")
-		(property "Reference" "R22"
+		(property "Reference" "R3"
 			(at 39.878 52.832 0)
 			(effects
 				(font
@@ -33875,7 +33875,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R22")
+					(reference "R3")
 					(unit 1)
 				)
 			)
@@ -33890,7 +33890,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e35b4018-ae78-48ad-9c50-71e89d8ad278")
-		(property "Reference" "L3"
+		(property "Reference" "L2"
 			(at 77.978 51.308 90)
 			(effects
 				(font
@@ -33942,7 +33942,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "L3")
+					(reference "L2")
 					(unit 1)
 				)
 			)
@@ -33957,7 +33957,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e7afc373-f2a7-4786-9e8a-e1886a436cb6")
-		(property "Reference" "#PWR043"
+		(property "Reference" "#PWR018"
 			(at 139.7 25.4 0)
 			(effects
 				(font
@@ -34007,7 +34007,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR043")
+					(reference "#PWR018")
 					(unit 1)
 				)
 			)
@@ -34022,7 +34022,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e9cdcad7-06a1-4c63-bdaf-d621b065d354")
-		(property "Reference" "K1"
+		(property "Reference" "K8"
 			(at 363.474 27.432 90)
 			(effects
 				(font
@@ -34088,7 +34088,7 @@
 		(instances
 			(project ""
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "K1")
+					(reference "K8")
 					(unit 1)
 				)
 			)
@@ -34168,7 +34168,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ec5b1ca1-a675-4cb0-a11f-9f2cfc016329")
-		(property "Reference" "#FLG05"
+		(property "Reference" "#FLG06"
 			(at 224.79 62.865 0)
 			(effects
 				(font
@@ -34218,7 +34218,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#FLG05")
+					(reference "#FLG06")
 					(unit 1)
 				)
 			)
@@ -34233,7 +34233,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ecb32118-99cd-4eb1-9273-320eceaaa025")
-		(property "Reference" "D26"
+		(property "Reference" "D7"
 			(at 118.11 70.104 0)
 			(effects
 				(font
@@ -34249,7 +34249,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_MELF"
+		(property "Footprint" "Diode_SMD:D_SMA"
 			(at 118.11 61.595 0)
 			(effects
 				(font
@@ -34303,7 +34303,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D26")
+					(reference "D7")
 					(unit 1)
 				)
 			)
@@ -34319,7 +34319,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ede09dfe-98c8-4187-97da-3e5b795964b0")
-		(property "Reference" "Q3"
+		(property "Reference" "Q2"
 			(at 198.628 46.482 0)
 			(effects
 				(font
@@ -34385,7 +34385,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "Q3")
+					(reference "Q2")
 					(unit 1)
 				)
 			)
@@ -34469,7 +34469,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f0040657-5eb2-4dab-a6b2-e2e98b92deb6")
-		(property "Reference" "#PWR039"
+		(property "Reference" "#PWR04"
 			(at 36.83 44.45 0)
 			(effects
 				(font
@@ -34519,7 +34519,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR039")
+					(reference "#PWR04")
 					(unit 1)
 				)
 			)
@@ -34534,7 +34534,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f1ed1100-63b6-4c2d-a0c3-d6da76fb5c8f")
-		(property "Reference" "U1"
+		(property "Reference" "U5"
 			(at 199.644 16.51 0)
 			(effects
 				(font
@@ -34589,7 +34589,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "U1")
+					(reference "U5")
 					(unit 1)
 				)
 			)
@@ -34604,7 +34604,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f37b8b0c-a56f-4375-93ff-ba0617256c26")
-		(property "Reference" "U7"
+		(property "Reference" "U2"
 			(at 59.69 43.688 0)
 			(effects
 				(font
@@ -34667,7 +34667,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "U7")
+					(reference "U2")
 					(unit 1)
 				)
 			)
@@ -34683,7 +34683,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f3b2da23-c1e4-48fa-a86a-332165332c66")
-		(property "Reference" "K5"
+		(property "Reference" "K4"
 			(at 319.786 103.632 90)
 			(effects
 				(font
@@ -34749,7 +34749,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "K5")
+					(reference "K4")
 					(unit 1)
 				)
 			)
@@ -34764,7 +34764,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f5be65dd-421f-4cb0-8a0f-9d60a02f41c2")
-		(property "Reference" "#PWR045"
+		(property "Reference" "#PWR05"
 			(at 58.42 74.93 0)
 			(effects
 				(font
@@ -34814,7 +34814,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "#PWR045")
+					(reference "#PWR05")
 					(unit 1)
 				)
 			)
@@ -34911,7 +34911,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "fd1fa0a5-a8c9-4c77-9258-c2fde2a4a14b")
-		(property "Reference" "R17"
+		(property "Reference" "R5"
 			(at 46.99 109.728 90)
 			(effects
 				(font
@@ -34965,7 +34965,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "R17")
+					(reference "R5")
 					(unit 1)
 				)
 			)
@@ -34980,7 +34980,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ffdcd68e-afd7-4071-8775-73030a208b5e")
-		(property "Reference" "D23"
+		(property "Reference" "D9"
 			(at 126.746 115.57 0)
 			(effects
 				(font
@@ -35039,7 +35039,7 @@
 		(instances
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "D23")
+					(reference "D9")
 					(unit 1)
 				)
 			)
