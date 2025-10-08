@@ -33931,7 +33931,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Plated_Hole_D5.0mm"
 			(at 386.08 48.26 0)
 			(effects
 				(font
