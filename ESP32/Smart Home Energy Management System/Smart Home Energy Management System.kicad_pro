@@ -519,7 +519,7 @@
         "wire_width": 6
       },
       {
-        "clearance": 0.6,
+        "clearance": 0.5,
         "line_style": 0,
         "name": "DIFF",
         "pcb_color": "rgb(190, 255, 0)",
@@ -530,7 +530,7 @@
         "via_drill": 0.3
       },
       {
-        "clearance": 2.0,
+        "clearance": 1.0,
         "line_style": 0,
         "microvia_diameter": 0.6,
         "microvia_drill": 0.1,
@@ -538,12 +538,12 @@
         "pcb_color": "rgb(255, 4, 0)",
         "priority": 4,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 25.0,
-        "via_diameter": 4.0,
+        "track_width": 6.0,
+        "via_diameter": 3.0,
         "via_drill": 1.0
       },
       {
-        "clearance": 0.6,
+        "clearance": 0.5,
         "line_style": 0,
         "name": "I2C",
         "pcb_color": "rgb(255, 253, 0)",
@@ -554,26 +554,26 @@
         "via_drill": 0.3
       },
       {
-        "clearance": 0.3,
+        "clearance": 0.2,
         "line_style": 0,
         "name": "PWR",
         "pcb_color": "rgb(255, 103, 1)",
         "priority": 1,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 1.0,
-        "via_diameter": 1.0,
-        "via_drill": 0.5
+        "track_width": 0.8,
+        "via_diameter": 0.8,
+        "via_drill": 0.4
       },
       {
-        "clearance": 1.0,
+        "clearance": 0.2,
         "line_style": 0,
         "name": "PWR1",
         "pcb_color": "rgb(225, 0, 255)",
         "priority": 0,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 1.5,
-        "via_diameter": 1.0,
-        "via_drill": 0.5
+        "track_width": 0.8,
+        "via_diameter": 0.8,
+        "via_drill": 0.4
       }
     ],
     "meta": {
@@ -641,7 +641,34 @@
       "Net-(J11-Pin_1)": [
         "HP"
       ],
+      "Net-(J11-Pin_2)": [
+        "DIFF"
+      ],
+      "Net-(J11-Pin_3)": [
+        "DIFF"
+      ],
+      "Net-(J14-Pin_2)": [
+        "DIFF"
+      ],
+      "Net-(J14-Pin_3)": [
+        "DIFF"
+      ],
+      "Net-(J20-Pin_1)": [
+        "HP"
+      ],
+      "Net-(J21-Pin_1)": [
+        "HP"
+      ],
+      "Net-(J22-Pin_1)": [
+        "HP"
+      ],
+      "Net-(J23-Pin_1)": [
+        "HP"
+      ],
       "Net-(J24-Pin_1)": [
+        "HP"
+      ],
+      "Net-(J25-Pin_1)": [
         "HP"
       ],
       "Net-(J3-Pin_2)": [
