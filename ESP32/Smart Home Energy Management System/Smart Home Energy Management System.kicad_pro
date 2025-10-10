@@ -37,9 +37,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 5.0,
-          "height": 8.0,
-          "width": 8.0
+          "drill": 1.6,
+          "height": 3.0,
+          "width": 3.0
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.3
+          "min_clearance": 0.4
         }
       },
       "diff_pair_dimensions": [
@@ -614,10 +614,46 @@
       "/INVERTER": [
         "HP"
       ],
+      "/LOAD1": [
+        "HP"
+      ],
+      "/LOAD2": [
+        "HP"
+      ],
+      "/LOAD3": [
+        "HP"
+      ],
+      "/LOAD4": [
+        "HP"
+      ],
+      "/LOAD5": [
+        "HP"
+      ],
+      "/LOAD6": [
+        "HP"
+      ],
       "/N": [
         "HP"
       ],
       "/NEPA": [
+        "HP"
+      ],
+      "/SELECT1": [
+        "HP"
+      ],
+      "/SELECT2": [
+        "HP"
+      ],
+      "/SELECT3": [
+        "HP"
+      ],
+      "/SELECT4": [
+        "HP"
+      ],
+      "/SELECT5": [
+        "HP"
+      ],
+      "/SELECT6": [
         "HP"
       ],
       "/TRANS-IN": [
@@ -794,8 +830,52 @@
         "pattern": "/2TR 2"
       },
       {
+        "netclass": "HP",
+        "pattern": "/SELECT1"
+      },
+      {
+        "netclass": "HP",
+        "pattern": "/SELECT2"
+      },
+      {
+        "netclass": "HP",
+        "pattern": "/SELECT3"
+      },
+      {
+        "netclass": "HP",
+        "pattern": "/SELECT4"
+      },
+      {
+        "netclass": "HP",
+        "pattern": "/SELECT5"
+      },
+      {
+        "netclass": "HP",
+        "pattern": "/SELECT6"
+      },
+      {
         "netclass": "Default",
-        "pattern": "*"
+        "pattern": "/LOAD1"
+      },
+      {
+        "netclass": "HP",
+        "pattern": "/LOAD2"
+      },
+      {
+        "netclass": "HP",
+        "pattern": "/LOAD3"
+      },
+      {
+        "netclass": "HP",
+        "pattern": "/LOAD4"
+      },
+      {
+        "netclass": "HP",
+        "pattern": "/LOAD5"
+      },
+      {
+        "netclass": "HP",
+        "pattern": "/LOAD6"
       }
     ]
   },
