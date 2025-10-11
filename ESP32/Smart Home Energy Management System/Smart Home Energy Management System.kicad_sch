@@ -13066,12 +13066,6 @@
 		(uuid "3e7c3184-e334-4cbb-81e3-4d6409314639")
 	)
 	(junction
-		(at 64.77 266.7)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3f6fc8a1-4861-45c2-bcff-987c422488e2")
-	)
-	(junction
 		(at 242.57 91.44)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -17165,16 +17159,6 @@
 	)
 	(wire
 		(pts
-			(xy 64.77 266.7) (xy 64.77 269.24)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "723e091e-c49d-42e5-80a8-cf56a14ebe1b")
-	)
-	(wire
-		(pts
 			(xy 74.93 48.26) (xy 74.93 49.53)
 		)
 		(stroke
@@ -18545,7 +18529,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 266.7) (xy 64.77 266.7)
+			(xy 66.04 266.7) (xy 69.85 266.7)
 		)
 		(stroke
 			(width 0)
@@ -19995,16 +19979,6 @@
 	)
 	(wire
 		(pts
-			(xy 64.77 266.7) (xy 69.85 266.7)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dba7174a-12b3-43c5-bc85-faa7093b0c37")
-	)
-	(wire
-		(pts
 			(xy 250.19 132.08) (xy 247.65 132.08)
 		)
 		(stroke
@@ -21223,6 +21197,26 @@
 		)
 		(uuid "1930c5af-3697-40c2-a249-e410fdab6125")
 	)
+	(label "RXN"
+		(at 107.95 158.75 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1e3b0b34-61ca-46f2-a60e-6395a637aa5e")
+		(property "Netclass" "DIFF"
+			(at 102.616 157.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+			)
+		)
+	)
 	(label "INVERTER"
 		(at 300.99 80.01 0)
 		(effects
@@ -21864,7 +21858,7 @@
 		(uuid "86a3a3ca-c336-4c95-adc8-370c0c9fb5fc")
 	)
 	(label "N"
-		(at 60.96 266.7 0)
+		(at 66.04 266.7 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -21922,6 +21916,26 @@
 			(justify right bottom)
 		)
 		(uuid "8f8150d7-cf3c-41a7-a4c5-e26dd496aedf")
+	)
+	(label "TXP"
+		(at 107.95 156.21 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "918de6ae-6d2f-49f0-b627-aa0c61deca4e")
+		(property "Netclass" "DIFF"
+			(at 102.616 155.448 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+			)
+		)
 	)
 	(label "DTR"
 		(at 232.41 52.07 180)
@@ -30117,73 +30131,6 @@
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
 					(reference "R9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Screw_Terminal_01x01")
-		(at 64.77 274.32 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "65b220a0-163c-479d-a54d-d0f77cc79866")
-		(property "Reference" "J9"
-			(at 66.548 274.828 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "N"
-			(at 64.262 276.86 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Plated_Hole_D5.0mm"
-			(at 64.77 274.32 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 64.77 274.32 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic screw terminal, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 64.77 274.32 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "3a64d1fb-d2e4-40ab-81a6-cb9359ec9c90")
-		)
-		(instances
-			(project ""
-				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
-					(reference "J9")
 					(unit 1)
 				)
 			)

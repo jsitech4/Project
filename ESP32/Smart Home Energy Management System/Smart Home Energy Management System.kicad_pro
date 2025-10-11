@@ -37,9 +37,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 1.6,
-          "height": 3.0,
-          "width": 3.0
+          "drill": 2.0,
+          "height": 4.0,
+          "width": 4.0
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.4
+          "min_clearance": 0.3
         }
       },
       "diff_pair_dimensions": [
@@ -513,26 +513,30 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2,
+        "track_width": 0.3,
         "via_diameter": 0.6,
         "via_drill": 0.3,
         "wire_width": 6
       },
       {
-        "clearance": 0.3,
+        "clearance": 0.2,
+        "diff_pair_gap": 0.25,
+        "diff_pair_width": 0.2,
         "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
         "name": "DIFF",
         "pcb_color": "rgb(190, 255, 0)",
         "priority": 3,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.3,
+        "track_width": 0.25,
         "via_diameter": 0.6,
         "via_drill": 0.3
       },
       {
         "clearance": 0.65,
         "line_style": 0,
-        "microvia_diameter": 0.6,
+        "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "HP",
         "pcb_color": "rgb(255, 4, 0)",
@@ -545,6 +549,8 @@
       {
         "clearance": 0.3,
         "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
         "name": "I2C",
         "pcb_color": "rgb(255, 253, 0)",
         "priority": 2,
@@ -556,6 +562,8 @@
       {
         "clearance": 0.2,
         "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
         "name": "PWR",
         "pcb_color": "rgb(255, 103, 1)",
         "priority": 1,
@@ -567,6 +575,8 @@
       {
         "clearance": 0.2,
         "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
         "name": "PWR1",
         "pcb_color": "rgb(225, 0, 255)",
         "priority": 0,
@@ -638,6 +648,9 @@
       "/NEPA": [
         "HP"
       ],
+      "/RXN": [
+        "DIFF"
+      ],
       "/SELECT1": [
         "HP"
       ],
@@ -658,6 +671,9 @@
       ],
       "/TRANS-IN": [
         "HP"
+      ],
+      "/TXP": [
+        "DIFF"
       ],
       "GND": [
         "PWR1"
@@ -802,14 +818,6 @@
         "pattern": "/GPIO22{slash}SCL"
       },
       {
-        "netclass": "DIFF",
-        "pattern": "/GPIO1{slash}TX"
-      },
-      {
-        "netclass": "DIFF",
-        "pattern": "/GPIO3{slash}RX"
-      },
-      {
         "netclass": "HP",
         "pattern": "/TRANS-IN"
       },
@@ -854,7 +862,7 @@
         "pattern": "/SELECT6"
       },
       {
-        "netclass": "Default",
+        "netclass": "HP",
         "pattern": "/LOAD1"
       },
       {
