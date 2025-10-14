@@ -12958,6 +12958,12 @@
 		(uuid "29f619fb-5b10-4b1a-ae15-e2b75c680723")
 	)
 	(junction
+		(at 46.99 116.84)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2a83583b-ce45-4362-bf54-6456cc907631")
+	)
+	(junction
 		(at 379.73 85.09)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -13240,6 +13246,12 @@
 		(uuid "791e9d7e-2573-496e-9e9b-8fc340084b76")
 	)
 	(junction
+		(at 46.99 127)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7a5536c2-49c7-4992-944f-bd2c4db80459")
+	)
+	(junction
 		(at 379.73 162.56)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -13486,12 +13498,6 @@
 		(uuid "ba9466c5-84ce-4a7b-a5fd-ee7d05678e37")
 	)
 	(junction
-		(at 44.45 127)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "bae5fa94-4eb2-43f0-8c7c-052019132ead")
-	)
-	(junction
 		(at 198.12 91.44)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -13730,12 +13736,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ed3705fc-437f-4e2f-8c42-7408ab802868")
-	)
-	(junction
-		(at 44.45 116.84)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f0fec0f9-337f-46e0-97b4-434b3e1108e3")
 	)
 	(junction
 		(at 381 199.39)
@@ -14949,16 +14949,6 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 116.84) (xy 49.53 116.84)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "24ce42c6-40a9-4213-9156-e790b09b3b9e")
-	)
-	(wire
-		(pts
 			(xy 114.3 58.42) (xy 114.3 62.23)
 		)
 		(stroke
@@ -15109,7 +15099,7 @@
 	)
 	(wire
 		(pts
-			(xy 24.13 97.79) (xy 24.13 104.14)
+			(xy 21.59 97.79) (xy 21.59 104.14)
 		)
 		(stroke
 			(width 0)
@@ -15246,6 +15236,16 @@
 			(type default)
 		)
 		(uuid "2f0f35d1-e5fd-45b3-8713-09fc5915c9d9")
+	)
+	(wire
+		(pts
+			(xy 129.54 265.43) (xy 146.05 265.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2f47cb0f-e3d4-4ecf-a680-630e0f0feea9")
 	)
 	(wire
 		(pts
@@ -16119,7 +16119,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 116.84) (xy 44.45 116.84)
+			(xy 45.72 116.84) (xy 46.99 116.84)
 		)
 		(stroke
 			(width 0)
@@ -16179,6 +16179,16 @@
 	)
 	(wire
 		(pts
+			(xy 21.59 116.84) (xy 30.48 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "51264a11-b2d2-4068-b77d-94240a04c03d")
+	)
+	(wire
+		(pts
 			(xy 64.77 220.98) (xy 64.77 222.25)
 		)
 		(stroke
@@ -16196,6 +16206,16 @@
 			(type default)
 		)
 		(uuid "512bcb56-2684-492c-882f-44329d2dc3c9")
+	)
+	(wire
+		(pts
+			(xy 21.59 104.14) (xy 33.02 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "512caeb2-b40f-4b2f-9689-28bf2cee374d")
 	)
 	(wire
 		(pts
@@ -16396,16 +16416,6 @@
 			(type default)
 		)
 		(uuid "5827afa1-54aa-4c19-b6f8-9ca6957d54d7")
-	)
-	(wire
-		(pts
-			(xy 44.45 127) (xy 52.07 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "58538892-798d-4ce2-8344-52768c6a2ee5")
 	)
 	(wire
 		(pts
@@ -16709,7 +16719,7 @@
 	)
 	(wire
 		(pts
-			(xy 24.13 127) (xy 44.45 127)
+			(xy 21.59 127) (xy 46.99 127)
 		)
 		(stroke
 			(width 0)
@@ -17199,7 +17209,7 @@
 	)
 	(wire
 		(pts
-			(xy 24.13 125.73) (xy 24.13 127)
+			(xy 21.59 125.73) (xy 21.59 127)
 		)
 		(stroke
 			(width 0)
@@ -17459,7 +17469,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 104.14) (xy 52.07 104.14)
+			(xy 49.53 104.14) (xy 52.07 104.14)
 		)
 		(stroke
 			(width 0)
@@ -17979,7 +17989,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 116.84) (xy 44.45 119.38)
+			(xy 46.99 116.84) (xy 46.99 119.38)
 		)
 		(stroke
 			(width 0)
@@ -18239,7 +18249,7 @@
 	)
 	(wire
 		(pts
-			(xy 24.13 115.57) (xy 24.13 116.84)
+			(xy 21.59 115.57) (xy 21.59 116.84)
 		)
 		(stroke
 			(width 0)
@@ -18926,6 +18936,16 @@
 			(type default)
 		)
 		(uuid "b07c77dc-c766-40db-8840-3b0e144e251c")
+	)
+	(wire
+		(pts
+			(xy 40.64 104.14) (xy 41.91 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b19cd680-830c-4bf3-a98d-ed258ff1fa88")
 	)
 	(wire
 		(pts
@@ -19619,16 +19639,6 @@
 	)
 	(wire
 		(pts
-			(xy 24.13 116.84) (xy 35.56 116.84)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cdbc20c0-0cd2-4d25-92e8-808fcd4017d9")
-	)
-	(wire
-		(pts
 			(xy 308.61 60.96) (xy 316.23 60.96)
 		)
 		(stroke
@@ -19646,6 +19656,16 @@
 			(type default)
 		)
 		(uuid "ce70a64f-c3e2-4b2f-a375-2e7d845b5b37")
+	)
+	(wire
+		(pts
+			(xy 46.99 127) (xy 52.07 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ce80fba3-1124-47c5-99ec-bfba89192e68")
 	)
 	(wire
 		(pts
@@ -20019,6 +20039,16 @@
 	)
 	(wire
 		(pts
+			(xy 113.03 265.43) (xy 100.33 265.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd92c086-a7be-4459-89d3-2191b7b60d9d")
+	)
+	(wire
+		(pts
 			(xy 44.45 100.33) (xy 52.07 100.33)
 		)
 		(stroke
@@ -20069,6 +20099,16 @@
 	)
 	(wire
 		(pts
+			(xy 113.03 275.59) (xy 113.03 279.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df2f6ecd-84b7-4d4b-9473-3939cda6a9cd")
+	)
+	(wire
+		(pts
 			(xy 129.54 27.94) (xy 132.08 27.94)
 		)
 		(stroke
@@ -20076,6 +20116,16 @@
 			(type default)
 		)
 		(uuid "dfbf8718-260b-43ec-a5fd-8bba8334322d")
+	)
+	(wire
+		(pts
+			(xy 113.03 267.97) (xy 113.03 265.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e07443fe-989f-4a51-ab54-bdcfb5f832d1")
 	)
 	(wire
 		(pts
@@ -20216,6 +20266,16 @@
 			(type default)
 		)
 		(uuid "e458cadf-c932-4fd8-ad34-a0ca078dbfa8")
+	)
+	(wire
+		(pts
+			(xy 46.99 116.84) (xy 49.53 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e5441557-ccde-44ea-957f-18b2ecdac44e")
 	)
 	(wire
 		(pts
@@ -20426,6 +20486,16 @@
 			(type default)
 		)
 		(uuid "ed263253-3a08-44ff-aed9-4e38d03a3cca")
+	)
+	(wire
+		(pts
+			(xy 129.54 273.05) (xy 129.54 279.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed65e012-42f1-443d-be4e-ef384a10916d")
 	)
 	(wire
 		(pts
@@ -20746,16 +20816,6 @@
 			(type default)
 		)
 		(uuid "f6a049df-9f85-42cf-b59b-3fc9c8b3d8e4")
-	)
-	(wire
-		(pts
-			(xy 24.13 104.14) (xy 35.56 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f6baed21-b8e0-4b53-a7b4-0ef55563d7b7")
 	)
 	(wire
 		(pts
@@ -21127,6 +21187,16 @@
 		)
 		(uuid "0ace2700-010c-47a3-8519-3aec4caa25d9")
 	)
+	(label "N"
+		(at 113.03 279.4 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0b9c4fa6-7bc9-4768-93e1-42dd64f5583c")
+	)
 	(label "DTR"
 		(at 273.05 66.04 180)
 		(effects
@@ -21146,6 +21216,16 @@
 			(justify right bottom)
 		)
 		(uuid "0fc3f855-6e4a-4caf-acee-f52d89700384")
+	)
+	(label "N"
+		(at 129.54 279.4 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "109a3adc-0c79-41c3-a5c7-3c1cdce3ed7a")
 	)
 	(label "GPIO17"
 		(at 125.73 152.4 180)
@@ -21178,7 +21258,7 @@
 		(uuid "180951e6-7db7-43d4-b595-b50c073e1cb2")
 	)
 	(label "N"
-		(at 26.67 127 0)
+		(at 24.13 127 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -21306,6 +21386,16 @@
 			(justify right bottom)
 		)
 		(uuid "315e40a9-d099-4e3a-98db-aeba48a86b07")
+	)
+	(label "NEPA_SENSE"
+		(at 100.33 265.43 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "321773f8-5ace-4ae0-9bb5-8ee948a4f6ff")
 	)
 	(label "1TR 2"
 		(at 194.31 259.08 270)
@@ -21698,7 +21788,7 @@
 		(uuid "6bfd3eb1-7cce-4cde-8b7e-a1df71879c68")
 	)
 	(label "NEPA"
-		(at 26.67 104.14 0)
+		(at 21.59 104.14 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -22197,6 +22287,16 @@
 		)
 		(uuid "ba97ea0d-9fb3-4fca-a7d6-196d3625a628")
 	)
+	(label "INVERTER_SENSE"
+		(at 146.05 265.43 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "bab59ea3-9673-4934-a013-b3bc33b9ad88")
+	)
 	(label "RTS"
 		(at 184.15 52.07 0)
 		(effects
@@ -22428,7 +22528,7 @@
 		(uuid "e562b6c2-2a6b-48d6-8ac6-0b7c04f4fb93")
 	)
 	(label "INVERTER"
-		(at 26.67 116.84 0)
+		(at 21.59 116.84 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -23057,7 +23157,7 @@
 	(netclass_flag ""
 		(length 2.54)
 		(shape round)
-		(at 24.13 97.79 0)
+		(at 21.59 97.79 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -23067,7 +23167,7 @@
 		)
 		(uuid "3dee3427-e1fb-492a-a4c8-877b522cb81c")
 		(property "Netclass" "HP"
-			(at 24.7396 95.25 0)
+			(at 22.1996 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23076,7 +23176,7 @@
 			)
 		)
 		(property "Component Class" ""
-			(at -341.63 -39.37 0)
+			(at -344.17 -39.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23119,7 +23219,7 @@
 	(netclass_flag ""
 		(length 2.54)
 		(shape round)
-		(at 24.13 115.57 0)
+		(at 21.59 115.57 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -23129,7 +23229,7 @@
 		)
 		(uuid "421fe196-e3f9-45c0-b855-19d640f16670")
 		(property "Netclass" "HP"
-			(at 24.7396 113.03 0)
+			(at 22.1996 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23138,7 +23238,7 @@
 			)
 		)
 		(property "Component Class" ""
-			(at -341.63 -21.59 0)
+			(at -344.17 -21.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23863,7 +23963,7 @@
 	(netclass_flag ""
 		(length 2.54)
 		(shape round)
-		(at 24.13 125.73 0)
+		(at 21.59 125.73 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -23873,7 +23973,7 @@
 		)
 		(uuid "fb7b6a84-4176-4d22-9579-a281c42a1369")
 		(property "Netclass" "HP"
-			(at 24.7396 123.19 0)
+			(at 22.1996 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23882,7 +23982,7 @@
 			)
 		)
 		(property "Component Class" ""
-			(at -341.63 -11.43 0)
+			(at -344.17 -11.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24362,7 +24462,7 @@
 	)
 	(symbol
 		(lib_id "PCM_SL_Resistors:10k")
-		(at 44.45 123.19 90)
+		(at 46.99 123.19 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -24370,7 +24470,7 @@
 		(dnp no)
 		(uuid "07c47913-a5b5-4b2c-b256-50ff29140f9b")
 		(property "Reference" "R4"
-			(at 39.116 122.428 90)
+			(at 41.656 122.428 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24379,7 +24479,7 @@
 			)
 		)
 		(property "Value" "6.8k"
-			(at 39.116 124.206 90)
+			(at 41.656 124.206 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24388,7 +24488,7 @@
 			)
 		)
 		(property "Footprint" "PCM_JLCPCB:R_0805"
-			(at 48.768 122.301 0)
+			(at 51.308 122.301 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24397,7 +24497,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 44.45 122.682 0)
+			(at 46.99 122.682 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24406,7 +24506,7 @@
 			)
 		)
 		(property "Description" "10kΩ, 1/4W Resistor"
-			(at 44.45 123.19 0)
+			(at 46.99 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -25137,6 +25237,91 @@
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
 					(reference "#PWR028")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Diode:SM4001")
+		(at 36.83 104.14 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "10a5d485-b975-4130-a166-12a056c11259")
+		(property "Reference" "D15"
+			(at 36.83 108.204 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SM4007PL"
+			(at 36.83 106.426 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "PCM_JLCPCB:D_SMA"
+			(at 36.83 99.695 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://cdn-reichelt.de/documents/datenblatt/A400/SMD1N400%23DIO.pdf"
+			(at 36.83 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "50V 1A General Purpose Rectifier Diode, MELF"
+			(at 36.83 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 36.83 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 36.83 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "9feb5dcc-7262-48a0-920b-28ebba44f22c")
+		)
+		(pin "1"
+			(uuid "0b819c40-2419-4c14-bf83-1fdcdc7e54d0")
+		)
+		(instances
+			(project "Smart Home Energy Management System"
+				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
+					(reference "D15")
 					(unit 1)
 				)
 			)
@@ -27690,6 +27875,91 @@
 		)
 	)
 	(symbol
+		(lib_id "Diode:SM4001")
+		(at 34.29 116.84 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3ca5e37d-c656-4baa-8cef-1a2706a389a6")
+		(property "Reference" "D30"
+			(at 34.29 120.904 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SM4007PL"
+			(at 34.29 119.126 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "PCM_JLCPCB:D_SMA"
+			(at 34.29 112.395 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://cdn-reichelt.de/documents/datenblatt/A400/SMD1N400%23DIO.pdf"
+			(at 34.29 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "50V 1A General Purpose Rectifier Diode, MELF"
+			(at 34.29 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 34.29 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 34.29 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "9867ae6f-c1fd-4e45-a4db-8a430148e56a")
+		)
+		(pin "1"
+			(uuid "0898e67f-c7e1-4040-b5c0-7077712a81e3")
+		)
+		(instances
+			(project "Smart Home Energy Management System"
+				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
+					(reference "D30")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "PCM_4ms_Connector:TestPoint")
 		(at 163.83 175.26 0)
 		(unit 1)
@@ -29772,7 +30042,7 @@
 	)
 	(symbol
 		(lib_id "PCM_SL_Resistors:10k")
-		(at 39.37 116.84 180)
+		(at 41.91 116.84 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -29780,7 +30050,7 @@
 		(dnp no)
 		(uuid "60cd3897-f049-493b-858e-6ab71759a9ea")
 		(property "Reference" "R2"
-			(at 37.338 114.808 0)
+			(at 39.878 114.808 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -29789,7 +30059,7 @@
 			)
 		)
 		(property "Value" "680k"
-			(at 37.084 119.126 0)
+			(at 39.624 119.126 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -29798,7 +30068,7 @@
 			)
 		)
 		(property "Footprint" "PCM_JLCPCB:R_0805"
-			(at 38.481 112.522 0)
+			(at 41.021 112.522 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -29807,7 +30077,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 38.862 116.84 0)
+			(at 41.402 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -29816,7 +30086,7 @@
 			)
 		)
 		(property "Description" "10kΩ, 1/4W Resistor"
-			(at 39.37 116.84 0)
+			(at 41.91 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30631,7 +30901,7 @@
 	)
 	(symbol
 		(lib_id "PCM_4ms_Connector:TestPoint")
-		(at 44.45 116.84 0)
+		(at 46.99 116.84 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -30639,7 +30909,7 @@
 		(dnp no)
 		(uuid "6cf92b46-1a56-4b02-a30c-d723249cb41e")
 		(property "Reference" "TP3"
-			(at 42.418 112.014 0)
+			(at 44.958 112.014 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30648,7 +30918,7 @@
 			)
 		)
 		(property "Value" "TestPoint"
-			(at 45.466 114.808 0)
+			(at 48.006 114.808 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30658,7 +30928,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
-			(at 49.53 116.84 0)
+			(at 52.07 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30667,7 +30937,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 49.53 116.84 0)
+			(at 52.07 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30676,7 +30946,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 44.45 116.84 0)
+			(at 46.99 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33668,6 +33938,75 @@
 		)
 	)
 	(symbol
+		(lib_id "PCM_SL_Capacitors:10uF_16V")
+		(at 129.54 269.24 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9b4527de-7d01-4d78-8b29-74cdbb598204")
+		(property "Reference" "C27"
+			(at 122.682 270.002 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF_16V"
+			(at 119.888 271.78 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_JLCPCB:C_CASE-B-3528-21(mm)"
+			(at 125.73 270.002 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 129.54 269.748 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "10uF, 16V Electrolytic Capacitor"
+			(at 129.54 269.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fae3b7bc-886b-413d-b503-b73b2948b01c")
+		)
+		(pin "2"
+			(uuid "a50a4a7a-dfe1-4f36-b7f0-65738d775e9f")
+		)
+		(instances
+			(project "Smart Home Energy Management System"
+				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
+					(reference "C27")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+12V")
 		(at 351.79 172.72 0)
 		(unit 1)
@@ -36205,7 +36544,7 @@
 	)
 	(symbol
 		(lib_id "PCM_SL_Resistors:10k")
-		(at 39.37 104.14 180)
+		(at 45.72 104.14 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -36213,7 +36552,7 @@
 		(dnp no)
 		(uuid "c4430142-24d8-4342-a543-8142823c228d")
 		(property "Reference" "R1"
-			(at 37.338 102.108 0)
+			(at 43.688 102.108 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36222,7 +36561,7 @@
 			)
 		)
 		(property "Value" "680k"
-			(at 37.084 106.426 0)
+			(at 43.434 106.426 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36231,7 +36570,7 @@
 			)
 		)
 		(property "Footprint" "PCM_JLCPCB:R_0805"
-			(at 38.481 99.822 0)
+			(at 44.831 99.822 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36240,7 +36579,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 38.862 104.14 0)
+			(at 45.212 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36249,7 +36588,7 @@
 			)
 		)
 		(property "Description" "10kΩ, 1/4W Resistor"
-			(at 39.37 104.14 0)
+			(at 45.72 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -38106,6 +38445,75 @@
 			(project "Smart Home Energy Management System"
 				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
 					(reference "#PWR040")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "PCM_SL_Capacitors:10uF_16V")
+		(at 113.03 271.78 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "df1ce5e6-7f58-405c-bd4c-3a35794cf170")
+		(property "Reference" "C26"
+			(at 105.664 272.796 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF_16V"
+			(at 102.87 274.574 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_JLCPCB:C_CASE-B-3528-21(mm)"
+			(at 109.22 272.542 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 113.03 272.288 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "10uF, 16V Electrolytic Capacitor"
+			(at 113.03 271.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "adf778f2-c568-4a3a-b89e-caececb0a49c")
+		)
+		(pin "2"
+			(uuid "7e209a24-ea73-43d9-9cb0-163c4b303968")
+		)
+		(instances
+			(project "Smart Home Energy Management System"
+				(path "/e0de9594-c08d-4dbe-8d5b-5599e595edda"
+					(reference "C26")
 					(unit 1)
 				)
 			)
