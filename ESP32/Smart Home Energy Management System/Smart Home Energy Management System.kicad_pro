@@ -684,7 +684,16 @@
       "Net-(D11-A)": [
         "PWR1"
       ],
+      "Net-(D12-K)": [
+        "PWR"
+      ],
       "Net-(D13-K)": [
+        "PWR"
+      ],
+      "Net-(D2-K)": [
+        "PWR"
+      ],
+      "Net-(D3-K)": [
         "PWR"
       ],
       "Net-(J10-Pin_1)": [
