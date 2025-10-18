@@ -13156,6 +13156,12 @@
 		(uuid "52ded795-7ea8-47f8-8bf7-da284e900ab4")
 	)
 	(junction
+		(at 215.9 21.59)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "58fda36d-8184-4455-b122-55cb6675e5a1")
+	)
+	(junction
 		(at 331.47 175.26)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -13526,6 +13532,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c1156c0f-30eb-48da-9429-f6d582bf0878")
+	)
+	(junction
+		(at 189.23 21.59)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c223b05f-ade1-4a0b-9aed-8ff261ce8973")
 	)
 	(junction
 		(at 114.3 62.23)
@@ -15225,7 +15237,7 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 21.59) (xy 191.77 21.59)
+			(xy 185.42 21.59) (xy 189.23 21.59)
 		)
 		(stroke
 			(width 0)
@@ -15252,6 +15264,16 @@
 			(type default)
 		)
 		(uuid "2f59546b-8578-4211-9a09-3734869641cd")
+	)
+	(wire
+		(pts
+			(xy 189.23 21.59) (xy 191.77 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2fb1b02d-9221-4200-bd0a-4c9f3f202958")
 	)
 	(wire
 		(pts
@@ -16062,6 +16084,16 @@
 			(type default)
 		)
 		(uuid "4a2bdb9f-f1d3-473c-a15f-d4b8ebfead83")
+	)
+	(wire
+		(pts
+			(xy 215.9 17.78) (xy 215.9 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4a919055-d4b7-43f1-916c-1ba62b02f68a")
 	)
 	(wire
 		(pts
@@ -20685,6 +20717,16 @@
 	)
 	(wire
 		(pts
+			(xy 189.23 19.05) (xy 189.23 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f2201428-51e4-4dae-b097-8d736a3d751b")
+	)
+	(wire
+		(pts
 			(xy 139.7 22.86) (xy 144.78 22.86)
 		)
 		(stroke
@@ -22853,6 +22895,37 @@
 	(netclass_flag ""
 		(length 2.54)
 		(shape round)
+		(at 189.23 19.05 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "20f4252c-ed2b-4066-804d-26c89f81e579")
+		(property "Netclass" "PWR"
+			(at 189.8396 16.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 90.17 -2.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
 		(at 123.19 53.34 0)
 		(fields_autoplaced yes)
 		(effects
@@ -23121,6 +23194,37 @@
 		)
 		(property "Component Class" ""
 			(at -101.6 -7.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 215.9 17.78 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "328dd651-a68c-4230-8d0e-c6ed024b53b8")
+		(property "Netclass" "PWR"
+			(at 216.5096 15.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Component Class" ""
+			(at 116.84 -3.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36993,7 +37097,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
 			(at 107.061 55.372 0)
 			(effects
 				(font
