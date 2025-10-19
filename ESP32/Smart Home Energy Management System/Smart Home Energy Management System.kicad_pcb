@@ -2252,7 +2252,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "ac251920-a782-45f1-806c-a77448a7ee34")
+			(uuid "0bcb8df2-a479-49cf-aacc-ded60a826e42")
 		)
 		(pad "6" thru_hole circle
 			(at 2.5 2.5 270)
@@ -2264,7 +2264,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "ac251920-a782-45f1-806c-a77448a7ee34")
+			(uuid "a7eba16a-477d-48b9-86ab-5e9bec72167f")
 		)
 		(pad "6" smd roundrect
 			(at 3.75 0)
@@ -2275,7 +2275,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "ac251920-a782-45f1-806c-a77448a7ee34")
+			(uuid "faf18fad-4840-4fe9-afc7-a9067f592b55")
 		)
 		(pad "6" thru_hole circle
 			(at 5 -2.5 270)
@@ -2287,7 +2287,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "ac251920-a782-45f1-806c-a77448a7ee34")
+			(uuid "d7ffbf66-04b1-41f9-8405-d046ee679fa6")
 		)
 		(pad "6" thru_hole circle
 			(at 5 0 270)
@@ -2299,7 +2299,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "ac251920-a782-45f1-806c-a77448a7ee34")
+			(uuid "7da39b78-0ffd-431a-9dbe-52bce66d38a7")
 		)
 		(pad "6" thru_hole circle
 			(at 5 2.5 270)
@@ -2311,7 +2311,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "ac251920-a782-45f1-806c-a77448a7ee34")
+			(uuid "3a148fb9-24dd-4498-88d5-b3c81cffa465")
 		)
 		(pad "6" smd roundrect
 			(at 5.01 0 270)
@@ -2322,7 +2322,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "ac251920-a782-45f1-806c-a77448a7ee34")
+			(uuid "d676c2f7-6608-47f9-ac1b-bc14a711dbb8")
 		)
 		(embedded_fonts no)
 		(model "${KICAD8_3RD_PARTY}/3dmodels/com_github_CDFER_JLCPCB-Kicad-Library/JLCPCB.3dshapes/TO-263-5_L10.2-W8.9-P1.70-TL.step"
@@ -30032,7 +30032,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "169d8f02-dd00-42dc-b6e4-2449b263e62b")
+			(uuid "ec372909-8007-4811-9ac3-30874e7c7380")
 		)
 		(pad "6" thru_hole circle
 			(at 2.5 2.5 270)
@@ -30044,7 +30044,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "169d8f02-dd00-42dc-b6e4-2449b263e62b")
+			(uuid "09e65f14-9a5b-4dd6-95bd-359b9ef420b1")
 		)
 		(pad "6" smd roundrect
 			(at 3.75 0)
@@ -30055,7 +30055,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "169d8f02-dd00-42dc-b6e4-2449b263e62b")
+			(uuid "0dfb5799-4ad6-4bcc-b686-1b7502386ae8")
 		)
 		(pad "6" thru_hole circle
 			(at 5 -2.5 270)
@@ -30067,7 +30067,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "169d8f02-dd00-42dc-b6e4-2449b263e62b")
+			(uuid "86572154-f56b-4c6d-9510-292213cfc137")
 		)
 		(pad "6" thru_hole circle
 			(at 5 0 270)
@@ -30079,7 +30079,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "169d8f02-dd00-42dc-b6e4-2449b263e62b")
+			(uuid "a04b4cfa-b64d-4fe7-a4b8-ce3e163e312b")
 		)
 		(pad "6" thru_hole circle
 			(at 5 2.5 270)
@@ -30091,7 +30091,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "169d8f02-dd00-42dc-b6e4-2449b263e62b")
+			(uuid "0d4c5618-ae6b-4f13-a42a-4bc930968b72")
 		)
 		(pad "6" smd roundrect
 			(at 5.01 0 270)
@@ -30102,7 +30102,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "169d8f02-dd00-42dc-b6e4-2449b263e62b")
+			(uuid "eecb4ab6-858a-489b-a644-fa6cfa25794f")
 		)
 		(embedded_fonts no)
 		(model "${KICAD8_3RD_PARTY}/3dmodels/com_github_CDFER_JLCPCB-Kicad-Library/JLCPCB.3dshapes/TO-263-5_L10.2-W8.9-P1.70-TL.step"
@@ -38955,7 +38955,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "9800dab0-f683-4144-8638-48271ed6faf5")
+			(uuid "c0349664-9df8-44ed-af89-f156752d6e8c")
 		)
 		(pad "6" thru_hole circle
 			(at 2.5 2.5 180)
@@ -38967,7 +38967,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "9800dab0-f683-4144-8638-48271ed6faf5")
+			(uuid "fd3dd15e-fa8f-4cd1-a9fc-47b516ee476d")
 		)
 		(pad "6" smd roundrect
 			(at 3.75 0 270)
@@ -38978,7 +38978,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "9800dab0-f683-4144-8638-48271ed6faf5")
+			(uuid "a3126078-8d31-4d40-ac3f-d13883100e95")
 		)
 		(pad "6" thru_hole circle
 			(at 5 -2.5 180)
@@ -38990,7 +38990,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "9800dab0-f683-4144-8638-48271ed6faf5")
+			(uuid "519abb7f-572b-40ad-bba3-137a1991f11e")
 		)
 		(pad "6" thru_hole circle
 			(at 5 0 180)
@@ -39002,7 +39002,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "9800dab0-f683-4144-8638-48271ed6faf5")
+			(uuid "5d4c67a7-8f7e-41be-9dc5-5bd453b96898")
 		)
 		(pad "6" thru_hole circle
 			(at 5 2.5 180)
@@ -39014,7 +39014,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "9800dab0-f683-4144-8638-48271ed6faf5")
+			(uuid "a73f8691-e51e-4573-871b-189de109aa2f")
 		)
 		(pad "6" smd roundrect
 			(at 5.01 0 180)
@@ -39025,7 +39025,7 @@
 			(pinfunction "GND")
 			(pintype "power_in")
 			(zone_connect 2)
-			(uuid "9800dab0-f683-4144-8638-48271ed6faf5")
+			(uuid "b38198cd-c2e4-4741-9d56-1701e89a4aaf")
 		)
 		(embedded_fonts no)
 		(model "${KICAD8_3RD_PARTY}/3dmodels/com_github_CDFER_JLCPCB-Kicad-Library/JLCPCB.3dshapes/TO-263-5_L10.2-W8.9-P1.70-TL.step"
@@ -47284,7 +47284,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "4b886475-1f0a-4489-bcdc-7c9c77ac81c2")
 		)
 		(pad "39" smd rect
 			(at -2.9 2.46 270)
@@ -47295,7 +47295,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "2c17423b-a83e-4214-97ad-6b800ef19851")
 		)
 		(pad "39" thru_hole circle
 			(at -2.9 3.16 270)
@@ -47308,7 +47308,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "343c3497-1854-4d8c-b1e0-551c83b903cd")
 		)
 		(pad "39" smd rect
 			(at -2.9 3.86 270)
@@ -47319,7 +47319,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "2592b434-dff3-45a0-a5f6-af6a18619cc9")
 		)
 		(pad "39" thru_hole circle
 			(at -2.2 1.06 270)
@@ -47332,7 +47332,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "c1791d1f-1530-4058-8dba-dd832228852a")
 		)
 		(pad "39" thru_hole circle
 			(at -2.2 2.46 270)
@@ -47345,7 +47345,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "e838b305-d8f6-4cda-9404-f94ad4364b9b")
 		)
 		(pad "39" thru_hole circle
 			(at -2.2 3.86 270)
@@ -47358,7 +47358,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "5a66b38f-48c6-4994-8d62-f7949ee5bde3")
 		)
 		(pad "39" smd rect
 			(at -1.5 1.06 270)
@@ -47369,7 +47369,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "75a0edfa-88be-4386-905b-ae60226e51e1")
 		)
 		(pad "39" thru_hole circle
 			(at -1.5 1.76 270)
@@ -47382,7 +47382,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "8d8bfb72-d4a7-4f04-878d-b2f40ba5fef6")
 		)
 		(pad "39" smd rect
 			(at -1.5 2.46 270)
@@ -47393,7 +47393,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "e646540e-9bab-40e0-9f28-70863f79e00d")
 		)
 		(pad "39" thru_hole circle
 			(at -1.5 3.16 270)
@@ -47406,7 +47406,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "d6f2ac51-d814-47d5-b769-50943d35f4d8")
 		)
 		(pad "39" smd rect
 			(at -1.5 3.86 270)
@@ -47417,7 +47417,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "ef048242-74df-4385-8a7a-4cbf894f2054")
 		)
 		(pad "39" thru_hole circle
 			(at -0.8 1.06 270)
@@ -47430,7 +47430,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "edbb7255-f5ac-4b70-a844-13594a1748bb")
 		)
 		(pad "39" thru_hole circle
 			(at -0.8 2.46 270)
@@ -47443,7 +47443,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "fc2638e8-7352-41da-8810-4e9905a7ea19")
 		)
 		(pad "39" thru_hole circle
 			(at -0.8 3.86 270)
@@ -47456,7 +47456,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "ef55125a-6c47-4d25-aa87-af32c48299a2")
 		)
 		(pad "39" smd rect
 			(at -0.1 1.06 270)
@@ -47467,7 +47467,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "4af78069-5017-4495-b936-f24450953092")
 		)
 		(pad "39" thru_hole circle
 			(at -0.1 1.76 270)
@@ -47480,7 +47480,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "1a2b6367-a90e-4085-9db4-4663e559f31f")
 		)
 		(pad "39" smd rect
 			(at -0.1 2.46 270)
@@ -47491,7 +47491,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "4352826f-e514-40c2-880d-014bf6f91781")
 		)
 		(pad "39" thru_hole circle
 			(at -0.1 3.16 270)
@@ -47504,7 +47504,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "f9ae2d6d-9533-402c-8d27-91c4a2f28b08")
 		)
 		(pad "39" smd rect
 			(at -0.1 3.86 270)
@@ -47515,7 +47515,7 @@
 			(pinfunction "GND")
 			(pintype "passive")
 			(zone_connect 2)
-			(uuid "ab10da7e-773e-467e-b6bf-71b92fefe338")
+			(uuid "fdca5cd3-b824-4544-a005-110e192c1128")
 		)
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/RF_Module.3dshapes/ESP32-WROOM-32E.step"

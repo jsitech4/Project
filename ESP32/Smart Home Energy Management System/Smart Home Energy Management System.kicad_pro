@@ -914,7 +914,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "3D Model/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
