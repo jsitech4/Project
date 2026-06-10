@@ -18,6 +18,8 @@ namespace lcd_screen
   static LiquidCrystal_I2C lcd(0x27, 20, 4);
 
   static unsigned long lastUpdate = 0;
+  static unsigned long lastScreenChange = 0;
+
   static uint8_t screen = 0;
   static const uint8_t screenCount = 5;
 
@@ -53,35 +55,35 @@ namespace lcd_screen
 
     if (screen == 0)
     {
-      printFixed(0, 0, "TRANSFORMER DATA");
+      printFixed(0, 0, "  TRANSFORMER DATA  ");
       printFixed(0, 1, String("Temp: ") + (temp_sensor::isValid() ? String(temp_sensor::getTemperatureC(), 1) + " C" : "N/A"));
       printFixed(0, 2, String("Volt: ") + String(voltage_sensor::getVoltageRMS(), 1) + " V");
       printFixed(0, 3, String("Curr: ") + String(current_sensor::getCurrentA(), 2) + " A");
     }
     else if (screen == 1)
     {
-      printFixed(0, 0, "HEALTH STATUS");
+      printFixed(0, 0, "   HEALTH STATUS   ");
       printFixed(0, 1, String("Level: ") + maintenance_manager::getLevelText());
       printFixed(0, 2, String("Risk : ") + String(maintenance_manager::getRiskScore(), 1) + "%");
       printFixed(0, 3, String("Health: ") + String(maintenance_manager::getHealthScore(), 1) + "%");
     }
     else if (screen == 2)
     {
-      printFixed(0, 0, "FUTURE ANALYSIS");
+      printFixed(0, 0, "  FUTURE ANALYSIS  ");
       printFixed(0, 1, String("Worst: ") + maintenance_manager::getWorstMetric());
       printFixed(0, 2, String("Forecast: ") + forecastShort(maintenance_manager::getForecastMinutes()));
       printFixed(0, 3, String("Backend : ") + String(sd_card::getBackendName()));
     }
     else if (screen == 3)
     {
-      printFixed(0, 0, "SYSTEM STATUS");
+      printFixed(0, 0, "   SYSTEM STATUS   ");
       printFixed(0, 1, String("Relay: ") + (load_relay::isOn() ? "ON" : "OFF") + String(" Fault:") + (maintenance_manager::isFault() ? "Y" : "N"));
       printFixed(0, 2, String("SD:") + (sd_card::isReady() ? "READY" : "NO") + " INT:" + (sd_card::isInternalReady() ? "OK" : "NO"));
       printFixed(0, 3, String("IP: ") + local_server::getIp());
     }
     else
     {
-      printFixed(0, 0, "VIBRATION / ADC");
+      printFixed(0, 0, "  VIBRATION / ADC  ");
       printFixed(0, 1, String("Vib: ") + String(vibration_sensor::getVibrationRMS(), 3) + " g");
       printFixed(0, 2, String("Vadc: ") + String(voltage_sensor::getAdcVoltageRMS(), 3) + " V");
       printFixed(0, 3, String("Iadc: ") + String(current_sensor::getVoltageRMS(), 3) + " V");
@@ -104,6 +106,8 @@ namespace lcd_screen
 
   void update()
   {
+    unsigned long now = millis();
+
     bool screenChanged = false;
 
     int delta = rotary_encoder::getDelta();
@@ -111,19 +115,36 @@ namespace lcd_screen
     if (delta > 0)
     {
       screen = (screen + 1) % screenCount;
+      lastScreenChange = now;
       screenChanged = true;
     }
     else if (delta < 0)
     {
       screen = (screen + screenCount - 1) % screenCount;
+      lastScreenChange = now;
       screenChanged = true;
     }
 
-    if (!screenChanged && millis() - lastUpdate < 500)
-      return;
+    if ((now - lastScreenChange) >= 4000)
+    {
+      screen = (screen + 1) % screenCount;
+      lastScreenChange = now;
+      screenChanged = true;
+    }
 
-    lastUpdate = millis();
-    drawScreen();
+    if (screenChanged)
+    {
+      lcd.clear();
+      drawScreen();
+      lastUpdate = now;
+      return;
+    }
+
+    if ((now - lastUpdate) >= 500)
+    {
+      drawScreen();
+      lastUpdate = now;
+    }
   }
 
   void setScreen(uint8_t index)

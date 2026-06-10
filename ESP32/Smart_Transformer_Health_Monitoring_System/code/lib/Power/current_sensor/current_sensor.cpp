@@ -11,7 +11,7 @@ namespace current_sensor
   static const unsigned long SAMPLE_PERIOD_US = 250;
   static const unsigned long CYCLE_INTERVAL_MS = 500;
 
-  static float sensorCalibration = 30.0f;
+  static float sensorCalibration = 3.0f;
   static float currentA = 0.0f;
   static float voltageRms = 0.0f;
   static int rawAdc = 0;

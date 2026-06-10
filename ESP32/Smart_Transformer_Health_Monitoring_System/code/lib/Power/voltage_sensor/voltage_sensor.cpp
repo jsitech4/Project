@@ -11,7 +11,7 @@ namespace voltage_sensor
   static const unsigned long SAMPLE_PERIOD_US = 250;
   static const unsigned long CYCLE_INTERVAL_MS = 500;
 
-  static float sensorCalibration = 100.0f;
+  static float sensorCalibration = 10.0f;
   static float transformerVoltageRms = 0.0f;
   static float adcVoltageRms = 0.0f;
   static int rawAdc = 0;

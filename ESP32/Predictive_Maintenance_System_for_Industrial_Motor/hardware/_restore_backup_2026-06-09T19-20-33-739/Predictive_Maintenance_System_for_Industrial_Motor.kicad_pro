@@ -825,7 +825,7 @@
       {
         "filename": "Predictive_Maintenance_System_for_Industrial_Motor.kicad_sch",
         "name": "Predictive_Maintenance_System_for_Industrial_Motor",
-        "uuid": "900a473e-2e9b-475f-9b3f-84708db3e9c7"
+        "uuid": "00000000-0000-0000-0000-000000000000"
       }
     ],
     "used_designators": "",
@@ -834,7 +834,7 @@
   "sheets": [
     [
       "900a473e-2e9b-475f-9b3f-84708db3e9c7",
-      "Predictive_Maintenance_System_for_Industrial_Motor"
+      "Root"
     ]
   ],
   "text_variables": {},
