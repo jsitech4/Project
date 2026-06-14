@@ -482,7 +482,7 @@ namespace local_server
       <div class="card">
         <h2>System Decision</h2>
         <div class="grid">
-          <div class="box"><div class="label">NEPA / PHCN</div><div class="value" id="nepa">---</div></div>
+          <div class="box"><div class="label">NEPA / GRID</div><div class="value" id="nepa">---</div></div>
           <div class="box"><div class="label">Inverter</div><div class="value" id="inverter">---</div></div>
           <div class="box"><div class="label">Effective Limit</div><div class="value" id="effectiveLimit">0W</div></div>
           <div class="box"><div class="label">Decision</div><div class="value" id="decision">---</div></div>
@@ -519,7 +519,7 @@ namespace local_server
         <h2>Relay Source Status</h2>
         <div class="tableWrap">
           <table>
-            <thead><tr><th>Relay</th><th>Configured Load</th><th>Active Source</th></tr></thead>
+            <thead><tr><th>Relay</th><th>Configured Load</th><th>Status</th><th>Active Source</th></tr></thead>
             <tbody id="relayTable"></tbody>
           </table>
         </div>
@@ -593,6 +593,7 @@ namespace local_server
           rows += '<tr>';
           rows += '<td data-label="Relay">Relay ' + r.id + '</td>';
           rows += '<td data-label="Configured Load">' + r.power + 'W</td>';
+          rows += '<td data-label="Status">' + (r.enabled ? 'ON' : 'OFF') + '</td>';
           rows += '<td data-label="Active Source"><span class="sourceBadge">' + r.source + '</span></td>';
           rows += '</tr>';
         }
@@ -616,7 +617,7 @@ namespace local_server
 
   String relaySourceText(bool state)
   {
-    return state ? "INVERTER" : "PHCN";
+    return state ? "INVERTER" : "NEPA";
   }
 
   String statusJson()
@@ -686,8 +687,14 @@ namespace local_server
       data += "\"power\":";
       data += String(config_manager::getRelayPower(i));
       data += ",";
+      data += "\"enabled\":";
+      data += String(load_manager::isLoadEnabled(i) ? "true" : "false");
+      data += ",";
       data += "\"source\":\"";
-      data += relaySourceText(load_manager::isOnInverter(i));
+      if (load_manager::isLoadEnabled(i))
+        data += relaySourceText(load_manager::isOnInverter(i));
+      else
+        data += "OFF";
       data += "\"";
       data += "}";
 

@@ -21,21 +21,48 @@ namespace load_relay
       Pins::EXP_RELAY_5_LOAD,
       Pins::EXP_RELAY_6_LOAD};
 
-  bool onInverterState[6] = {true, true, true, true, true, true};
-  bool loadEnabledState[6] = {true, true, true, true, true, true};
+  // false = NEPA/GRID selected, true = inverter selected.
+  // Startup is intentionally safe: all loads OFF and source preselected to NEPA.
+  bool onInverterState[6] = {false, false, false, false, false, false};
+  bool loadEnabledState[6] = {false, false, false, false, false, false};
+  bool appliedOnInverterState[6] = {false, false, false, false, false, false};
 
   bool dirty = true;
+
+  const unsigned long sourceSwitchDeadTimeMs = 80;
 
   void applyRelay(int index)
   {
     if (!gpio_expander::isReady())
       return;
 
+    // Hardware convention used by the project:
+    // source relay LOW  = inverter side
+    // source relay HIGH = NEPA/grid side
     bool sourceRelayEnergized = !onInverterState[index];
     bool loadRelayEnergized = loadEnabledState[index];
+    bool sourceChanged = appliedOnInverterState[index] != onInverterState[index];
 
-    gpio_expander::digitalWrite(sourcePins[index], sourceRelayEnergized);
-    gpio_expander::digitalWrite(loadPins[index], loadRelayEnergized);
+    if (sourceChanged && loadRelayEnergized)
+    {
+      // Break before source transfer, then remake the load relay.
+      // This keeps the source/load pair synchronized and avoids switching a live load directly.
+      gpio_expander::digitalWrite(loadPins[index], false);
+      delay(sourceSwitchDeadTimeMs);
+      gpio_expander::digitalWrite(sourcePins[index], sourceRelayEnergized);
+      delay(sourceSwitchDeadTimeMs);
+      gpio_expander::digitalWrite(loadPins[index], true);
+    }
+    else
+    {
+      if (!loadRelayEnergized)
+        gpio_expander::digitalWrite(loadPins[index], false);
+
+      gpio_expander::digitalWrite(sourcePins[index], sourceRelayEnergized);
+      gpio_expander::digitalWrite(loadPins[index], loadRelayEnergized);
+    }
+
+    appliedOnInverterState[index] = onInverterState[index];
   }
 
   void begin()
@@ -47,6 +74,7 @@ namespace load_relay
     {
       gpio_expander::pinMode(sourcePins[i], OUTPUT);
       gpio_expander::pinMode(loadPins[i], OUTPUT);
+      gpio_expander::digitalWrite(loadPins[i], false);
     }
 
     dirty = true;
@@ -97,10 +125,15 @@ namespace load_relay
       setRelay(i, true);
   }
 
-  void setAllPHCN()
+  void setAllNEPA()
   {
     for (int i = 0; i < 6; i++)
       setRelay(i, false);
+  }
+
+  void setAllPHCN()
+  {
+    setAllNEPA();
   }
 
   void enableAllLoads()

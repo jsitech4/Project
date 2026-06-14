@@ -11,6 +11,7 @@ namespace load_relay
   void setLoadEnabled(int relay, bool enabled);
 
   void setAllInverter();
+  void setAllNEPA();
   void setAllPHCN();
   void enableAllLoads();
   void disableAllLoads();

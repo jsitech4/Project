@@ -28,28 +28,29 @@ static void printSerialReport()
 
   maintenance_manager::Snapshot snap = maintenance_manager::getSnapshot();
 
-  Serial.print("Temp: ");
-  if (snap.tempValid)
-    Serial.print(snap.temperatureC, 2);
-  else
-    Serial.print("N/A");
+  // Serial.print("Temp: ");
+  // if (snap.tempValid)
+  //   Serial.print(snap.temperatureC, 2);
+  // else
+  //   Serial.print("N/A");
 
-  Serial.print(" C | Voltage: ");
-  Serial.print(snap.transformerVoltageV, 2);
-  Serial.print(" V | Current: ");
-  Serial.print(snap.currentA, 3);
-  Serial.print(" A | Vibration: ");
-  Serial.print(snap.vibrationRmsG, 3);
-  Serial.print(" g | Risk: ");
-  Serial.print(snap.riskScore, 1);
-  Serial.print("% | Health: ");
-  Serial.print(snap.healthScore, 1);
-  Serial.print("% | Level: ");
-  Serial.print(maintenance_manager::getLevelText());
-  Serial.print(" | Backend: ");
-  Serial.print(sd_card::getBackendName());
-  Serial.print(" | Web: http://");
-  Serial.println(local_server::getIp());
+  // Serial.print(" C | Voltage: ");
+  // Serial.print(snap.transformerVoltageV, 2);
+  // Serial.print(" V | Current: ");
+  // Serial.print(snap.currentA, 3);
+  // Serial.print(" A | Vibration: ");
+  // Serial.print(snap.vibrationRmsG, 3);
+  // Serial.print(" g | Risk: ");
+  // Serial.print(snap.riskScore, 1);
+  // Serial.print("% | Health: ");
+  // Serial.print(snap.healthScore, 1);
+  // Serial.print("% | Level: ");
+  // Serial.print(maintenance_manager::getLevelText());
+  // Serial.print(" | Backend: ");
+  // Serial.print(sd_card::getBackendName());
+  Serial.print("Voltage: ");
+  // Serial.println(local_server::getIp());
+  Serial.println(current_sensor::getVoltageRMS());
 }
 
 void setup()
@@ -82,14 +83,14 @@ void setup()
   sd_card::logEvent("BOOT", "Smart transformer health monitoring firmware started.");
   buzzer::beep(120);
 
-  Serial.println();
-  Serial.println("Smart Transformer Health Monitoring System");
-  Serial.print("Voltage ADC GPIO: ");
-  Serial.println(Pins::AC_VOLTAGE_ADC);
-  Serial.print("Dashboard SSID: ");
-  Serial.println(local_server::getSsid());
-  Serial.print("Dashboard IP: http://");
-  Serial.println(local_server::getIp());
+  // Serial.println();
+  // Serial.println("Smart Transformer Health Monitoring System");
+  // Serial.print("Voltage ADC GPIO: ");
+  // Serial.println(Pins::AC_VOLTAGE_ADC);
+  // Serial.print("Dashboard SSID: ");
+  // Serial.println(local_server::getSsid());
+  // Serial.print("Dashboard IP: http://");
+  // Serial.println(local_server::getIp());
 }
 
 void loop()

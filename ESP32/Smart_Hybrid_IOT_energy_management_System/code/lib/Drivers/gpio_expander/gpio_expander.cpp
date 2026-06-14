@@ -86,7 +86,9 @@ namespace gpio_expander
   {
     writeWord(REG_POLARITY_0, 0x0000);
 
-    configState = 0xE000;
+    // Outputs: P0_0..P0_7 and P1_0..P1_5.
+    // Inputs : P1_6 inverter sense and P1_7 NEPA sense.
+    configState = 0xC000;
     outputState = 0x0000;
 
     applyOutput();

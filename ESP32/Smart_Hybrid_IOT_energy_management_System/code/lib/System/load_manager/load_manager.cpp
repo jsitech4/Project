@@ -9,8 +9,8 @@
 
 namespace load_manager
 {
-  bool onInverter[6] = {true, true, true, true, true, true};
-  bool loadEnabled[6] = {true, true, true, true, true, true};
+  bool onInverter[6] = {false, false, false, false, false, false};
+  bool loadEnabled[6] = {false, false, false, false, false, false};
 
   float loadRatio = 0.0f;
   float fuzzyRisk = 0.0f;
@@ -65,12 +65,17 @@ namespace load_manager
     }
   }
 
-  void chooseLoadsForInverter(int limit)
+  int chooseLowPowerPriorityMask(int limit)
   {
     int power[6];
+    int highestPower = 1;
 
     for (int i = 0; i < 6; i++)
+    {
       power[i] = config_manager::getRelayPower(i);
+      if (power[i] > highestPower)
+        highestPower = power[i];
+    }
 
     int bestMask = 0;
     long bestScore = -2147483647L;
@@ -78,30 +83,27 @@ namespace load_manager
     for (int mask = 0; mask < 64; mask++)
     {
       int sum = 0;
-      long priorityScore = 0;
+      int count = 0;
+      long lowPowerPriority = 0;
 
       for (int i = 0; i < 6; i++)
       {
         if (mask & (1 << i))
         {
           sum += power[i];
-          priorityScore += 20000L - (long)power[i];
+          count++;
+          lowPowerPriority += (long)(highestPower + 1000 - power[i]);
         }
       }
 
       if (sum > limit)
         continue;
 
-      long utilizationScore = sum * 2L;
-      long loadCountScore = 0;
-
-      for (int i = 0; i < 6; i++)
-      {
-        if (mask & (1 << i))
-          loadCountScore += 500L;
-      }
-
-      long score = priorityScore + utilizationScore + loadCountScore;
+      // Priority order:
+      // 1. Keep more loads alive.
+      // 2. Prefer lower-power relays over heavy loads.
+      // 3. Use reasonable available capacity after the first two priorities.
+      long score = ((long)count * 100000L) + (lowPowerPriority * 20L) + sum;
 
       if (score > bestScore)
       {
@@ -110,9 +112,30 @@ namespace load_manager
       }
     }
 
+    return bestMask;
+  }
+
+  void chooseLoadsForSingleSource(int limit, bool inverter)
+  {
+    int bestMask = chooseLowPowerPriorityMask(limit);
+
+    for (int i = 0; i < 6; i++)
+    {
+      loadEnabled[i] = (bestMask & (1 << i)) != 0;
+      onInverter[i] = inverter;
+    }
+  }
+
+  void chooseInverterAssistWhileNepaCarriesRest(int limit)
+  {
+    int bestMask = chooseLowPowerPriorityMask(limit);
+
     for (int i = 0; i < 6; i++)
     {
       loadEnabled[i] = true;
+
+      // Low-power selected relays are allowed on inverter.
+      // Everything else stays on NEPA, because NEPA is the priority source.
       onInverter[i] = (bestMask & (1 << i)) != 0;
     }
   }
@@ -145,7 +168,7 @@ namespace load_manager
 
   void begin()
   {
-    setAllLoads(true, true);
+    setAllLoads(false, false);
     decisionText = "READY";
     applyDecision();
   }
@@ -172,48 +195,44 @@ namespace load_manager
     loadRatio = (float)currentLoad / (float)effectiveLimit;
     updateFuzzyRisk();
 
-    bool nepaAvailable = nepa_sense::isAvailable();
-    bool inverterAvailable = inverter_sense::isAvailable();
+    // bool nepaAvailable = nepa_sense::isAvailable();
+    // bool inverterAvailable = inverter_sense::isAvailable();
+    bool nepaAvailable = true;
+    bool inverterAvailable = false;
     bool sensorValid = pzem_sensor::hasValidData();
+    bool highRisk = sensorValid && (loadRatio >= 1.0f || (loadRatio >= 0.90f && fuzzyRisk >= 0.55f));
 
     if (!nepaAvailable && !inverterAvailable)
     {
-      setAllLoads(false, true);
+      setAllLoads(false, false);
       decisionText = "NO SOURCE";
     }
-    else if (!inverterAvailable && nepaAvailable)
+    else if (nepaAvailable && inverterAvailable)
     {
-      setAllLoads(true, false);
-      decisionText = "INVERTER OFF";
-    }
-    else if (inverterAvailable && !nepaAvailable)
-    {
-      setAllLoads(true, true);
-
-      if (sensorValid && loadRatio >= 1.0f)
-        decisionText = "OVERLOAD NO GRID";
+      if (highRisk)
+      {
+        chooseInverterAssistWhileNepaCarriesRest(effectiveLimit);
+        decisionText = "NEPA ASSIST";
+      }
       else
-        decisionText = "GRID OFF";
+      {
+        // NEPA is the preferred/default source whenever it is healthy.
+        setAllLoads(true, false);
+        decisionText = sensorValid ? "NEPA PRIORITY" : "PZEM ERROR";
+      }
     }
-    else if (!sensorValid)
+    else if (nepaAvailable && !inverterAvailable)
     {
-      setAllLoads(true, false);
-      decisionText = "PZEM ERROR";
-    }
-    else if (loadRatio >= 1.0f)
-    {
-      chooseLoadsForInverter(effectiveLimit);
-      decisionText = "SHEDDING TO GRID";
-    }
-    else if (loadRatio >= 0.90f && fuzzyRisk >= 0.55f)
-    {
-      chooseLoadsForInverter(effectiveLimit);
-      decisionText = "FUZZY OPTIMIZED";
+      // No inverter available: still make an intelligent NEPA-only configuration.
+      // Lower configured relay powers are favored before heavy loads.
+      chooseLoadsForSingleSource(effectiveLimit, false);
+      decisionText = "NEPA ONLY OPT";
     }
     else
     {
-      setAllLoads(true, true);
-      decisionText = "NORMAL";
+      // NEPA/grid unavailable: run only what the inverter can carry.
+      chooseLoadsForSingleSource(effectiveLimit, true);
+      decisionText = sensorValid ? "INVERTER ONLY" : "PZEM ERROR";
     }
 
     applyDecision();

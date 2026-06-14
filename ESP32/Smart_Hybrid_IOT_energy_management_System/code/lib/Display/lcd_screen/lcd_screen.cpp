@@ -85,8 +85,8 @@ namespace lcd_screen
     u8g2.drawFrame(0, 0, 128, 64);
 
     u8g2.setFont(u8g2_font_5x8_tr);
-    drawCenteredText(0, 0, 128, 9, "SMART HOME ENERGY");
-    drawCenteredText(0, 8, 128, 9, title);
+    drawCenteredText(0, 0, 128, 9, "SHIOTEMS");
+    drawCenteredText(0, 10, 128, 9, title);
 
     u8g2.drawHLine(0, 18, 128);
   }
@@ -149,7 +149,7 @@ namespace lcd_screen
       u8g2.setDrawColor(1);
       u8g2.setFont(u8g2_font_5x8_tr);
       u8g2.setCursor(x + 13, y + 4);
-      u8g2.print("GRD");
+      u8g2.print("NEP");
     }
   }
 
@@ -205,7 +205,7 @@ namespace lcd_screen
     u8g2.setFont(u8g2_font_ncenB08_tr);
 
     drawCenteredText(0, 0, 128, 11, "SETTINGS");
-    u8g2.drawHLine(33, 12, 63);
+    u8g2.drawHLine(33, 9, 63);
 
     u8g2.setFont(u8g2_font_5x8_tr);
 
@@ -325,7 +325,7 @@ namespace lcd_screen
     drawHeader("WIFI SERVER");
 
     u8g2.setFont(u8g2_font_5x8_tr);
-    drawCenteredText(0, 24, 128, 10, "SSID: SHEMS-Controller");
+    drawCenteredText(0, 24, 128, 10, "SSID: SHIOTEMS");
     drawCenteredText(0, 36, 128, 10, "PASS: 12345678");
     drawCenteredText(0, 48, 128, 10, local_server::getIpAddress());
   }

@@ -77,7 +77,7 @@ namespace lcd_screen
     else if (screen == 3)
     {
       printFixed(0, 0, "   SYSTEM STATUS   ");
-      printFixed(0, 1, String("Relay: ") + (load_relay::isOn() ? "ON" : "OFF") + String(" Fault:") + (maintenance_manager::isFault() ? "Y" : "N"));
+      printFixed(0, 1, String("Relay: ") + (load_relay::isOn() ? "ON" : "OFF") + String(" Fault:") + (maintenance_manager::isFault() ? "YES" : "NO"));
       printFixed(0, 2, String("SD:") + (sd_card::isReady() ? "READY" : "NO") + " INT:" + (sd_card::isInternalReady() ? "OK" : "NO"));
       printFixed(0, 3, String("IP: ") + local_server::getIp());
     }

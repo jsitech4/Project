@@ -21,23 +21,25 @@ namespace Pins
 
   const uint8_t PCA9555_ADDRESS = 0x20;
 
-  const uint8_t EXP_RELAY_1_SOURCE = 0;
-  const uint8_t EXP_RELAY_1_LOAD = 1;
-  const uint8_t EXP_RELAY_2_SOURCE = 2;
-  const uint8_t EXP_RELAY_2_LOAD = 3;
-  const uint8_t EXP_RELAY_3_SOURCE = 4;
-  const uint8_t EXP_RELAY_3_LOAD = 5;
-  const uint8_t EXP_RELAY_4_SOURCE = 6;
-  const uint8_t EXP_RELAY_4_LOAD = 7;
-  const uint8_t EXP_RELAY_5_SOURCE = 8;
-  const uint8_t EXP_RELAY_5_LOAD = 9;
-  const uint8_t EXP_RELAY_6_SOURCE = 10;
-  const uint8_t EXP_RELAY_6_LOAD = 11;
+  // PCA9555 mapping: P0_0..P0_7 = 0..7, P1_0..P1_7 = 8..15
+  // Correct hardware pairing supplied for the expander board.
+  const uint8_t EXP_RELAY_1_LOAD = 10;    // P1_2
+  const uint8_t EXP_RELAY_1_SOURCE = 11;  // P1_3
+  const uint8_t EXP_RELAY_2_LOAD = 8;     // P1_0
+  const uint8_t EXP_RELAY_2_SOURCE = 9;   // P1_1
+  const uint8_t EXP_RELAY_3_LOAD = 6;     // P0_6
+  const uint8_t EXP_RELAY_3_SOURCE = 7;   // P0_7
+  const uint8_t EXP_RELAY_4_LOAD = 4;     // P0_4
+  const uint8_t EXP_RELAY_4_SOURCE = 5;   // P0_5
+  const uint8_t EXP_RELAY_5_LOAD = 2;     // P0_2
+  const uint8_t EXP_RELAY_5_SOURCE = 3;   // P0_3
+  const uint8_t EXP_RELAY_6_LOAD = 0;     // P0_0
+  const uint8_t EXP_RELAY_6_SOURCE = 1;   // P0_1
 
-  const uint8_t EXP_IND_LED = 12;
-  const uint8_t EXP_NEPA_SENSE = 13;
-  const uint8_t EXP_INVERTER_SENSE = 14;
-  const uint8_t EXP_12V_EN = 15;
+  const uint8_t EXP_IND_LED = 12;         // P1_4 fault indicator
+  const uint8_t EXP_12V_EN = 13;          // P1_5 regulator enable
+  const uint8_t EXP_INVERTER_SENSE = 14;  // P1_6 inverter sense
+  const uint8_t EXP_NEPA_SENSE = 15;      // P1_7 NEPA sense
 
   const bool SOURCE_SENSE_ACTIVE_HIGH = true;
   const bool INVERTER_SENSE_ACTIVE_HIGH = true;

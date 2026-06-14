@@ -11,16 +11,16 @@
 
 namespace maintenance_manager
 {
-  static float currentWarnA = 3.5f;
-  static float currentFaultA = 5.0f;
+  static float currentWarnA = 0.07f;
+  static float currentFaultA = 0.14f;
   static float tempWarnC = 60.0f;
   static float tempFaultC = 70.0f;
-  static float vibrationWarnG = 1.2f;
-  static float vibrationFaultG = 2.5f;
+  static float vibrationWarnG = 0.2f;
+  static float vibrationFaultG = 0.6f;
   static float voltageLowWarnV = 180.0f;
-  static float voltageLowFaultV = 160.0f;
-  static float voltageHighWarnV = 250.0f;
-  static float voltageHighFaultV = 270.0f;
+  static float voltageLowFaultV = 170.0f;
+  static float voltageHighWarnV = 235.0f;
+  static float voltageHighFaultV = 240.0f;
 
   static Snapshot snap;
   static State state = STATE_NORMAL;
