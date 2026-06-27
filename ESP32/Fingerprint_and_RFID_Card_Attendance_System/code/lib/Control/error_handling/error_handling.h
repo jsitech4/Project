@@ -11,6 +11,7 @@ namespace error_handling
   void setCodeError(bool state);
   void setError(const String &message);
   void clearCodeError();
+  void setBatteryError(bool state);
 
   bool hasError();
   bool hasWatchdogError();

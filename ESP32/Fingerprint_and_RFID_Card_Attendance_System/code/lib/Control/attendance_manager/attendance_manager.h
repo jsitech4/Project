@@ -36,6 +36,7 @@ namespace attendance_manager
 
   uint32_t getUserCount();
   uint32_t getAttendanceCount();
+  void refreshCounts();
 }
 
 #endif

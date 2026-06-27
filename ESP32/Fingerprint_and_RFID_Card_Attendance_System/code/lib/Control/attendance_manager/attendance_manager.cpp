@@ -42,6 +42,7 @@ namespace attendance_manager
   static UserRecord authUser;
   static String authRfid = "";
   static unsigned long authStartTime = 0;
+  static unsigned long enrollmentStartTime = 0;
 
   static String lastMessage = "Starting";
   static uint32_t userCount = 0;
@@ -52,6 +53,7 @@ namespace attendance_manager
 
   static const unsigned long authTimeoutMs = 15000;
   static const unsigned long duplicateWindowMs = 5000;
+  static const unsigned long enrollmentTimeoutMs = 90000;
 
   static String cleanField(String value)
   {
@@ -298,12 +300,37 @@ namespace attendance_manager
     if (enrollmentState == ENROLL_IDLE)
       return;
 
+    if (millis() - enrollmentStartTime > enrollmentTimeoutMs)
+    {
+      lastMessage = "Enrollment timeout";
+      oled_screen::show("Enroll Timeout", pendingName, "Start again", "Web dashboard ready");
+      buzzer::errorBeep();
+      enrollmentState = ENROLL_IDLE;
+      pendingUserId = "";
+      pendingName = "";
+      pendingWorkspace = "";
+      pendingRfid = "";
+      pendingFingerId = 0;
+      return;
+    }
+
     if (enrollmentState == ENROLL_WAIT_RFID)
     {
       String uid;
 
       if (RFID::readCard(uid))
       {
+        UserRecord existingUser;
+
+        if (findUserByRfid(uid, existingUser))
+        {
+          lastMessage = "RFID already registered";
+          oled_screen::show("RFID In Use", existingUser.name, "Use another card", "or delete old user");
+          buzzer::errorBeep();
+          enrollmentState = ENROLL_IDLE;
+          return;
+        }
+
         pendingRfid = uid;
         pendingFingerId = nextFingerId();
 
@@ -461,8 +488,7 @@ namespace attendance_manager
 
     currentMode = defaultMode == "OUT" ? MODE_OUT : MODE_IN;
 
-    userCount = sd_card::countDataLines("/users.csv");
-    attendanceCount = sd_card::countDataLines("/attendance.csv");
+    refreshCounts();
 
     enrollmentState = ENROLL_IDLE;
     resetAuth();
@@ -525,6 +551,7 @@ namespace attendance_manager
     pendingFingerId = 0;
 
     enrollmentState = ENROLL_WAIT_RFID;
+    enrollmentStartTime = millis();
 
     lastMessage = "Tap RFID card for " + name;
     oled_screen::show("Register User", name, "Tap RFID card", "Then fingerprint");
@@ -575,8 +602,7 @@ namespace attendance_manager
       return false;
     }
 
-    userCount = sd_card::countDataLines("/users.csv");
-    attendanceCount = sd_card::countDataLines("/attendance.csv");
+    refreshCounts();
 
     lastMessage = "User deleted";
     oled_screen::show("User Deleted", cleanId, "RFID unlinked", "Fingerprint removed");
@@ -618,6 +644,12 @@ namespace attendance_manager
   String getLastMessage()
   {
     return lastMessage;
+  }
+
+  void refreshCounts()
+  {
+    userCount = sd_card::countDataLines("/users.csv");
+    attendanceCount = sd_card::countDataLines("/attendance.csv");
   }
 
   uint32_t getUserCount()

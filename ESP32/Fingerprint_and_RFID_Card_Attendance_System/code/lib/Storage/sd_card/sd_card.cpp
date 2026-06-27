@@ -65,6 +65,15 @@ namespace sd_card
     return *activeFs;
   }
 
+  static void prepareStorageBus()
+  {
+    if (Pins::valid(Pins::RC522_SS))
+      digitalWrite(Pins::RC522_SS, HIGH);
+
+    if (Pins::valid(Pins::SD_CARD_CS))
+      digitalWrite(Pins::SD_CARD_CS, HIGH);
+  }
+
   static void initializeFiles()
   {
     ensureFile(configPath,
@@ -95,6 +104,7 @@ namespace sd_card
     pinMode(Pins::SD_CARD_CS, OUTPUT);
     digitalWrite(Pins::SD_CARD_CS, HIGH);
 
+    prepareStorageBus();
     sdReady = SD.begin(Pins::SD_CARD_CS, SPI, 4000000);
 
     if (sdReady)
@@ -106,6 +116,7 @@ namespace sd_card
       return;
     }
 
+    prepareStorageBus();
     internalReady = LittleFS.begin(true);
 
     if (internalReady)
@@ -149,6 +160,7 @@ namespace sd_card
     if (!isReady())
       return false;
 
+    prepareStorageBus();
     return fsRef().exists(path);
   }
 
@@ -157,6 +169,7 @@ namespace sd_card
     if (!isReady())
       return File();
 
+    prepareStorageBus();
     return fsRef().open(path, FILE_READ);
   }
 
@@ -165,6 +178,7 @@ namespace sd_card
     if (!isReady())
       return false;
 
+    prepareStorageBus();
     File file = fsRef().open(path, FILE_APPEND);
 
     if (!file)
@@ -180,6 +194,8 @@ namespace sd_card
   {
     if (!isReady())
       return false;
+
+    prepareStorageBus();
 
     if (fsRef().exists(path))
       fsRef().remove(path);
@@ -199,6 +215,8 @@ namespace sd_card
   {
     if (!isReady())
       return false;
+
+    prepareStorageBus();
 
     if (fsRef().exists(path))
       return true;
@@ -221,6 +239,7 @@ namespace sd_card
     if (!isReady())
       return data;
 
+    prepareStorageBus();
     File file = fsRef().open(path, FILE_READ);
 
     if (!file)
@@ -239,6 +258,7 @@ namespace sd_card
     if (!isReady())
       return fallback;
 
+    prepareStorageBus();
     File file = fsRef().open(configPath, FILE_READ);
 
     if (!file)
@@ -319,6 +339,7 @@ namespace sd_card
     if (!isReady())
       return 0;
 
+    prepareStorageBus();
     File file = fsRef().open(path, FILE_READ);
 
     if (!file)
@@ -365,6 +386,7 @@ namespace sd_card
     if (cleanId.length() == 0)
       return 0;
 
+    prepareStorageBus();
     File file = fsRef().open(usersPath, FILE_READ);
 
     if (!file)
@@ -406,6 +428,8 @@ namespace sd_card
 
     if (cleanId.length() == 0)
       return false;
+
+    prepareStorageBus();
 
     if (!fsRef().exists(usersPath))
       return false;

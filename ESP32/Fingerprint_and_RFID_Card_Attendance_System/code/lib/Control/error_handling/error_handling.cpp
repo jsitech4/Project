@@ -64,6 +64,19 @@ namespace error_handling
       lastError = "None";
   }
 
+
+  void setBatteryError(bool state)
+  {
+    if (state)
+    {
+      setError("Low battery");
+      return;
+    }
+
+    if (codeError && lastError == "Low battery")
+      clearCodeError();
+  }
+
   bool hasError()
   {
     return watchdogError || codeError;
