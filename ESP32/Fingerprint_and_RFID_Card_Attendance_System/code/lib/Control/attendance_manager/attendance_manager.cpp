@@ -39,6 +39,16 @@ namespace attendance_manager
   static String pendingRfid;
   static uint16_t pendingFingerId = 0;
 
+
+  static void clearPendingEnrollment()
+  {
+    pendingUserId = "";
+    pendingName = "";
+    pendingWorkspace = "";
+    pendingRfid = "";
+    pendingFingerId = 0;
+  }
+
   static UserRecord authUser;
   static String authRfid = "";
   static unsigned long authStartTime = 0;
@@ -306,11 +316,7 @@ namespace attendance_manager
       oled_screen::show("Enroll Timeout", pendingName, "Start again", "Web dashboard ready");
       buzzer::errorBeep();
       enrollmentState = ENROLL_IDLE;
-      pendingUserId = "";
-      pendingName = "";
-      pendingWorkspace = "";
-      pendingRfid = "";
-      pendingFingerId = 0;
+      clearPendingEnrollment();
       return;
     }
 
@@ -328,6 +334,7 @@ namespace attendance_manager
           oled_screen::show("RFID In Use", existingUser.name, "Use another card", "or delete old user");
           buzzer::errorBeep();
           enrollmentState = ENROLL_IDLE;
+          clearPendingEnrollment();
           return;
         }
 
@@ -340,6 +347,7 @@ namespace attendance_manager
           oled_screen::showError("FP storage full");
           buzzer::errorBeep();
           enrollmentState = ENROLL_IDLE;
+          clearPendingEnrollment();
           return;
         }
 
@@ -363,6 +371,7 @@ namespace attendance_manager
         oled_screen::showError(message);
         buzzer::errorBeep();
         enrollmentState = ENROLL_IDLE;
+        clearPendingEnrollment();
         return;
       }
 
@@ -380,12 +389,15 @@ namespace attendance_manager
       }
       else
       {
+        String fpMessage;
+        fingerprint::deleteTemplate(pendingFingerId, fpMessage);
         lastMessage = "User save failed";
         oled_screen::showError("User save failed");
         buzzer::errorBeep();
       }
 
       enrollmentState = ENROLL_IDLE;
+      clearPendingEnrollment();
     }
   }
 
@@ -631,7 +643,7 @@ namespace attendance_manager
     buzzer::beep();
   }
 
-  bool screenUpdate()
+  void screenUpdate()
   {
     readyScreen = true;
   }

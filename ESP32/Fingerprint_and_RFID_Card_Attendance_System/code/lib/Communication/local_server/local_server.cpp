@@ -133,13 +133,13 @@ namespace local_server
     String html = pageHead("Attendance Dashboard");
 
     html += "<section class='grid'>";
-    html += "<div class='card mini'><div class='label'>System</div><div class='value' id='systemName'>" + htmlEscape(workspaceName) + "</div><div class='muted' id='workspaceName'></div></div>";
+    html += "<div class='card mini'><div class='label'>System</div><div class='value' id='systemName'>" + htmlEscape(systemName) + "</div><div class='muted' id='workspaceName'>" + htmlEscape(workspaceName) + "</div></div>";
     html += "<div class='card mini'><div class='label'>Mode</div><div class='value' id='mode'>" + htmlEscape(attendance_manager::getModeText()) + "</div><div class='muted'></div></div>";
     html += "<div class='card mini'><div class='label'>Storage</div><div class='value " + storageBadgeClass() + "' id='storage'>" + htmlEscape(sd_card::getStorageName()) + "</div><div class='muted'></div></div>";
     html += "<div class='card mini'><div class='label'>Users / Records</div><div class='value'><span id='users'>" + String(attendance_manager::getUserCount()) + "</span> / <span id='records'>" + String(attendance_manager::getAttendanceCount()) + "</span></div><div class='muted'>Registered users / logs</div></div>";
     html += "</section>";
 
-    html += "<section class='card'><div class='label'>Last Event</div><div class='value' id='lastMessage'></div><p class='muted'><span id='enrollment'></span>Battery: <span id='battery'>" + String(battery_level::getPercentage()) + "%</span></p></section>";
+    html += "<section class='card'><div class='label'>Last Event</div><div class='value' id='lastMessage'>" + htmlEscape(attendance_manager::getLastMessage()) + "</div><p class='muted'><span id='enrollment'>Enrollment: " + enrollmentStateText() + "</span> &nbsp; Battery: <span id='battery'>" + String(battery_level::getPercentage()) + "%</span></p></section>";
 
     html += "<section class='split'>";
     html += "<div class='card'><h3>Register User</h3><form id='enrollForm' action='/enroll' method='get'>";
@@ -161,9 +161,10 @@ namespace local_server
 
     html += "<script>";
     html += "const $=id=>document.getElementById(id);";
+    html += "const put=(id,v)=>{const e=$(id);if(e)e.textContent=v;};";
     html += "async function api(path,params){const r=await fetch(path+(params?'?'+params:''),{cache:'no-store'});return await r.json();}";
-    html += "function cls(el,state){el.classList.remove('ok','warn','bad');el.classList.add(state);}";
-    html += "async function refreshStatus(){try{const s=await api('/api/status','');$('mode').textContent=s.mode;$('users').textContent=s.users;$('records').textContent=s.attendance_records;$('storage').textContent=s.storage;cls($('storage'),s.storage_class);$('lastMessage').textContent=s.last_message;$('battery').textContent=s.battery_percent+'%';}catch(e){}}";
+    html += "function cls(el,state){if(!el)return;el.classList.remove('ok','warn','bad');el.classList.add(state);}";
+    html += "async function refreshStatus(){try{const s=await api('/api/status','');put('systemName',s.system_name);put('workspaceName',s.workspace_name);put('mode',s.mode);put('users',s.users);put('records',s.attendance_records);put('storage',s.storage);cls($('storage'),s.storage_class);put('lastMessage',s.last_message);put('battery',s.battery_percent+'%');put('enrollment','Enrollment: '+s.enrollment_state);}catch(e){}}";
     html += "setInterval(refreshStatus,2500);refreshStatus();";
     html += "$('enrollForm').addEventListener('submit',async e=>{e.preventDefault();const p=new URLSearchParams(new FormData(e.target));$('enrollToast').textContent='Starting registration...';try{const r=await api('/api/enroll',p.toString());$('enrollToast').textContent=r.message;refreshStatus();}catch(x){$('enrollToast').textContent='Could not contact device';}});";
     html += "document.querySelectorAll('.modeForm').forEach(f=>f.addEventListener('submit',async e=>{e.preventDefault();const p=new URLSearchParams();p.set('mode',f.dataset.mode);$('modeToast').textContent='Updating mode...';try{const r=await api('/api/set-mode',p.toString());$('modeToast').textContent=r.message;refreshStatus();}catch(x){$('modeToast').textContent='Could not contact device';}}));";
@@ -245,17 +246,21 @@ namespace local_server
     else
       html += "<div class='card'><h3>Registered Users</h3><pre>" + htmlEscape(sd_card::readFile("/users.csv", 22000)) + "</pre></div>";
 
-    html += "<div class='card'><h3>Add User</h3><form action='/enroll' method='get'>";
-    html += "<label>User ID</label><input name='id' placeholder='User ID e.g. STU001' required>";
-    html += "<label>Full Name</label><input name='name' placeholder='Full name' required>";
-    html += "<label>Class / Department / Workspace</label><input name='workspace' placeholder='Main' value='Main'>";
-    html += "<button type='submit'>Start Registration</button>";
+    html += "<div class='card'><h3>Add User</h3><form id='usersEnrollForm' action='/enroll' method='get'>";
+    html += "<label>User ID</label><input name='id' placeholder='User ID e.g. STU001' autocomplete='off' required>";
+    html += "<label>Full Name</label><input name='name' placeholder='Full name' autocomplete='name' required>";
+    html += "<label>Class / Department / Workspace</label><input name='workspace' placeholder='Main' value='Main' autocomplete='off'>";
+    html += "<button type='submit'>Start Registration</button><div class='toast' id='usersEnrollToast'></div>";
     html += "</form></div>";
 
-    html += "<div class='card'><h3>Remove User</h3><form action='/delete-user' method='get'>";
-    html += "<label>User ID</label><input name='id' placeholder='User ID e.g. STU001' required>";
-    html += "<button class='danger' type='submit'>Delete User</button>";
+    html += "<div class='card'><h3>Remove User</h3><form id='usersDeleteForm' action='/delete-user' method='get'>";
+    html += "<label>User ID</label><input name='id' placeholder='User ID e.g. STU001' autocomplete='off' required>";
+    html += "<button class='danger' type='submit'>Delete User</button><div class='toast' id='usersDeleteToast'></div>";
     html += "</form><p class='muted'>This removes the user, RFID card link, and fingerprint template.</p></div>";
+
+    html += "<script>const $=id=>document.getElementById(id);async function api(path,params){const r=await fetch(path+(params?'?'+params:''),{cache:'no-store'});return await r.json();}";
+    html += "$('usersEnrollForm').addEventListener('submit',async e=>{e.preventDefault();const p=new URLSearchParams(new FormData(e.target));$('usersEnrollToast').textContent='Starting registration...';try{const r=await api('/api/enroll',p.toString());$('usersEnrollToast').textContent=r.message;}catch(x){$('usersEnrollToast').textContent='Could not contact device';}});";
+    html += "$('usersDeleteForm').addEventListener('submit',async e=>{e.preventDefault();const p=new URLSearchParams(new FormData(e.target));$('usersDeleteToast').textContent='Deleting user...';try{const r=await api('/api/delete-user',p.toString());$('usersDeleteToast').textContent=r.message;}catch(x){$('usersDeleteToast').textContent='Could not contact device';}});</script>";
 
     html += pageEnd();
     sendNoCache();
@@ -429,7 +434,12 @@ namespace local_server
 
   static void handleStatusApi()
   {
+    String systemName = sd_card::getConfigValue("system_name", "Fingerprint RFID Attendance");
+    String workspaceName = sd_card::getConfigValue("workspace_name", "Main");
+
     String json = "{";
+    json += "\"system_name\":\"" + jsonEscape(systemName) + "\",";
+    json += "\"workspace_name\":\"" + jsonEscape(workspaceName) + "\",";
     json += "\"ip\":\"" + jsonEscape(wifi_manager::getIpString()) + "\",";
     json += "\"mode\":\"" + jsonEscape(attendance_manager::getModeText()) + "\",";
     json += "\"users\":" + String(attendance_manager::getUserCount()) + ",";
@@ -442,6 +452,7 @@ namespace local_server
     json += "\"enrollment_busy\":";
     json += (attendance_manager::isEnrollmentBusy() ? "true" : "false");
     json += ",";
+    json += "\"enrollment_state\":\"" + jsonEscape(enrollmentStateText()) + "\",";
     json += "\"battery_percent\":" + String(battery_level::getPercentage()) + ",";
     json += "\"battery_voltage\":" + String(battery_level::getVoltage(), 2) + ",";
     json += "\"error\":\"" + jsonEscape(error_handling::getLastError()) + "\",";

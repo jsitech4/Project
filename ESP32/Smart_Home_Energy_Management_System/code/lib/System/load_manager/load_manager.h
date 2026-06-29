@@ -14,7 +14,10 @@ namespace load_manager
   float getFuzzyRisk();
 
   int getCurrentLoad();
+  int getConfiguredTotalLoad();
   int getEffectiveLimit();
+  int getEffectiveInverterLimit();
+  int getEffectiveSystemLimit();
 
   const char *getDecisionText();
 }

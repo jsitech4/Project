@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "Pins.h"
 #include "error_handling.h"
 #include "gpio_expander/gpio_expander.h"
 #include "pzem_sensor/pzem_sensor.h"
@@ -9,9 +10,23 @@ namespace error_handling
 {
   ErrorCode currentError = NO_ERROR;
 
+  void applyFaultIndicator()
+  {
+    if (!gpio_expander::isReady())
+      return;
+
+    gpio_expander::digitalWrite(Pins::EXP_IND_LED, currentError != NO_ERROR);
+  }
+
   void begin()
   {
     currentError = NO_ERROR;
+
+    if (gpio_expander::isReady())
+    {
+      gpio_expander::pinMode(Pins::EXP_IND_LED, OUTPUT);
+      gpio_expander::digitalWrite(Pins::EXP_IND_LED, false);
+    }
   }
 
   void update()
@@ -23,28 +38,25 @@ namespace error_handling
     }
 
     if (!nepa_sense::isAvailable() && !inverter_sense::isAvailable())
-    {
       currentError = NO_SOURCE_ERROR;
-      return;
-    }
-
-    if (!pzem_sensor::hasValidData())
-    {
+    else if (!pzem_sensor::hasValidData())
       currentError = PZEM_ERROR;
-      return;
-    }
+    else
+      currentError = NO_ERROR;
 
-    currentError = NO_ERROR;
+    applyFaultIndicator();
   }
 
   void setError(ErrorCode error)
   {
     currentError = error;
+    applyFaultIndicator();
   }
 
   void clearError()
   {
     currentError = NO_ERROR;
+    applyFaultIndicator();
   }
 
   bool hasError()

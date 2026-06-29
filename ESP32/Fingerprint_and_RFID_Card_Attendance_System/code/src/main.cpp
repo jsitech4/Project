@@ -28,7 +28,6 @@ void setup()
   oled_screen::showBoot();
 
   buzzer::begin(Pins::BUZZER_PIN);
-
   led_indicator::begin(Pins::STATUS_LED);
 
   error_handling::begin();
@@ -49,18 +48,25 @@ void setup()
   local_server::begin();
   keyboard_input::begin();
 
-  oled_screen::show("System Ready", "Tap card first", "Then fingerprint", "Web: " + wifi_manager::getIpString());
-  oled_screen::showReady(wifi_manager::getIpString());
-
+  oled_screen::show("System Ready",
+                    "Tap card first",
+                    "Then fingerprint",
+                    "Web: " + wifi_manager::getIpString(),
+                    2500);
 }
 
 void loop()
 {
   buttons::update();
   buzzer::update();
+  rtc::update();
   battery_level::update();
+  RFID::update();
+  fingerprint::update();
   wifi_manager::update();
   local_server::update();
+  keyboard_input::update();
+
   error_handling::setBatteryError(battery_level::isLow());
 
   if (battery_level::shouldSleep())
@@ -71,15 +77,15 @@ void loop()
     battery_level::sleepNow();
   }
 
-  rtc::update();
-  RFID::update();
-  fingerprint::update();
   attendance_manager::update();
-  wifi_manager::update();
-  local_server::update();
-  keyboard_input::update();
-  buzzer::update();
-  led_indicator::update();
+
+  if (error_handling::hasError())
+    led_indicator::update("fault");
+  else if (attendance_manager::isEnrollmentBusy())
+    led_indicator::update("active");
+  else
+    led_indicator::update();
+
   oled_screen::update();
   sd_card::update();
   sleep_wake::update();

@@ -21,20 +21,30 @@ namespace load_relay
       Pins::EXP_RELAY_5_LOAD,
       Pins::EXP_RELAY_6_LOAD};
 
-  bool onInverterState[6] = {true, true, true, true, true, true};
-  bool loadEnabledState[6] = {true, true, true, true, true, true};
+  // Fail-safe startup: loads stay OFF until load_manager makes a valid source plan.
+  bool onInverterState[6] = {false, false, false, false, false, false};
+  bool loadEnabledState[6] = {false, false, false, false, false, false};
 
   bool dirty = true;
+  const unsigned int relaySettleDelayMs = 20;
 
   void applyRelay(int index)
   {
     if (!gpio_expander::isReady())
       return;
 
-    bool sourceRelayEnergized = !onInverterState[index];
+    // In this board wiring, source relay energized selects NEPA/PHCN,
+    // and de-energized selects inverter. Keep this single place if hardware changes.
+    bool sourceRelayEnergizedForNEPA = !onInverterState[index];
     bool loadRelayEnergized = loadEnabledState[index];
 
-    gpio_expander::digitalWrite(sourcePins[index], sourceRelayEnergized);
+    // Break-before-make: drop the load before moving the source selector.
+    gpio_expander::digitalWrite(loadPins[index], false);
+    delay(relaySettleDelayMs);
+
+    gpio_expander::digitalWrite(sourcePins[index], sourceRelayEnergizedForNEPA);
+    delay(relaySettleDelayMs);
+
     gpio_expander::digitalWrite(loadPins[index], loadRelayEnergized);
   }
 
@@ -47,6 +57,7 @@ namespace load_relay
     {
       gpio_expander::pinMode(sourcePins[i], OUTPUT);
       gpio_expander::pinMode(loadPins[i], OUTPUT);
+      gpio_expander::digitalWrite(loadPins[i], false);
     }
 
     dirty = true;

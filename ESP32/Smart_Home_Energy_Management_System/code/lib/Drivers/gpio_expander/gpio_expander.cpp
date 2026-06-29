@@ -86,7 +86,7 @@ namespace gpio_expander
   {
     writeWord(REG_POLARITY_0, 0x0000);
 
-    configState = 0xE000;
+    configState = 0xC000;  // P1_6 and P1_7 are source-sense inputs; all relay/fault/regulator pins are outputs.
     outputState = 0x0000;
 
     applyOutput();

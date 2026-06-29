@@ -74,18 +74,22 @@ namespace sd_card
       digitalWrite(Pins::SD_CARD_CS, HIGH);
   }
 
-  static void initializeFiles()
+  static bool initializeFiles()
   {
-    ensureFile(configPath,
-               "system_name=Fingerprint RFID Attendance System\n"
-               "workspace_name=Prototype Workspace\n"
-               "workspace_type=school\n"
-               "ap_ssid=AttendanceSystem\n"
-               "ap_password=12345678\n"
-               "default_mode=IN\n");
+    bool ok = true;
 
-    ensureFile(usersPath, "user_id,name,workspace,rfid_uid,fingerprint_id,active,created_at\n");
-    ensureFile(attendancePath, "timestamp,user_id,name,method,direction,workspace,credential,record_hash\n");
+    ok = ensureFile(configPath,
+                    "system_name=Fingerprint RFID Attendance System\n"
+                    "workspace_name=Prototype Workspace\n"
+                    "workspace_type=school\n"
+                    "ap_ssid=AttendanceSystem\n"
+                    "ap_password=12345678\n"
+                    "default_mode=IN\n") && ok;
+
+    ok = ensureFile(usersPath, "user_id,name,workspace,rfid_uid,fingerprint_id,active,created_at\n") && ok;
+    ok = ensureFile(attendancePath, "timestamp,user_id,name,method,direction,workspace,credential,record_hash\n") && ok;
+
+    return ok;
   }
 
   void begin()
@@ -112,8 +116,14 @@ namespace sd_card
       activeFs = &SD;
       storageName = "SD Card";
       ready = true;
-      initializeFiles();
-      return;
+
+      if (initializeFiles())
+        return;
+
+      // If the SD card mounts but files cannot be created, fall back to internal flash.
+      ready = false;
+      activeFs = nullptr;
+      storageName = "None";
     }
 
     prepareStorageBus();
@@ -122,10 +132,15 @@ namespace sd_card
     if (internalReady)
     {
       activeFs = &LittleFS;
-      storageName = "Internal Flash";
+      storageName = sdReady ? "Internal Flash (SD fallback)" : "Internal Flash";
       ready = true;
-      initializeFiles();
-      return;
+
+      if (initializeFiles())
+        return;
+
+      ready = false;
+      activeFs = nullptr;
+      storageName = "None";
     }
 
     ready = false;

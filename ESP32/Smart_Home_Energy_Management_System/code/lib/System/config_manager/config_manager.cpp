@@ -8,7 +8,8 @@ namespace config_manager
 
   int relayPower[6] = {500, 700, 900, 1200, 1500, 2000};
   int inverterPower = 5000;
-  int loadMarginPercent = 90;
+  int systemPower = 10000;      // NEPA/PHCN capacity used when NEPA is the selected source.
+  int loadMarginPercent = 90;   // Applied to both inverter and NEPA/system power limits.
 
   bool configured = false;
 
@@ -39,9 +40,11 @@ namespace config_manager
     }
 
     inverterPower = prefs.getInt("inv", inverterPower);
+    systemPower = prefs.getInt("sys", prefs.getInt("nepa", systemPower));
     loadMarginPercent = prefs.getInt("margin", loadMarginPercent);
 
     inverterPower = clampValue(inverterPower, 100, 50000);
+    systemPower = clampValue(systemPower, 100, 50000);
     loadMarginPercent = clampValue(loadMarginPercent, 50, 100);
   }
 
@@ -61,9 +64,11 @@ namespace config_manager
     }
 
     inverterPower = clampValue(inverterPower, 100, 50000);
+    systemPower = clampValue(systemPower, 100, 50000);
     loadMarginPercent = clampValue(loadMarginPercent, 50, 100);
 
     prefs.putInt("inv", inverterPower);
+    prefs.putInt("sys", systemPower);
     prefs.putInt("margin", loadMarginPercent);
 
     prefs.putBool("configured", true);
@@ -80,6 +85,7 @@ namespace config_manager
     relayPower[5] = 2000;
 
     inverterPower = 5000;
+    systemPower = 10000;
     loadMarginPercent = 90;
 
     save();
@@ -109,6 +115,16 @@ namespace config_manager
   void setInverterPower(int value)
   {
     inverterPower = clampValue(value, 100, 50000);
+  }
+
+  int getSystemPower()
+  {
+    return systemPower;
+  }
+
+  void setSystemPower(int value)
+  {
+    systemPower = clampValue(value, 100, 50000);
   }
 
   int getLoadMarginPercent()

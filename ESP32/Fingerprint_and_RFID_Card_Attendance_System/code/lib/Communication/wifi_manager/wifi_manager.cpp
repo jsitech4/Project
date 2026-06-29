@@ -1,12 +1,10 @@
 #include <Arduino.h>
 #include <WiFi.h>
-#include <WebServer.h>
 #include "wifi_manager.h"
 #include "sd_card/sd_card.h"
 
 namespace wifi_manager
 {
-  WebServer server(80);
   static bool ready = false;
   static String ssid = "AttendanceSystem";
   static String password = "12345678";

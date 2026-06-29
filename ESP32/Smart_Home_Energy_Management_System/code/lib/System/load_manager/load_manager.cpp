@@ -9,14 +9,17 @@
 
 namespace load_manager
 {
-  bool onInverter[6] = {true, true, true, true, true, true};
-  bool loadEnabled[6] = {true, true, true, true, true, true};
+  bool onInverter[6] = {false, false, false, false, false, false};
+  bool loadEnabled[6] = {false, false, false, false, false, false};
 
   float loadRatio = 0.0f;
   float fuzzyRisk = 0.0f;
 
   int currentLoad = 0;
+  int configuredTotalLoad = 0;
   int effectiveLimit = 0;
+  int effectiveInverterLimit = 0;
+  int effectiveSystemLimit = 0;
 
   const char *decisionText = "STARTING";
 
@@ -56,52 +59,88 @@ namespace load_manager
     return (b - x) / (b - a);
   }
 
-  void setAllLoads(bool enabled, bool inverter)
+  int calculateConfiguredTotalLoad()
   {
+    int total = 0;
+
     for (int i = 0; i < 6; i++)
-    {
-      loadEnabled[i] = enabled;
-      onInverter[i] = inverter;
-    }
+      total += config_manager::getRelayPower(i);
+
+    return total;
   }
 
-  void chooseLoadsForInverter(int limit)
+  int applyMargin(int ratingWatts)
   {
-    int power[6];
+    long result = ((long)ratingWatts * (long)config_manager::getLoadMarginPercent()) / 100L;
+
+    if (result < 1)
+      result = 1;
+
+    if (result > 50000)
+      result = 50000;
+
+    return (int)result;
+  }
+
+  int countMaskBits(int mask)
+  {
+    int count = 0;
 
     for (int i = 0; i < 6; i++)
-      power[i] = config_manager::getRelayPower(i);
+    {
+      if (mask & (1 << i))
+        count++;
+    }
+
+    return count;
+  }
+
+  int sumMaskPower(int mask)
+  {
+    int sum = 0;
+
+    for (int i = 0; i < 6; i++)
+    {
+      if (mask & (1 << i))
+        sum += config_manager::getRelayPower(i);
+    }
+
+    return sum;
+  }
+
+  int chooseLowestPowerPriorityMask(int availableMask, int limit)
+  {
+    if (limit <= 0 || availableMask == 0)
+      return 0;
 
     int bestMask = 0;
     long bestScore = -2147483647L;
 
     for (int mask = 0; mask < 64; mask++)
     {
+      if ((mask & availableMask) != mask)
+        continue;
+
       int sum = 0;
-      long priorityScore = 0;
+      int selectedCount = 0;
+      long lowPowerPriority = 0;
 
       for (int i = 0; i < 6; i++)
       {
         if (mask & (1 << i))
         {
-          sum += power[i];
-          priorityScore += 20000L - (long)power[i];
+          int power = config_manager::getRelayPower(i);
+          sum += power;
+          selectedCount++;
+          lowPowerPriority += (20000L - (long)power);
         }
       }
 
       if (sum > limit)
         continue;
 
-      long utilizationScore = sum * 2L;
-      long loadCountScore = 0;
-
-      for (int i = 0; i < 6; i++)
-      {
-        if (mask & (1 << i))
-          loadCountScore += 500L;
-      }
-
-      long score = priorityScore + utilizationScore + loadCountScore;
+      // Lower-power relays win first, then more enabled loads, then better use of the available source.
+      long score = (lowPowerPriority * 100L) + (selectedCount * 10000L) + sum;
 
       if (score > bestScore)
       {
@@ -110,10 +149,27 @@ namespace load_manager
       }
     }
 
+    return bestMask;
+  }
+
+  void clearPlan()
+  {
     for (int i = 0; i < 6; i++)
     {
-      loadEnabled[i] = true;
-      onInverter[i] = (bestMask & (1 << i)) != 0;
+      loadEnabled[i] = false;
+      onInverter[i] = false;
+    }
+  }
+
+  void enableMask(int mask, bool inverterSource)
+  {
+    for (int i = 0; i < 6; i++)
+    {
+      if (mask & (1 << i))
+      {
+        loadEnabled[i] = true;
+        onInverter[i] = inverterSource;
+      }
     }
   }
 
@@ -128,6 +184,11 @@ namespace load_manager
 
   void updateFuzzyRisk()
   {
+    if (effectiveLimit < 1)
+      effectiveLimit = 1;
+
+    loadRatio = (float)currentLoad / (float)effectiveLimit;
+
     float safeLoad = fallingMembership(loadRatio, 0.70f, 0.90f);
 
     float warningLoad = 1.0f - fabs(loadRatio - 0.95f) / 0.25f;
@@ -143,9 +204,76 @@ namespace load_manager
     fuzzyRisk = clampFloat(fuzzyRisk, 0.0f, 1.0f);
   }
 
+  bool allConfiguredLoadsCovered()
+  {
+    int enabledPower = 0;
+
+    for (int i = 0; i < 6; i++)
+    {
+      if (loadEnabled[i])
+        enabledPower += config_manager::getRelayPower(i);
+    }
+
+    return enabledPower >= configuredTotalLoad;
+  }
+
+  void planSources(bool nepaAvailable, bool inverterAvailable)
+  {
+    const int allLoadsMask = 0x3F;
+
+    clearPlan();
+
+    if (!nepaAvailable && !inverterAvailable)
+    {
+      decisionText = "NO SOURCE";
+      return;
+    }
+
+    if (nepaAvailable)
+    {
+      // NEPA/PHCN is always the primary source. Fill it first with lower-power loads.
+      int nepaMask = chooseLowestPowerPriorityMask(allLoadsMask, effectiveSystemLimit);
+      enableMask(nepaMask, false);
+
+      int remainingMask = allLoadsMask & ~nepaMask;
+
+      if (remainingMask != 0 && inverterAvailable)
+      {
+        int inverterMask = chooseLowestPowerPriorityMask(remainingMask, effectiveInverterLimit);
+        enableMask(inverterMask, true);
+      }
+
+      if (allConfiguredLoadsCovered())
+      {
+        if (remainingMask == 0)
+          decisionText = inverterAvailable ? "NEPA PRIORITY" : "NEPA ONLY";
+        else
+          decisionText = "NEPA + INVERTER";
+      }
+      else
+      {
+        decisionText = inverterAvailable ? "LIMITED SOURCES" : "NEPA LOAD SHED";
+      }
+
+      return;
+    }
+
+    // If NEPA is down, use inverter as backup. Lower-power loads receive priority.
+    if (inverterAvailable)
+    {
+      int inverterMask = chooseLowestPowerPriorityMask(allLoadsMask, effectiveInverterLimit);
+      enableMask(inverterMask, true);
+
+      if (allConfiguredLoadsCovered())
+        decisionText = "INVERTER ONLY";
+      else
+        decisionText = "INV LOAD SHED";
+    }
+  }
+
   void begin()
   {
-    setAllLoads(true, true);
+    clearPlan();
     decisionText = "READY";
     applyDecision();
   }
@@ -159,63 +287,23 @@ namespace load_manager
 
     lastUpdate = now;
 
-    currentLoad = pzem_sensor::getTotalPower();
+    configuredTotalLoad = calculateConfiguredTotalLoad();
 
-    int inverterLimit = config_manager::getInverterPower();
-    int margin = config_manager::getLoadMarginPercent();
+    if (pzem_sensor::hasValidData())
+      currentLoad = pzem_sensor::getTotalPower();
+    else
+      currentLoad = configuredTotalLoad;
 
-    effectiveLimit = (inverterLimit * margin) / 100;
-
-    if (effectiveLimit < 1)
-      effectiveLimit = 1;
-
-    loadRatio = (float)currentLoad / (float)effectiveLimit;
-    updateFuzzyRisk();
+    effectiveInverterLimit = applyMargin(config_manager::getInverterPower());
+    effectiveSystemLimit = applyMargin(config_manager::getSystemPower());
 
     bool nepaAvailable = nepa_sense::isAvailable();
     bool inverterAvailable = inverter_sense::isAvailable();
-    bool sensorValid = pzem_sensor::hasValidData();
 
-    if (!nepaAvailable && !inverterAvailable)
-    {
-      setAllLoads(false, true);
-      decisionText = "NO SOURCE";
-    }
-    else if (!inverterAvailable && nepaAvailable)
-    {
-      setAllLoads(true, false);
-      decisionText = "INVERTER OFF";
-    }
-    else if (inverterAvailable && !nepaAvailable)
-    {
-      setAllLoads(true, true);
+    effectiveLimit = nepaAvailable ? effectiveSystemLimit : effectiveInverterLimit;
+    updateFuzzyRisk();
 
-      if (sensorValid && loadRatio >= 1.0f)
-        decisionText = "OVERLOAD NO GRID";
-      else
-        decisionText = "GRID OFF";
-    }
-    else if (!sensorValid)
-    {
-      setAllLoads(true, false);
-      decisionText = "PZEM ERROR";
-    }
-    else if (loadRatio >= 1.0f)
-    {
-      chooseLoadsForInverter(effectiveLimit);
-      decisionText = "SHEDDING TO GRID";
-    }
-    else if (loadRatio >= 0.90f && fuzzyRisk >= 0.55f)
-    {
-      chooseLoadsForInverter(effectiveLimit);
-      decisionText = "FUZZY OPTIMIZED";
-    }
-    else
-    {
-      setAllLoads(true, true);
-      decisionText = "NORMAL";
-    }
-
+    planSources(nepaAvailable, inverterAvailable);
     applyDecision();
   }
 
@@ -250,9 +338,24 @@ namespace load_manager
     return currentLoad;
   }
 
+  int getConfiguredTotalLoad()
+  {
+    return configuredTotalLoad;
+  }
+
   int getEffectiveLimit()
   {
     return effectiveLimit;
+  }
+
+  int getEffectiveInverterLimit()
+  {
+    return effectiveInverterLimit;
+  }
+
+  int getEffectiveSystemLimit()
+  {
+    return effectiveSystemLimit;
   }
 
   const char *getDecisionText()

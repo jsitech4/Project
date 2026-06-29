@@ -174,7 +174,7 @@ namespace oled_screen
             const String &line1,
             const String &line2,
             const String &line3,
-            uint32_t duration = 0)
+            uint32_t duration)
   {
     titleText = title;
     lineText1 = line1;

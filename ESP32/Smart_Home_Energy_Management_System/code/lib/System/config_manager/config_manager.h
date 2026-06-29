@@ -6,6 +6,7 @@ namespace config_manager
 {
   void begin();
   void update();
+
   void save();
   void resetDefaults();
 
@@ -14,6 +15,9 @@ namespace config_manager
 
   int getInverterPower();
   void setInverterPower(int value);
+
+  int getSystemPower();
+  void setSystemPower(int value);
 
   int getLoadMarginPercent();
   void setLoadMarginPercent(int value);

@@ -54,9 +54,10 @@ namespace lcd_screen
       "WiFi Info",
       "Exit"};
 
-  const int systemItemCount = 3;
+  const int systemItemCount = 4;
   const char *systemItems[systemItemCount] = {
-      "Inverter Power",
+      "Inverter Limit",
+      "NEPA Limit",
       "Load Margin",
       "Save & Exit"};
 
@@ -270,7 +271,7 @@ namespace lcd_screen
 
     for (int i = 0; i < systemItemCount; i++)
     {
-      int y = 25 + (i * 13);
+      int y = 22 + (i * 10);
 
       if (i == systemIndex)
       {
@@ -281,7 +282,7 @@ namespace lcd_screen
       u8g2.setCursor(5, y);
       u8g2.print(systemItems[i]);
 
-      u8g2.setCursor(90, y);
+      u8g2.setCursor(82, y);
 
       if (i == 0)
       {
@@ -289,6 +290,11 @@ namespace lcd_screen
         u8g2.print("W");
       }
       else if (i == 1)
+      {
+        u8g2.print(config_manager::getSystemPower());
+        u8g2.print("W");
+      }
+      else if (i == 2)
       {
         u8g2.print(config_manager::getLoadMarginPercent());
         u8g2.print("%");
@@ -390,6 +396,12 @@ namespace lcd_screen
         config_manager::setInverterPower(value);
       }
       else if (systemIndex == 1)
+      {
+        int value = config_manager::getSystemPower();
+        value += dir > 0 ? 100 : -100;
+        config_manager::setSystemPower(value);
+      }
+      else if (systemIndex == 2)
       {
         int value = config_manager::getLoadMarginPercent();
         value += dir > 0 ? 1 : -1;

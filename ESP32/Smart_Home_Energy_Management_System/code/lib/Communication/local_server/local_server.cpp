@@ -9,12 +9,13 @@
 #include "load_manager/load_manager.h"
 #include "nepa_sense/nepa_sense.h"
 #include "inverter_sense/inverter_sense.h"
+#include "load_relay/load_relay.h"
 
 namespace local_server
 {
   WebServer server(80);
 
-  const char *apSsid = "Smart_Home_Energy_Management_System";
+  const char *apSsid = "SHEMS-Controller";
   const char *apPassword = "12345678";
 
   String ipAddress = "0.0.0.0";
@@ -495,7 +496,12 @@ namespace local_server
           <div class="grid">
             <div class="box">
               <div class="label">Inverter Power Rating W</div>
-              <input id="invInput" name="inv" type="number" min="500" max="20000" value="5000">
+              <input id="invInput" name="inv" type="number" min="500" max="50000" value="5000">
+            </div>
+
+            <div class="box">
+              <div class="label">NEPA / System Power Rating W</div>
+              <input id="sysInput" name="sys" type="number" min="500" max="50000" value="10000">
             </div>
 
             <div class="box">
@@ -564,7 +570,7 @@ namespace local_server
         setText('voltage', Number(d.voltage).toFixed(1) + 'V');
         setText('current', Number(d.current).toFixed(2) + 'A');
         setText('power', Number(d.power).toFixed(0) + 'W');
-        setText('energy', Number(d.energy).toFixed(2) + 'Wh');
+        setText('energy', Number(d.energy).toFixed(3) + 'kWh');
 
         setText('effectiveLimit', d.effectiveLimit + 'W');
         setText('decision', d.decision);
@@ -576,6 +582,7 @@ namespace local_server
 
         if(!formLoaded){
           setInput('invInput', d.inverterPower);
+          setInput('sysInput', d.systemPower);
           setInput('marginInput', d.loadMargin);
 
           for(let i = 0; i < d.relays.length; i++){
@@ -614,9 +621,12 @@ namespace local_server
     return state ? "AVAILABLE" : "NOT AVAILABLE";
   }
 
-  String relaySourceText(bool state)
+  String relaySourceText(bool onInverter, bool enabled)
   {
-    return state ? "INVERTER" : "PHCN";
+    if (!enabled)
+      return "OFF";
+
+    return onInverter ? "INVERTER" : "NEPA";
   }
 
   String statusJson()
@@ -647,8 +657,20 @@ namespace local_server
     data += String(config_manager::getInverterPower());
     data += ",";
 
+    data += "\"systemPower\":";
+    data += String(config_manager::getSystemPower());
+    data += ",";
+
     data += "\"effectiveLimit\":";
     data += String(load_manager::getEffectiveLimit());
+    data += ",";
+
+    data += "\"effectiveInverterLimit\":";
+    data += String(load_manager::getEffectiveInverterLimit());
+    data += ",";
+
+    data += "\"effectiveSystemLimit\":";
+    data += String(load_manager::getEffectiveSystemLimit());
     data += ",";
 
     data += "\"loadMargin\":";
@@ -686,8 +708,11 @@ namespace local_server
       data += "\"power\":";
       data += String(config_manager::getRelayPower(i));
       data += ",";
+      data += "\"enabled\":";
+      data += load_manager::isLoadEnabled(i) ? "true" : "false";
+      data += ",";
       data += "\"source\":\"";
-      data += relaySourceText(load_manager::isOnInverter(i));
+      data += relaySourceText(load_manager::isOnInverter(i), load_manager::isLoadEnabled(i));
       data += "\"";
       data += "}";
 
@@ -716,6 +741,9 @@ namespace local_server
     if (server.hasArg("inv"))
       config_manager::setInverterPower(server.arg("inv").toInt());
 
+    if (server.hasArg("sys"))
+      config_manager::setSystemPower(server.arg("sys").toInt());
+
     if (server.hasArg("margin"))
       config_manager::setLoadMarginPercent(server.arg("margin").toInt());
 
@@ -733,6 +761,21 @@ namespace local_server
     server.send(303);
   }
 
+
+  void handleResetEnergy()
+  {
+    pzem_sensor::resetEnergy();
+    server.sendHeader("Location", "/");
+    server.send(303);
+  }
+
+  void handleDefaults()
+  {
+    config_manager::resetDefaults();
+    server.sendHeader("Location", "/");
+    server.send(303);
+  }
+
   void begin()
   {
     WiFi.mode(WIFI_AP);
@@ -742,7 +785,10 @@ namespace local_server
 
     server.on("/", sendHome);
     server.on("/status", sendStatus);
+    server.on("/api/status", sendStatus);
     server.on("/save", handleSave);
+    server.on("/resetEnergy", handleResetEnergy);
+    server.on("/defaults", handleDefaults);
 
     server.begin();
   }
