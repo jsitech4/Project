@@ -52,12 +52,6 @@ void setup()
   oled_screen::show("System Ready", "Tap card first", "Then fingerprint", "Web: " + wifi_manager::getIpString());
   oled_screen::showReady(wifi_manager::getIpString());
 
-  Serial.println();
-  Serial.println("Fingerprint RFID Attendance System Prototype");
-  Serial.println("Verification: RFID card AND fingerprint");
-  Serial.println("AP SSID: " + wifi_manager::getSSID());
-  Serial.println("AP PASS: " + wifi_manager::getPassword());
-  Serial.println("Web URL: http://" + wifi_manager::getIpString());
 }
 
 void loop()

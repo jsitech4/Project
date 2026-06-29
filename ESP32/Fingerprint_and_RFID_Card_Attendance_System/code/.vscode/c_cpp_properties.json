@@ -10,10 +10,10 @@
             "includePath": [
                 "c:/Users/USER/Documents/Raymond/Kicad Design/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/src",
                 "C:/Users/USER/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
-                "C:/Users/USER/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                 "C:/Users/USER/.platformio/packages/framework-arduinoespressif32/libraries/SD/src",
                 "C:/Users/USER/.platformio/packages/framework-arduinoespressif32/libraries/LittleFS/src",
                 "C:/Users/USER/.platformio/packages/framework-arduinoespressif32/libraries/FS/src",
+                "C:/Users/USER/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                 "c:/Users/USER/Documents/Raymond/Kicad Design/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/.pio/libdeps/esp32-s3-devkitm-1/MFRC522/src",
                 "c:/Users/USER/Documents/Raymond/Kicad Design/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/.pio/libdeps/esp32-s3-devkitm-1/Adafruit Fingerprint Sensor Library",
                 "c:/Users/USER/Documents/Raymond/Kicad Design/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/.pio/libdeps/esp32-s3-devkitm-1/RTClib/src",
@@ -258,10 +258,10 @@
                 "path": [
                     "c:/Users/USER/Documents/Raymond/Kicad Design/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/src",
                     "C:/Users/USER/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
-                    "C:/Users/USER/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                     "C:/Users/USER/.platformio/packages/framework-arduinoespressif32/libraries/SD/src",
                     "C:/Users/USER/.platformio/packages/framework-arduinoespressif32/libraries/LittleFS/src",
                     "C:/Users/USER/.platformio/packages/framework-arduinoespressif32/libraries/FS/src",
+                    "C:/Users/USER/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                     "c:/Users/USER/Documents/Raymond/Kicad Design/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/.pio/libdeps/esp32-s3-devkitm-1/MFRC522/src",
                     "c:/Users/USER/Documents/Raymond/Kicad Design/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/.pio/libdeps/esp32-s3-devkitm-1/Adafruit Fingerprint Sensor Library",
                     "c:/Users/USER/Documents/Raymond/Kicad Design/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/.pio/libdeps/esp32-s3-devkitm-1/RTClib/src",

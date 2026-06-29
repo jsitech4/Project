@@ -7,8 +7,10 @@ namespace oled_screen
 {
   void begin();
   void update();
-
-  void show(const String &title, const String &line1, const String &line2, const String &line3);
+  void drawBatteryBar();
+  void drawNetworkIcon();
+  void drawTopIcons();
+  void show(const String &title, const String &line1, const String &line2, const String &line3, uint32_t duration);
 
   void showBoot();
   void showReady(const String &ip);

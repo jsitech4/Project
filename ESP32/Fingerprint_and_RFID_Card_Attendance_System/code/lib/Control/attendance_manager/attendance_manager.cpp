@@ -32,7 +32,7 @@ namespace attendance_manager
   static Mode currentMode = MODE_IN;
   static EnrollmentState enrollmentState = ENROLL_IDLE;
   static AuthState authState = AUTH_IDLE;
-
+  bool readyScreen = false;
   static String pendingUserId;
   static String pendingName;
   static String pendingWorkspace;
@@ -629,6 +629,11 @@ namespace attendance_manager
     lastMessage = "Mode set to " + getModeText();
     oled_screen::show("Mode Changed", "Attendance mode", getModeText(), "Tap card first");
     buzzer::beep();
+  }
+
+  bool screenUpdate()
+  {
+    readyScreen = true;
   }
 
   Mode getMode()

@@ -139,7 +139,7 @@ namespace local_server
     html += "<div class='card mini'><div class='label'>Users / Records</div><div class='value'><span id='users'>" + String(attendance_manager::getUserCount()) + "</span> / <span id='records'>" + String(attendance_manager::getAttendanceCount()) + "</span></div><div class='muted'>Registered users / logs</div></div>";
     html += "</section>";
 
-    html += "<section class='card'><div class='label'>Last Event</div><div class='value' id='lastMessage'>" + htmlEscape(attendance_manager::getLastMessage()) + "</div><p class='muted'><span id='enrollment'></span>Battery: <span id='battery'>" + String(battery_level::getPercentage()) + "%</span></p></section>";
+    html += "<section class='card'><div class='label'>Last Event</div><div class='value' id='lastMessage'></div><p class='muted'><span id='enrollment'></span>Battery: <span id='battery'>" + String(battery_level::getPercentage()) + "%</span></p></section>";
 
     html += "<section class='split'>";
     html += "<div class='card'><h3>Register User</h3><form id='enrollForm' action='/enroll' method='get'>";
@@ -147,7 +147,7 @@ namespace local_server
     html += "<label>Full Name</label><input name='name' placeholder='Full name' autocomplete='name' required>";
     html += "<label>Class / Department / Workspace</label><input name='workspace' placeholder='Main' value='Main' autocomplete='off'>";
     html += "<button type='submit'>Start Registration</button><div class='toast' id='enrollToast'></div></form>";
-    html += "<p class='muted'>The page stays open while you type. After pressing Start, tap RFID card, then place finger when the OLED asks.</p></div>";
+    html += "<p class='muted'></p></div>";
 
     html += "<div class='card'><h3>Attendance Mode</h3><div class='actions'>";
     html += "<form class='modeForm' data-mode='IN'><button type='submit'>Clock In</button></form>";
@@ -163,7 +163,7 @@ namespace local_server
     html += "const $=id=>document.getElementById(id);";
     html += "async function api(path,params){const r=await fetch(path+(params?'?'+params:''),{cache:'no-store'});return await r.json();}";
     html += "function cls(el,state){el.classList.remove('ok','warn','bad');el.classList.add(state);}";
-    html += "async function refreshStatus(){try{const s=await api('/api/status','');$('mode').textContent=s.mode;$('users').textContent=s.users;$('records').textContent=s.attendance_records;$('storage').textContent=s.storage;cls($('storage'),s.storage_class);$('lastMessage').textContent=s.last_message;$('enrollment').textContent=s.enrollment_state;$('battery').textContent=s.battery_percent+'%';}catch(e){}}";
+    html += "async function refreshStatus(){try{const s=await api('/api/status','');$('mode').textContent=s.mode;$('users').textContent=s.users;$('records').textContent=s.attendance_records;$('storage').textContent=s.storage;cls($('storage'),s.storage_class);$('lastMessage').textContent=s.last_message;$('battery').textContent=s.battery_percent+'%';}catch(e){}}";
     html += "setInterval(refreshStatus,2500);refreshStatus();";
     html += "$('enrollForm').addEventListener('submit',async e=>{e.preventDefault();const p=new URLSearchParams(new FormData(e.target));$('enrollToast').textContent='Starting registration...';try{const r=await api('/api/enroll',p.toString());$('enrollToast').textContent=r.message;refreshStatus();}catch(x){$('enrollToast').textContent='Could not contact device';}});";
     html += "document.querySelectorAll('.modeForm').forEach(f=>f.addEventListener('submit',async e=>{e.preventDefault();const p=new URLSearchParams();p.set('mode',f.dataset.mode);$('modeToast').textContent='Updating mode...';try{const r=await api('/api/set-mode',p.toString());$('modeToast').textContent=r.message;refreshStatus();}catch(x){$('modeToast').textContent='Could not contact device';}}));";
@@ -442,7 +442,6 @@ namespace local_server
     json += "\"enrollment_busy\":";
     json += (attendance_manager::isEnrollmentBusy() ? "true" : "false");
     json += ",";
-    json += "\"enrollment_state\":\"" + enrollmentStateText() + "\",";
     json += "\"battery_percent\":" + String(battery_level::getPercentage()) + ",";
     json += "\"battery_voltage\":" + String(battery_level::getVoltage(), 2) + ",";
     json += "\"error\":\"" + jsonEscape(error_handling::getLastError()) + "\",";

@@ -8,9 +8,8 @@ namespace wifi_manager
 {
   void begin();
   void update();
-
+  bool isConnected();
   bool isReady();
-
   String getSSID();
   String getPassword();
   String getIpString();
