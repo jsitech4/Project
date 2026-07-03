@@ -48,7 +48,7 @@ namespace RFID
         Pins::RC522_SS);
 
     reader.PCD_Init(Pins::RC522_SS, Pins::RC522_RST);
-    delay(50);
+    yield();
 
     byte version = reader.PCD_ReadRegister(MFRC522::VersionReg);
 

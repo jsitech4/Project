@@ -18,11 +18,20 @@ namespace pzem_sensor
   bool validData = false;
 
   unsigned long lastUpdate = 0;
-  const unsigned long updateInterval = 1000;
+  const unsigned long normalUpdateInterval = 1000;
+  const unsigned long retryUpdateInterval = 3000;
+  uint8_t consecutiveFailures = 0;
 
   bool validNumber(float value)
   {
     return !isnan(value) && isfinite(value) && value >= 0.0f;
+  }
+
+  void clearLiveValues()
+  {
+    voltage = 0.0f;
+    current = 0.0f;
+    power = 0.0f;
   }
 
   void begin()
@@ -31,32 +40,51 @@ namespace pzem_sensor
     ready = true;
     validData = false;
     lastUpdate = 0;
+    consecutiveFailures = 0;
   }
 
   void update()
   {
     unsigned long now = millis();
+    unsigned long interval = validData ? normalUpdateInterval : retryUpdateInterval;
 
-    if (now - lastUpdate < updateInterval)
+    if (lastUpdate != 0 && now - lastUpdate < interval)
       return;
 
     lastUpdate = now;
 
+    // Important: pzem.voltage() performs one full register read inside the library.
+    // If the PZEM is missing, every getter can wait for the serial timeout. So try
+    // voltage first and do not call the other getters after a failed read.
     float v = pzem.voltage();
+
+    if (!validNumber(v))
+    {
+      validData = false;
+      clearLiveValues();
+
+      if (consecutiveFailures < 255)
+        consecutiveFailures++;
+
+      return;
+    }
+
     float c = pzem.current();
     float p = pzem.power();
     float e = pzem.energy();
     float f = pzem.frequency();
     float pf = pzem.pf();
 
-    bool ok = validNumber(v) && validNumber(c) && validNumber(p);
+    bool ok = validNumber(c) && validNumber(p);
 
     if (!ok)
     {
       validData = false;
-      voltage = 0.0f;
-      current = 0.0f;
-      power = 0.0f;
+      clearLiveValues();
+
+      if (consecutiveFailures < 255)
+        consecutiveFailures++;
+
       return;
     }
 
@@ -74,6 +102,7 @@ namespace pzem_sensor
       powerFactor = pf;
 
     validData = true;
+    consecutiveFailures = 0;
   }
 
   float getVoltage()

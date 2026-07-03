@@ -17,10 +17,13 @@
 #include "attendance_manager/attendance_manager.h"
 #include "keyboard_input/keyboard_input.h"
 
+static bool lowBatteryShutdownPending = false;
+static unsigned long lowBatteryShutdownAt = 0;
+
 void setup()
 {
   Serial.begin(115200);
-  delay(500);
+  yield();
 
   Pins::begin();
 
@@ -57,6 +60,8 @@ void setup()
 
 void loop()
 {
+  unsigned long now = millis();
+
   buttons::update();
   buzzer::update();
   rtc::update();
@@ -69,13 +74,15 @@ void loop()
 
   error_handling::setBatteryError(battery_level::isLow());
 
-  if (battery_level::shouldSleep())
+  if (battery_level::shouldSleep() && !lowBatteryShutdownPending)
   {
+    lowBatteryShutdownPending = true;
+    lowBatteryShutdownAt = now + 1500;
     oled_screen::showError("Low Battery");
-    oled_screen::update();
-    delay(1500);
-    battery_level::sleepNow();
   }
+
+  if (lowBatteryShutdownPending && (long)(now - lowBatteryShutdownAt) >= 0)
+    battery_level::sleepNow();
 
   attendance_manager::update();
 

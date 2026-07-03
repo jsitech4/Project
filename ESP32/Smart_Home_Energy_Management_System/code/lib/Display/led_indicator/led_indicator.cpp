@@ -1,6 +1,11 @@
 #include <Arduino.h>
 #include "led_indicator.h"
 
+#if defined(ESP32)
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#endif
+
 namespace led_indicator
 {
   int ledPin = 2;
@@ -9,34 +14,52 @@ namespace led_indicator
   const int pwmFreq = 5000;
   const int pwmResolution = 8;
 
-  int brightness = 0;
-  bool rising = true;
+  volatile int brightness = 0;
+  volatile bool rising = true;
 
   unsigned long lastUpdate = 0;
   const unsigned long stepTime = 4;
 
-  int pulseCount = 0;
+  volatile int pulseCount = 0;
 
-  bool inPause = false;
+  volatile bool inPause = false;
   unsigned long pauseStart = 0;
   const unsigned long pauseDuration = 700;
 
-  bool enabled = true;
+  volatile bool enabled = true;
 
-  void begin(int pin)
+#if defined(ESP32)
+  TaskHandle_t ledTaskHandle = nullptr;
+  bool taskRunning = false;
+#endif
+
+  void writeBrightness(int value)
   {
-    ledPin = pin;
+    static int lastWritten = -1;
 
-    ledcSetup(pwmChannel, pwmFreq, pwmResolution);
-    ledcAttachPin(ledPin, pwmChannel);
-    ledcWrite(pwmChannel, 0);
+    if (value == lastWritten)
+      return;
+
+    ledcWrite(pwmChannel, value);
+    lastWritten = value;
   }
 
-  void update()
+  void resetBreathState()
+  {
+    brightness = 0;
+    rising = true;
+    pulseCount = 0;
+    inPause = false;
+    lastUpdate = millis();
+    pauseStart = 0;
+    writeBrightness(0);
+  }
+
+  void serviceBreath()
   {
     if (!enabled)
     {
-      ledcWrite(pwmChannel, 0);
+      resetBreathState();
       return;
     }
 
@@ -48,6 +71,7 @@ namespace led_indicator
         return;
 
       inPause = false;
+      lastUpdate = now;
     }
 
     if (now - lastUpdate < stepTime)
@@ -55,23 +79,25 @@ namespace led_indicator
 
     lastUpdate = now;
 
+    int nextBrightness = brightness;
+
     if (rising)
     {
-      brightness += 8;
+      nextBrightness += 8;
 
-      if (brightness >= 255)
+      if (nextBrightness >= 255)
       {
-        brightness = 255;
+        nextBrightness = 255;
         rising = false;
       }
     }
     else
     {
-      brightness -= 10;
+      nextBrightness -= 10;
 
-      if (brightness <= 0)
+      if (nextBrightness <= 0)
       {
-        brightness = 0;
+        nextBrightness = 0;
         rising = true;
         pulseCount++;
 
@@ -84,7 +110,57 @@ namespace led_indicator
       }
     }
 
-    ledcWrite(pwmChannel, brightness);
+    brightness = nextBrightness;
+    writeBrightness(nextBrightness);
+  }
+
+#if defined(ESP32)
+  void ledTask(void *parameter)
+  {
+    (void)parameter;
+
+    for (;;)
+    {
+      serviceBreath();
+      vTaskDelay(pdMS_TO_TICKS(2));
+    }
+  }
+#endif
+
+  void begin(int pin)
+  {
+    ledPin = pin;
+
+    ledcSetup(pwmChannel, pwmFreq, pwmResolution);
+    ledcAttachPin(ledPin, pwmChannel);
+    ledcWrite(pwmChannel, 0);
+    resetBreathState();
+
+#if defined(ESP32)
+    if (ledTaskHandle == nullptr)
+    {
+      BaseType_t ok = xTaskCreatePinnedToCore(
+          ledTask,
+          "HeartbeatLED",
+          2048,
+          nullptr,
+          2,
+          &ledTaskHandle,
+          1);
+
+      taskRunning = (ok == pdPASS);
+    }
+#endif
+  }
+
+  void update()
+  {
+#if defined(ESP32)
+    if (taskRunning)
+      return;
+#endif
+
+    serviceBreath();
   }
 
   void setEnabled(bool state)
@@ -92,13 +168,7 @@ namespace led_indicator
     enabled = state;
 
     if (!enabled)
-    {
-      brightness = 0;
-      rising = true;
-      pulseCount = 0;
-      inPause = false;
-      ledcWrite(pwmChannel, 0);
-    }
+      resetBreathState();
   }
 
   bool isEnabled()

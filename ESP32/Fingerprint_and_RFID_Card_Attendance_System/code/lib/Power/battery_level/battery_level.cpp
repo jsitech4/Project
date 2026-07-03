@@ -45,13 +45,15 @@ namespace battery_level
   {
     uint32_t sum = 0;
 
-    for (uint8_t i = 0; i < 20; i++)
+    const uint8_t samples = 12;
+
+    for (uint8_t i = 0; i < samples; i++)
     {
       sum += analogRead(Pins::BATTERY_ADC);
-      delayMicroseconds(200);
+      yield();
     }
 
-    rawValue = sum / 20;
+    rawValue = sum / samples;
 
     float adcVoltage = (rawValue * adcRef) / adcMax;
     voltage = adcVoltage * dividerRatio;
@@ -149,8 +151,6 @@ namespace battery_level
   {
     // Serial.println("Low battery. Entering deep sleep...");
     // Serial.flush();
-
-    delay(300);
 
     esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
     esp_deep_sleep_start();

@@ -30,7 +30,7 @@ namespace wifi_manager
       password = "12345678";
 
     WiFi.mode(WIFI_OFF);
-    delay(100);
+    yield();
 
     WiFi.mode(WIFI_AP);
     WiFi.setSleep(false);

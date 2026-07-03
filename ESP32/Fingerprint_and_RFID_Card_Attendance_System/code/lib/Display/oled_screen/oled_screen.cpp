@@ -11,8 +11,11 @@ namespace oled_screen
 {
   static U8G2_SSD1309_128X64_NONAME0_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
 
-  static bool readyScreen = true;
+  static bool readyScreen = false;
   static bool temporaryScreen = false;
+  static bool processBusy = false;
+  static bool pendingHomeReturn = false;
+
   static unsigned long screenStartTime = 0;
   static unsigned long screenDuration = 0;
   static unsigned long lastReadyRefresh = 0;
@@ -119,6 +122,27 @@ namespace oled_screen
     lastRender = millis();
   }
 
+  static void applyReadyScreen()
+  {
+    if (processBusy || temporaryScreen)
+    {
+      pendingHomeReturn = true;
+      return;
+    }
+
+    pendingHomeReturn = false;
+    readyScreen = true;
+    readyStartTime = millis();
+    lastReadyRefresh = 0;
+
+    titleText = "ATTENDANCE SYSTEM";
+    lineText1 = "Tap card first";
+    lineText2 = rtc::getDate();
+    lineText3 = rtc::getTime();
+
+    dirty = true;
+  }
+
   void begin()
   {
     Wire.begin(Pins::I2C_SDA, Pins::I2C_SCL);
@@ -137,16 +161,20 @@ namespace oled_screen
     if (!ready)
       return;
 
-    if (temporaryScreen)
+    if (temporaryScreen && millis() - screenStartTime >= screenDuration)
     {
-      if (millis() - screenStartTime >= screenDuration)
-      {
-        temporaryScreen = false;
+      temporaryScreen = false;
 
-        showReady(currentIp);
-      }
+      if (!processBusy)
+        applyReadyScreen();
+      else
+        pendingHomeReturn = true;
     }
-    if (readyScreen && !temporaryScreen)
+
+    if (!temporaryScreen && !processBusy && pendingHomeReturn)
+      applyReadyScreen();
+
+    if (readyScreen && !temporaryScreen && !processBusy)
     {
       if (millis() - lastReadyRefresh >= 1000)
       {
@@ -165,8 +193,6 @@ namespace oled_screen
     if (millis() - lastRender < 80)
       return;
 
-    lastRender = millis();
-    dirty = false;
     render();
   }
 
@@ -181,15 +207,21 @@ namespace oled_screen
     lineText2 = line2;
     lineText3 = line3;
 
+    readyScreen = false;
+    pendingHomeReturn = false;
     dirty = true;
 
     if (duration > 0)
     {
       temporaryScreen = true;
-      readyScreen = false;
-
       screenDuration = duration;
       screenStartTime = millis();
+    }
+    else
+    {
+      temporaryScreen = false;
+      screenDuration = 0;
+      screenStartTime = 0;
     }
   }
 
@@ -201,21 +233,33 @@ namespace oled_screen
   void showReady(const String &ip)
   {
     currentIp = ip;
-
-    readyScreen = true;
-    readyStartTime = millis();
-
-    titleText = "ATTENDANCE SYSTEM";
-    lineText1 = "Tap card first";
-    lineText2 = rtc::getDate();
-    lineText3 = rtc::getTime();
-
-    dirty = true;
+    applyReadyScreen();
   }
 
   void showError(const String &message)
   {
     show("System Error", message, "Check hardware", "or storage", 3000);
+  }
+
+  void setProcessBusy(bool busy)
+  {
+    if (processBusy == busy)
+      return;
+
+    processBusy = busy;
+
+    if (!processBusy && !temporaryScreen && pendingHomeReturn)
+      applyReadyScreen();
+  }
+
+  bool isProcessBusy()
+  {
+    return processBusy;
+  }
+
+  bool isTemporaryActive()
+  {
+    return temporaryScreen;
   }
 
   bool isReady()

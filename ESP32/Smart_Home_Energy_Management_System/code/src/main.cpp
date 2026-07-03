@@ -21,7 +21,9 @@
 #include "sleep_wake/sleep_wake.h"
 
 unsigned long lastLoadUpdate = 0;
+unsigned long lastSettingsLcdUpdate = 0;
 const unsigned long loadInterval = 3000;
+const unsigned long settingsLcdInterval = 50;
 bool showConsumption = false;
 
 bool bootCheckActive = true;
@@ -90,8 +92,11 @@ void updateLcd()
 
   if (shared_var::settingsMode)
   {
-    if (!shared_var::waitRelease)
+    if (!shared_var::waitRelease && now - lastSettingsLcdUpdate >= settingsLcdInterval)
+    {
+      lastSettingsLcdUpdate = now;
       lcd_screen::update("settings");
+    }
 
     return;
   }
@@ -146,6 +151,7 @@ void setup()
   }
 
   lastLoadUpdate = millis() - loadInterval;
+  lastSettingsLcdUpdate = 0;
 }
 
 void loop()
@@ -174,4 +180,5 @@ void loop()
     load_manager::update();
 
   load_relay::update();
+  yield();
 }

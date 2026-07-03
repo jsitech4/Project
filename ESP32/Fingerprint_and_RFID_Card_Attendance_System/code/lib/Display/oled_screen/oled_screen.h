@@ -16,6 +16,10 @@ namespace oled_screen
   void showReady(const String &ip);
   void showError(const String &message);
 
+  void setProcessBusy(bool busy);
+  bool isProcessBusy();
+  bool isTemporaryActive();
+
   bool isReady();
 }
 

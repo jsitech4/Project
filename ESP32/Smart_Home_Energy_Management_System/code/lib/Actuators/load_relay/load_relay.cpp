@@ -21,31 +21,140 @@ namespace load_relay
       Pins::EXP_RELAY_5_LOAD,
       Pins::EXP_RELAY_6_LOAD};
 
-  // Fail-safe startup: loads stay OFF until load_manager makes a valid source plan.
+  // Desired final states requested by load_manager.
+  // onInverterState=false means NEPA/PHCN source relay is selected.
   bool onInverterState[6] = {false, false, false, false, false, false};
   bool loadEnabledState[6] = {false, false, false, false, false, false};
 
+  // Last states fully applied to the expander. These prevent repeated relay writes.
+  bool appliedOnInverterState[6] = {false, false, false, false, false, false};
+  bool appliedLoadEnabledState[6] = {false, false, false, false, false, false};
+  bool appliedKnown[6] = {false, false, false, false, false, false};
+
   bool dirty = true;
-  const unsigned int relaySettleDelayMs = 20;
 
-  void applyRelay(int index)
+  const unsigned long relaySettleDelayMs = 20;
+
+  int activeRelay = -1;
+  uint8_t activeStage = 0;
+  unsigned long stageStart = 0;
+  bool activeTargetOnInverter = false;
+  bool activeTargetLoadEnabled = false;
+
+  bool sourceRelayLevelForValue(bool onInverter)
   {
-    if (!gpio_expander::isReady())
-      return;
-
     // In this board wiring, source relay energized selects NEPA/PHCN,
     // and de-energized selects inverter. Keep this single place if hardware changes.
-    bool sourceRelayEnergizedForNEPA = !onInverterState[index];
-    bool loadRelayEnergized = loadEnabledState[index];
+    return !onInverter;
+  }
 
-    // Break-before-make: drop the load before moving the source selector.
-    gpio_expander::digitalWrite(loadPins[index], false);
-    delay(relaySettleDelayMs);
+  bool relayNeedsApply(int index)
+  {
+    if (!appliedKnown[index])
+      return true;
 
-    gpio_expander::digitalWrite(sourcePins[index], sourceRelayEnergizedForNEPA);
-    delay(relaySettleDelayMs);
+    return appliedOnInverterState[index] != onInverterState[index] ||
+           appliedLoadEnabledState[index] != loadEnabledState[index];
+  }
 
-    gpio_expander::digitalWrite(loadPins[index], loadRelayEnergized);
+  int findNextRelayToApply(int startIndex)
+  {
+    for (int offset = 0; offset < 6; offset++)
+    {
+      int index = (startIndex + offset) % 6;
+      if (relayNeedsApply(index))
+        return index;
+    }
+
+    return -1;
+  }
+
+  void finishIfClean()
+  {
+    for (int i = 0; i < 6; i++)
+    {
+      if (relayNeedsApply(i))
+      {
+        dirty = true;
+        return;
+      }
+    }
+
+    dirty = false;
+  }
+
+  void startApplyingRelay(int index)
+  {
+    activeRelay = index;
+    activeStage = 0;
+    stageStart = millis();
+    activeTargetOnInverter = onInverterState[index];
+    activeTargetLoadEnabled = loadEnabledState[index];
+  }
+
+  void serviceActiveRelay()
+  {
+    if (activeRelay < 0)
+      return;
+
+    unsigned long now = millis();
+
+    switch (activeStage)
+    {
+    case 0:
+      // Break-before-make: open the load relay first and return immediately.
+      gpio_expander::digitalWrite(loadPins[activeRelay], false);
+      stageStart = now;
+      activeStage = 1;
+      return;
+
+    case 1:
+      if (now - stageStart < relaySettleDelayMs)
+        return;
+
+      gpio_expander::digitalWrite(sourcePins[activeRelay], sourceRelayLevelForValue(activeTargetOnInverter));
+      stageStart = now;
+      activeStage = 2;
+      return;
+
+    case 2:
+    {
+      if (now - stageStart < relaySettleDelayMs)
+        return;
+
+      bool targetChangedWhileSwitching =
+          activeTargetOnInverter != onInverterState[activeRelay] ||
+          activeTargetLoadEnabled != loadEnabledState[activeRelay];
+
+      if (targetChangedWhileSwitching)
+      {
+        // Keep the load safely OFF if the plan changed during the break-before-make window.
+        // The next non-blocking pass will move the source selector to the new target.
+        gpio_expander::digitalWrite(loadPins[activeRelay], false);
+        appliedOnInverterState[activeRelay] = activeTargetOnInverter;
+        appliedLoadEnabledState[activeRelay] = false;
+      }
+      else
+      {
+        gpio_expander::digitalWrite(loadPins[activeRelay], activeTargetLoadEnabled);
+        appliedOnInverterState[activeRelay] = activeTargetOnInverter;
+        appliedLoadEnabledState[activeRelay] = activeTargetLoadEnabled;
+      }
+
+      appliedKnown[activeRelay] = true;
+
+      activeRelay = -1;
+      activeStage = 0;
+      finishIfClean();
+      return;
+    }
+
+    default:
+      activeRelay = -1;
+      activeStage = 0;
+      dirty = true;
+      return;
+    }
   }
 
   void begin()
@@ -58,24 +167,38 @@ namespace load_relay
       gpio_expander::pinMode(sourcePins[i], OUTPUT);
       gpio_expander::pinMode(loadPins[i], OUTPUT);
       gpio_expander::digitalWrite(loadPins[i], false);
+      appliedKnown[i] = false;
     }
 
     dirty = true;
-    update();
+    activeRelay = -1;
+    activeStage = 0;
   }
 
   void update()
   {
-    if (!dirty)
-      return;
-
     if (!gpio_expander::isReady())
       return;
 
-    for (int i = 0; i < 6; i++)
-      applyRelay(i);
+    if (activeRelay >= 0)
+    {
+      serviceActiveRelay();
+      return;
+    }
 
-    dirty = false;
+    if (!dirty)
+      return;
+
+    int nextRelay = findNextRelayToApply(0);
+
+    if (nextRelay < 0)
+    {
+      dirty = false;
+      return;
+    }
+
+    startApplyingRelay(nextRelay);
+    serviceActiveRelay();
   }
 
   void setRelay(int relay, bool onInverter)
@@ -140,6 +263,11 @@ namespace load_relay
       return false;
 
     return loadEnabledState[relay];
+  }
+
+  bool isBusy()
+  {
+    return dirty || activeRelay >= 0;
   }
 
   bool getRelay1() { return onInverterState[0]; }

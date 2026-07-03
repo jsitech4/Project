@@ -65,7 +65,6 @@ namespace sleep_wake
 
   void sleepNow()
   {
-    delay(100);
     esp_deep_sleep_start();
   }
 

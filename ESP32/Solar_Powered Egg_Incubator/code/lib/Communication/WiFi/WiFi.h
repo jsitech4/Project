@@ -1,15 +1,4 @@
-#ifndef WIFI_MANAGER_H
-#define WIFI_MANAGER_H
-
-#include <Arduino.h>
-
-namespace wifi_manager
-{
-  void begin();
-  void update();
-
-  String getIp();
-  bool isConnected();
-}
-
+#ifndef LEGACY_WIFI_PLACEHOLDER_H
+#define LEGACY_WIFI_PLACEHOLDER_H
+// Legacy placeholder. Use wifi_manager/wifi_manager.h.
 #endif

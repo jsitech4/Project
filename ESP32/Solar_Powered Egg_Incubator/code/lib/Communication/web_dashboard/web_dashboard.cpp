@@ -27,6 +27,15 @@ namespace web_dashboard
     return buzzer::isActive() ? "ACTIVE" : "IDLE";
   }
 
+  static void showDeviceChange(const char *deviceName, bool state)
+  {
+    char line1[24];
+    char line2[24];
+    snprintf(line1, sizeof(line1), "%s updated", deviceName);
+    snprintf(line2, sizeof(line2), "State: %s", state ? "ON" : "OFF");
+    lcd_screen::showMessage("Dashboard", line1, line2, "", 1800, lcd_screen::PRIORITY_INFO);
+  }
+
   static String page()
   {
     String html;
@@ -883,14 +892,17 @@ namespace web_dashboard
                 if (dev == "heater")
                 {
                   heater::toggle();
+                  showDeviceChange("Heater", heater::isOn());
                 }
                 else if (dev == "spinner")
                 {
                   spinner::toggle();
+                  showDeviceChange("Spinner", spinner::isOn());
                 }
                 else if (dev == "humidifier")
                 {
                   humidifier::toggle();
+                  showDeviceChange("Humidifier", humidifier::isOn());
                 }
 
                 sendStateJson(); });
@@ -898,6 +910,7 @@ namespace web_dashboard
     server.on("/beep", []()
               {
                 buzzer::beep(100, 100, 2);
+                lcd_screen::showMessage("Dashboard", "Buzzer test", "Running", "", 1500, lcd_screen::PRIORITY_INFO);
                 sendStateJson(); });
 
     server.on("/lcd", []()
@@ -905,6 +918,7 @@ namespace web_dashboard
                 if (server.arg("wake") == "1")
                 {
                   lcd_screen::wake();
+                  lcd_screen::showMessage("LCD", "Screen awake", "", "", 1200, lcd_screen::PRIORITY_INFO);
                 }
                 else
                 {

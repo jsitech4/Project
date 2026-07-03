@@ -17,6 +17,7 @@ namespace load_relay
 
   bool isOnInverter(int relay);
   bool isLoadEnabled(int relay);
+  bool isBusy();
 
   bool getRelay1();
   bool getRelay2();

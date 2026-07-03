@@ -38,7 +38,13 @@ namespace attendance_manager
   static String pendingWorkspace;
   static String pendingRfid;
   static uint16_t pendingFingerId = 0;
+  static bool fingerEnrollmentStarted = false;
+  static String lastEnrollPrompt = "";
 
+  static void syncDisplayBusy()
+  {
+    oled_screen::setProcessBusy(enrollmentState != ENROLL_IDLE || authState != AUTH_IDLE);
+  }
 
   static void clearPendingEnrollment()
   {
@@ -47,6 +53,9 @@ namespace attendance_manager
     pendingWorkspace = "";
     pendingRfid = "";
     pendingFingerId = 0;
+    fingerEnrollmentStarted = false;
+    lastEnrollPrompt = "";
+    fingerprint::cancelEnroll();
   }
 
   static UserRecord authUser;
@@ -282,7 +291,7 @@ namespace attendance_manager
       lastLogTime = millis();
 
       lastMessage = user.name + " " + direction + " verified";
-      oled_screen::show("Attendance Saved", user.name, direction + " verified", "Card + Finger OK");
+      oled_screen::show("Attendance Saved", user.name, direction + " verified", "Card + Finger OK", 3000);
       buzzer::doubleBeep();
     }
     else
@@ -295,6 +304,9 @@ namespace attendance_manager
 
   static void handleButtons()
   {
+    if (enrollmentState != ENROLL_IDLE || authState != AUTH_IDLE)
+      return;
+
     if (buttons::wasPressed(buttons::BUTTON_1))
       setMode(MODE_IN);
 
@@ -302,7 +314,7 @@ namespace attendance_manager
       setMode(MODE_OUT);
 
     if (buttons::wasPressed(buttons::BUTTON_5))
-      oled_screen::show("System Status", "Mode: " + getModeText(), "Users: " + String(userCount), "Logs: " + String(attendanceCount));
+      oled_screen::show("System Status", "Mode: " + getModeText(), "Users: " + String(userCount), "Logs: " + String(attendanceCount), 5000);
   }
 
   static void handleEnrollment()
@@ -313,7 +325,7 @@ namespace attendance_manager
     if (millis() - enrollmentStartTime > enrollmentTimeoutMs)
     {
       lastMessage = "Enrollment timeout";
-      oled_screen::show("Enroll Timeout", pendingName, "Start again", "Web dashboard ready");
+      oled_screen::show("Enroll Timeout", pendingName, "Start again", "Web dashboard ready", 3500);
       buzzer::errorBeep();
       enrollmentState = ENROLL_IDLE;
       clearPendingEnrollment();
@@ -331,7 +343,7 @@ namespace attendance_manager
         if (findUserByRfid(uid, existingUser))
         {
           lastMessage = "RFID already registered";
-          oled_screen::show("RFID In Use", existingUser.name, "Use another card", "or delete old user");
+          oled_screen::show("RFID In Use", existingUser.name, "Use another card", "or delete old user", 3500);
           buzzer::errorBeep();
           enrollmentState = ENROLL_IDLE;
           clearPendingEnrollment();
@@ -352,6 +364,8 @@ namespace attendance_manager
         }
 
         enrollmentState = ENROLL_WAIT_FINGER;
+        fingerEnrollmentStarted = false;
+        lastEnrollPrompt = "";
         lastMessage = "RFID linked. Place finger";
         oled_screen::show("Register Finger", pendingName, "ID: " + String(pendingFingerId), "Place finger");
         buzzer::beep();
@@ -363,19 +377,60 @@ namespace attendance_manager
     if (enrollmentState == ENROLL_WAIT_FINGER)
     {
       String message;
-      bool ok = fingerprint::enroll(pendingFingerId, message);
 
-      if (!ok)
+      if (!fingerEnrollmentStarted)
+      {
+        if (!fingerprint::startEnroll(pendingFingerId, message))
+        {
+          lastMessage = message;
+          oled_screen::showError(message);
+          buzzer::errorBeep();
+          enrollmentState = ENROLL_IDLE;
+          clearPendingEnrollment();
+          syncDisplayBusy();
+          return;
+        }
+
+        fingerEnrollmentStarted = true;
+        lastEnrollPrompt = message;
+        lastMessage = message;
+        oled_screen::show("Register Finger", pendingName, "ID: " + String(pendingFingerId), message);
+        return;
+      }
+
+      fingerprint::EnrollStatus status = fingerprint::updateEnroll(message);
+
+      if (status == fingerprint::ENROLL_RUNNING)
+      {
+        if (message != lastEnrollPrompt)
+        {
+          lastEnrollPrompt = message;
+          lastMessage = message;
+          oled_screen::show("Register Finger", pendingName, "ID: " + String(pendingFingerId), message);
+        }
+        return;
+      }
+
+      fingerEnrollmentStarted = false;
+      lastEnrollPrompt = "";
+
+      if (status == fingerprint::ENROLL_FAILED)
       {
         lastMessage = message;
         oled_screen::showError(message);
         buzzer::errorBeep();
         enrollmentState = ENROLL_IDLE;
         clearPendingEnrollment();
+        syncDisplayBusy();
         return;
       }
 
-      enrollmentState = ENROLL_SAVING;
+      if (status == fingerprint::ENROLL_SUCCESS)
+      {
+        lastMessage = message;
+        oled_screen::show("Saving User", pendingName, "Fingerprint OK", "Writing storage");
+        enrollmentState = ENROLL_SAVING;
+      }
     }
 
     if (enrollmentState == ENROLL_SAVING)
@@ -384,7 +439,7 @@ namespace attendance_manager
       {
         userCount++;
         lastMessage = pendingName + " registered";
-        oled_screen::show("User Registered", pendingName, "RFID + Fingerprint", "Saved to storage");
+        oled_screen::show("User Registered", pendingName, "RFID + Fingerprint", "Saved to storage", 3500);
         buzzer::doubleBeep();
       }
       else
@@ -418,7 +473,7 @@ namespace attendance_manager
       if (!findUserByRfid(uid, user))
       {
         lastMessage = "Unknown RFID card";
-        oled_screen::show("Unknown Card", uid, "Not registered", "Use web enroll");
+        oled_screen::show("Unknown Card", uid, "Not registered", "Use web enroll", 3000);
         buzzer::errorBeep();
         return;
       }
@@ -440,7 +495,7 @@ namespace attendance_manager
       if (millis() - authStartTime > authTimeoutMs)
       {
         lastMessage = "Authentication timeout";
-        oled_screen::show("Auth Timeout", "Card accepted", "Finger not scanned", "Try again");
+        oled_screen::show("Auth Timeout", "Card accepted", "Finger not scanned", "Try again", 3000);
         buzzer::errorBeep();
         resetAuth();
         return;
@@ -465,7 +520,7 @@ namespace attendance_manager
         else
         {
           lastMessage = "Unknown RFID card";
-          oled_screen::show("Unknown Card", uid, "Not registered", "Use web enroll");
+          oled_screen::show("Unknown Card", uid, "Not registered", "Use web enroll", 3000);
           buzzer::errorBeep();
           resetAuth();
         }
@@ -482,7 +537,7 @@ namespace attendance_manager
       if (fingerId != authUser.fingerId)
       {
         lastMessage = "Fingerprint mismatch";
-        oled_screen::show("Auth Failed", authUser.name, "Finger mismatch", "Try again");
+        oled_screen::show("Auth Failed", authUser.name, "Finger mismatch", "Try again", 3000);
         buzzer::errorBeep();
         resetAuth();
         return;
@@ -506,21 +561,25 @@ namespace attendance_manager
     resetAuth();
 
     lastMessage = "Ready";
-    oled_screen::show("Attendance Ready", "Tap card first", "Then fingerprint", "Mode: " + getModeText());
+    syncDisplayBusy();
+    oled_screen::show("Attendance Ready", "Tap card first", "Then fingerprint", "Mode: " + getModeText(), 2500);
   }
 
   void update()
   {
+    syncDisplayBusy();
     handleButtons();
 
     bool enrollmentWasBusy = enrollmentState != ENROLL_IDLE;
 
     handleEnrollment();
+    syncDisplayBusy();
 
     if (enrollmentWasBusy)
       return;
 
     handleTwoWayAttendance();
+    syncDisplayBusy();
   }
 
   bool startEnrollment(String userId, String name, String workspace)
@@ -532,7 +591,10 @@ namespace attendance_manager
     }
 
     if (authState != AUTH_IDLE)
-      resetAuth();
+    {
+      lastMessage = "System busy";
+      return false;
+    }
 
     userId = cleanField(userId);
     name = cleanField(name);
@@ -564,6 +626,9 @@ namespace attendance_manager
 
     enrollmentState = ENROLL_WAIT_RFID;
     enrollmentStartTime = millis();
+    fingerEnrollmentStarted = false;
+    lastEnrollPrompt = "";
+    syncDisplayBusy();
 
     lastMessage = "Tap RFID card for " + name;
     oled_screen::show("Register User", name, "Tap RFID card", "Then fingerprint");
@@ -574,9 +639,9 @@ namespace attendance_manager
 
   bool deleteUser(const String &userId)
   {
-    if (enrollmentState != ENROLL_IDLE)
+    if (enrollmentState != ENROLL_IDLE || authState != AUTH_IDLE)
     {
-      lastMessage = "Enrollment busy";
+      lastMessage = "System busy";
       return false;
     }
 
@@ -617,7 +682,7 @@ namespace attendance_manager
     refreshCounts();
 
     lastMessage = "User deleted";
-    oled_screen::show("User Deleted", cleanId, "RFID unlinked", "Fingerprint removed");
+    oled_screen::show("User Deleted", cleanId, "RFID unlinked", "Fingerprint removed", 3000);
     buzzer::doubleBeep();
 
     return true;
@@ -636,10 +701,13 @@ namespace attendance_manager
   void setMode(Mode mode)
   {
     currentMode = mode;
-    resetAuth();
-
     lastMessage = "Mode set to " + getModeText();
-    oled_screen::show("Mode Changed", "Attendance mode", getModeText(), "Tap card first");
+
+    if (enrollmentState != ENROLL_IDLE || authState != AUTH_IDLE)
+      return;
+
+    resetAuth();
+    oled_screen::show("Mode Changed", "Attendance mode", getModeText(), "Tap card first", 2500);
     buzzer::beep();
   }
 

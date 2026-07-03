@@ -11,55 +11,60 @@ namespace fingerprint
   static bool ready = false;
   static uint16_t templateCount = 0;
 
-  static bool waitForFingerImage(uint32_t timeoutMs, String &message)
+  enum EnrollStep
   {
-    unsigned long start = millis();
+    STEP_IDLE,
+    STEP_WAIT_FIRST_IMAGE,
+    STEP_CONVERT_FIRST,
+    STEP_WAIT_REMOVE,
+    STEP_AFTER_REMOVE_PAUSE,
+    STEP_WAIT_SECOND_IMAGE,
+    STEP_CONVERT_SECOND,
+    STEP_CREATE_MODEL,
+    STEP_STORE_MODEL
+  };
 
-    while (millis() - start < timeoutMs)
-    {
-      uint8_t p = sensor.getImage();
+  static EnrollStep enrollStep = STEP_IDLE;
+  static uint16_t enrollFingerId = 0;
+  static unsigned long enrollStepStart = 0;
+  static unsigned long enrollPauseStart = 0;
 
-      if (p == FINGERPRINT_OK)
-        return true;
+  static const unsigned long firstScanTimeoutMs = 15000;
+  static const unsigned long removeTimeoutMs = 8000;
+  static const unsigned long secondScanTimeoutMs = 15000;
+  static const unsigned long afterRemovePauseMs = 600;
 
-      if (p == FINGERPRINT_PACKETRECIEVEERR)
-      {
-        message = "Fingerprint comm error";
-        return false;
-      }
+  static String imageErrorMessage(uint8_t code)
+  {
+    if (code == FINGERPRINT_PACKETRECIEVEERR)
+      return "Fingerprint comm error";
 
-      if (p == FINGERPRINT_IMAGEFAIL)
-      {
-        message = "Fingerprint image error";
-        return false;
-      }
+    if (code == FINGERPRINT_IMAGEFAIL)
+      return "Fingerprint image error";
 
-      delay(40);
-      yield();
-    }
-
-    message = "Fingerprint timeout";
-    return false;
+    return "Fingerprint scan error";
   }
 
-  static void waitForFingerRemove(uint32_t timeoutMs)
+  static void resetEnrollment()
   {
-    unsigned long start = millis();
+    enrollStep = STEP_IDLE;
+    enrollFingerId = 0;
+    enrollStepStart = 0;
+    enrollPauseStart = 0;
+  }
 
-    while (millis() - start < timeoutMs)
-    {
-      if (sensor.getImage() == FINGERPRINT_NOFINGER)
-        return;
-
-      delay(60);
-      yield();
-    }
+  static EnrollStatus failEnrollment(String &message, const String &reason)
+  {
+    message = reason;
+    resetEnrollment();
+    return ENROLL_FAILED;
   }
 
   void begin()
   {
     ready = false;
     templateCount = 0;
+    resetEnrollment();
 
     fingerSerial.begin(
         57600,
@@ -92,7 +97,7 @@ namespace fingerprint
     fingerId = 0;
     confidence = 0;
 
-    if (!ready)
+    if (!ready || enrollStep != STEP_IDLE)
       return false;
 
     uint8_t p = sensor.getImage();
@@ -116,11 +121,17 @@ namespace fingerprint
     return true;
   }
 
-  bool enroll(uint16_t fingerId, String &message)
+  bool startEnroll(uint16_t fingerId, String &message)
   {
     if (!ready)
     {
       message = "Fingerprint not ready";
+      return false;
+    }
+
+    if (enrollStep != STEP_IDLE)
+    {
+      message = "Fingerprint busy";
       return false;
     }
 
@@ -130,57 +141,153 @@ namespace fingerprint
       return false;
     }
 
+    enrollFingerId = fingerId;
+    enrollStep = STEP_WAIT_FIRST_IMAGE;
+    enrollStepStart = millis();
+    enrollPauseStart = 0;
     message = "Place finger";
-
-    if (!waitForFingerImage(15000, message))
-      return false;
-
-    uint8_t p = sensor.image2Tz(1);
-
-    if (p != FINGERPRINT_OK)
-    {
-      message = "First scan failed";
-      return false;
-    }
-
-    message = "Remove finger";
-    waitForFingerRemove(8000);
-    delay(600);
-
-    message = "Place same finger";
-
-    if (!waitForFingerImage(15000, message))
-      return false;
-
-    p = sensor.image2Tz(2);
-
-    if (p != FINGERPRINT_OK)
-    {
-      message = "Second scan failed";
-      return false;
-    }
-
-    p = sensor.createModel();
-
-    if (p != FINGERPRINT_OK)
-    {
-      message = "Finger mismatch";
-      return false;
-    }
-
-    p = sensor.storeModel(fingerId);
-
-    if (p != FINGERPRINT_OK)
-    {
-      message = "Template save failed";
-      return false;
-    }
-
-    sensor.getTemplateCount();
-    templateCount = sensor.templateCount;
-
-    message = "Fingerprint saved";
     return true;
+  }
+
+  EnrollStatus updateEnroll(String &message)
+  {
+    if (enrollStep == STEP_IDLE)
+    {
+      message = "No enrollment";
+      return ENROLL_IDLE;
+    }
+
+    if (!ready)
+      return failEnrollment(message, "Fingerprint not ready");
+
+    unsigned long now = millis();
+    uint8_t p = FINGERPRINT_NOFINGER;
+
+    switch (enrollStep)
+    {
+    case STEP_WAIT_FIRST_IMAGE:
+      if (now - enrollStepStart >= firstScanTimeoutMs)
+        return failEnrollment(message, "Fingerprint timeout");
+
+      p = sensor.getImage();
+
+      if (p == FINGERPRINT_OK)
+      {
+        enrollStep = STEP_CONVERT_FIRST;
+        message = "Processing first";
+        return ENROLL_RUNNING;
+      }
+
+      if (p == FINGERPRINT_PACKETRECIEVEERR || p == FINGERPRINT_IMAGEFAIL)
+        return failEnrollment(message, imageErrorMessage(p));
+
+      message = "Place finger";
+      return ENROLL_RUNNING;
+
+    case STEP_CONVERT_FIRST:
+      p = sensor.image2Tz(1);
+
+      if (p != FINGERPRINT_OK)
+        return failEnrollment(message, "First scan failed");
+
+      enrollStep = STEP_WAIT_REMOVE;
+      enrollStepStart = now;
+      message = "Remove finger";
+      return ENROLL_RUNNING;
+
+    case STEP_WAIT_REMOVE:
+      p = sensor.getImage();
+
+      if (p == FINGERPRINT_NOFINGER || now - enrollStepStart >= removeTimeoutMs)
+      {
+        enrollStep = STEP_AFTER_REMOVE_PAUSE;
+        enrollPauseStart = now;
+        message = "Place same finger";
+        return ENROLL_RUNNING;
+      }
+
+      if (p == FINGERPRINT_PACKETRECIEVEERR)
+        return failEnrollment(message, "Fingerprint comm error");
+
+      message = "Remove finger";
+      return ENROLL_RUNNING;
+
+    case STEP_AFTER_REMOVE_PAUSE:
+      if (now - enrollPauseStart < afterRemovePauseMs)
+      {
+        message = "Place same finger";
+        return ENROLL_RUNNING;
+      }
+
+      enrollStep = STEP_WAIT_SECOND_IMAGE;
+      enrollStepStart = now;
+      message = "Place same finger";
+      return ENROLL_RUNNING;
+
+    case STEP_WAIT_SECOND_IMAGE:
+      if (now - enrollStepStart >= secondScanTimeoutMs)
+        return failEnrollment(message, "Fingerprint timeout");
+
+      p = sensor.getImage();
+
+      if (p == FINGERPRINT_OK)
+      {
+        enrollStep = STEP_CONVERT_SECOND;
+        message = "Processing second";
+        return ENROLL_RUNNING;
+      }
+
+      if (p == FINGERPRINT_PACKETRECIEVEERR || p == FINGERPRINT_IMAGEFAIL)
+        return failEnrollment(message, imageErrorMessage(p));
+
+      message = "Place same finger";
+      return ENROLL_RUNNING;
+
+    case STEP_CONVERT_SECOND:
+      p = sensor.image2Tz(2);
+
+      if (p != FINGERPRINT_OK)
+        return failEnrollment(message, "Second scan failed");
+
+      enrollStep = STEP_CREATE_MODEL;
+      message = "Matching scans";
+      return ENROLL_RUNNING;
+
+    case STEP_CREATE_MODEL:
+      p = sensor.createModel();
+
+      if (p != FINGERPRINT_OK)
+        return failEnrollment(message, "Finger mismatch");
+
+      enrollStep = STEP_STORE_MODEL;
+      message = "Saving template";
+      return ENROLL_RUNNING;
+
+    case STEP_STORE_MODEL:
+      p = sensor.storeModel(enrollFingerId);
+
+      if (p != FINGERPRINT_OK)
+        return failEnrollment(message, "Template save failed");
+
+      sensor.getTemplateCount();
+      templateCount = sensor.templateCount;
+      resetEnrollment();
+      message = "Fingerprint saved";
+      return ENROLL_SUCCESS;
+
+    default:
+      return failEnrollment(message, "Enrollment error");
+    }
+  }
+
+  void cancelEnroll()
+  {
+    resetEnrollment();
+  }
+
+  bool isEnrollBusy()
+  {
+    return enrollStep != STEP_IDLE;
   }
 
   bool deleteTemplate(uint16_t fingerId, String &message)
