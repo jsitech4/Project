@@ -5,7 +5,7 @@
 
 namespace led_indicator
 {
-  void begin(uint8_t pin);
+  void begin();
   void update();
 
   void setEnabled(bool state);

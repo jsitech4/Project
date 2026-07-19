@@ -16,7 +16,7 @@
 #include "gpio_expander/gpio_expander.h"
 #include "local_server/local_server.h"
 
-U8G2_ST7920_128X64_1_HW_SPI u8g2(U8G2_R2, Pins::LCD_CS, U8X8_PIN_NONE);
+U8G2_ST7920_128X64_2_HW_SPI u8g2(U8G2_R2, Pins::LCD_CS, U8X8_PIN_NONE);
 
 namespace lcd_screen
 {

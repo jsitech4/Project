@@ -133,10 +133,10 @@ namespace local_server
     String html = pageHead("Attendance Dashboard");
 
     html += "<section class='grid'>";
-    html += "<div class='card mini'><div class='label'>System</div><div class='value' id='systemName'>" + htmlEscape(systemName) + "</div><div class='muted' id='workspaceName'>" + htmlEscape(workspaceName) + "</div></div>";
+    html += "<div class='card mini'><div class='label'>System</div><div class='value' id='systemName'>" + htmlEscape(systemName) + "</div><div class='muted' id='workspaceName'></div></div>";
     html += "<div class='card mini'><div class='label'>Mode</div><div class='value' id='mode'>" + htmlEscape(attendance_manager::getModeText()) + "</div><div class='muted'></div></div>";
     html += "<div class='card mini'><div class='label'>Storage</div><div class='value " + storageBadgeClass() + "' id='storage'>" + htmlEscape(sd_card::getStorageName()) + "</div><div class='muted'></div></div>";
-    html += "<div class='card mini'><div class='label'>Users / Records</div><div class='value'><span id='users'>" + String(attendance_manager::getUserCount()) + "</span> / <span id='records'>" + String(attendance_manager::getAttendanceCount()) + "</span></div><div class='muted'>Registered users / logs</div></div>";
+    html += "<div class='card mini'><div class='label'>Users / Records</div><div class='value'><span id='users'>" + String(attendance_manager::getUserCount()) + "</span> / <span id='records'>" + String(attendance_manager::getAttendanceCount()) + "</span></div><div class='muted'></div></div>";
     html += "</section>";
 
     html += "<section class='card'><div class='label'>Last Event</div><div class='value' id='lastMessage'>" + htmlEscape(attendance_manager::getLastMessage()) + "</div><p class='muted'><span id='enrollment'>Enrollment: " + enrollmentStateText() + "</span> &nbsp; Battery: <span id='battery'>" + String(battery_level::getPercentage()) + "%</span></p></section>";

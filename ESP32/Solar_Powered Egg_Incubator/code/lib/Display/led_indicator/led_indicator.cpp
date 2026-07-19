@@ -3,7 +3,7 @@
 
 namespace led_indicator
 {
-  static uint8_t ledPin = 255;
+  static uint8_t ledPin = 2;
 
   static const uint8_t pwmChannel = 0;
   static const uint16_t pwmFreq = 10000;
@@ -22,9 +22,9 @@ namespace led_indicator
   static unsigned long pauseStart = 0;
   static const unsigned long pauseDuration = 1000;
 
-  void begin(uint8_t pin)
+  void begin()
   {
-    ledPin = pin;
+    // ledPin = pin;
 
     ledcSetup(pwmChannel, pwmFreq, pwmResolution);
     ledcAttachPin(ledPin, pwmChannel);
