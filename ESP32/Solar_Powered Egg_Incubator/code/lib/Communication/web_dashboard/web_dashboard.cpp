@@ -621,7 +621,9 @@ namespace web_dashboard
 
     html += R"rawliteral(</span><span class="space"></span> Time: <span id="time">)rawliteral";
 
-    html += rtc_clock::getDateTime();
+    html += rtc_clock::getDate();
+
+    html += rtc_clock::getTime();
 
     html += R"rawliteral(</span>
       </div>
@@ -836,7 +838,7 @@ namespace web_dashboard
   {
     String json = "{";
     json += "\"ip\":\"" + wifi_manager::getIp() + "\",";
-    json += "\"time\":\"" + rtc_clock::getDateTime() + "\",";
+    json += "\"time\":\"" + rtc_clock::getDate() + rtc_clock::getTime() + "\",";
     json += "\"temp\":\"" + String(temp_hum::getTemperature(), 1) + "\",";
     json += "\"hum\":\"" + String(temp_hum::getHumidity(), 0) + "\",";
     json += "\"battv\":\"" + String(battery_level::getVoltage(), 2) + "\",";
@@ -859,7 +861,7 @@ namespace web_dashboard
     String json = "{";
     json += "\"ok\":true,";
     json += "\"ip\":\"" + wifi_manager::getIp() + "\",";
-    json += "\"time\":\"" + rtc_clock::getDateTime() + "\",";
+    json += "\"time\":\"" + rtc_clock::getDate() + rtc_clock::getTime() + "\",";
     json += "\"temp\":\"" + String(temp_hum::getTemperature(), 1) + "\",";
     json += "\"hum\":\"" + String(temp_hum::getHumidity(), 0) + "\",";
     json += "\"battv\":\"" + String(battery_level::getVoltage(), 2) + "\",";

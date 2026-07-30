@@ -2,8 +2,10 @@
 #define LCD_SCREEN_H
 #include <Arduino.h>
 
-namespace lcd_screen {
-  enum ScreenPriority : uint8_t {
+namespace lcd_screen
+{
+  enum ScreenPriority : uint8_t
+  {
     PRIORITY_HOME = 0,
     PRIORITY_INFO = 1,
     PRIORITY_PROCESS = 5,
