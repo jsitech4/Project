@@ -68,21 +68,4 @@ void loop()
 
   if (rotary_encoder::wasPressed())
     buzzer::beep(60, 60, 1);
-
-  if (millis() - lastPrint >= 2000)
-  {
-    lastPrint = millis();
-    Serial.print("T:");
-    Serial.print(temp_hum::getTemperature(), 1);
-    Serial.print(" H:");
-    Serial.print(temp_hum::getHumidity(), 0);
-    Serial.print(" Batt:");
-    Serial.print(battery_level::getVoltage(), 2);
-    Serial.print(" Solar:");
-    Serial.print(solar_level::getVoltage(), 2);
-    Serial.print(" Dist:");
-    Serial.print(ultrasonic::getDistanceCm(), 1);
-    Serial.print(" IP:");
-    Serial.println(wifi_manager::getIp());
-  }
 }

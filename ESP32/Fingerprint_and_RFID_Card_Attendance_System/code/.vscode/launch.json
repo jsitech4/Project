@@ -12,9 +12,15 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
+<<<<<<< HEAD
             "executable": "C:/Users/PFG-ELECTRICAL-ENGR/Documents/Galaxies/Resources/Personal Stuffs/Kicad Design/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/.pio/build/esp32-s3-devkitm-1/firmware.elf",
             "projectEnvName": "esp32-s3-devkitm-1",
             "toolchainBinDir": "C:/Users/PFG-ELECTRICAL-ENGR/.platformio/packages/toolchain-xtensa-esp32s3/bin",
+=======
+            "executable": "c:/Users/JSI Tech/Documents/My Kicad File/Github/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/.pio/build/esp32-s3-devkitm-1/firmware.elf",
+            "projectEnvName": "esp32-s3-devkitm-1",
+            "toolchainBinDir": "C:/Users/JSI Tech/.platformio/packages/toolchain-xtensa-esp32s3/bin",
+>>>>>>> 0f07d1fc50ba82e986e4449beb5092d591b34097
             "internalConsoleOptions": "openOnSessionStart",
             "preLaunchTask": {
                 "type": "PlatformIO",
@@ -25,18 +31,30 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
+<<<<<<< HEAD
             "executable": "C:/Users/PFG-ELECTRICAL-ENGR/Documents/Galaxies/Resources/Personal Stuffs/Kicad Design/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/.pio/build/esp32-s3-devkitm-1/firmware.elf",
             "projectEnvName": "esp32-s3-devkitm-1",
             "toolchainBinDir": "C:/Users/PFG-ELECTRICAL-ENGR/.platformio/packages/toolchain-xtensa-esp32s3/bin",
+=======
+            "executable": "c:/Users/JSI Tech/Documents/My Kicad File/Github/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/.pio/build/esp32-s3-devkitm-1/firmware.elf",
+            "projectEnvName": "esp32-s3-devkitm-1",
+            "toolchainBinDir": "C:/Users/JSI Tech/.platformio/packages/toolchain-xtensa-esp32s3/bin",
+>>>>>>> 0f07d1fc50ba82e986e4449beb5092d591b34097
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (without uploading)",
+<<<<<<< HEAD
             "executable": "C:/Users/PFG-ELECTRICAL-ENGR/Documents/Galaxies/Resources/Personal Stuffs/Kicad Design/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/.pio/build/esp32-s3-devkitm-1/firmware.elf",
             "projectEnvName": "esp32-s3-devkitm-1",
             "toolchainBinDir": "C:/Users/PFG-ELECTRICAL-ENGR/.platformio/packages/toolchain-xtensa-esp32s3/bin",
+=======
+            "executable": "c:/Users/JSI Tech/Documents/My Kicad File/Github/Projects/ESP32/Fingerprint_and_RFID_Card_Attendance_System/code/.pio/build/esp32-s3-devkitm-1/firmware.elf",
+            "projectEnvName": "esp32-s3-devkitm-1",
+            "toolchainBinDir": "C:/Users/JSI Tech/.platformio/packages/toolchain-xtensa-esp32s3/bin",
+>>>>>>> 0f07d1fc50ba82e986e4449beb5092d591b34097
             "internalConsoleOptions": "openOnSessionStart",
             "loadMode": "manual"
         }

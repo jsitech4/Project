@@ -797,7 +797,7 @@
       {
         "filename": "Solar_Powered_Egg_Incubator.kicad_sch",
         "name": "Solar_Powered_Egg_Incubator",
-        "uuid": "00000000-0000-0000-0000-000000000000"
+        "uuid": "a9134796-004c-4846-9e3d-7722a032aa82"
       }
     ],
     "used_designators": "",
@@ -806,7 +806,7 @@
   "sheets": [
     [
       "a9134796-004c-4846-9e3d-7722a032aa82",
-      "Root"
+      "Solar_Powered_Egg_Incubator"
     ]
   ],
   "text_variables": {},
