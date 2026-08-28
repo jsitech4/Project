@@ -20,7 +20,7 @@ namespace rotary_encoder
   bool inputLocked = false;
 
   unsigned long lastDebounceTime = 0;
-  const unsigned long debounceDelay = 50;
+  const unsigned long debounceDelay = 20;
 
   unsigned long holdStart = 0;
   bool holdTriggered = false;
@@ -46,7 +46,7 @@ namespace rotary_encoder
 
     lastEncoded = encoded;
 
-    int newStep = rawPosition / 4;
+    int newStep = rawPosition / 2;
 
     if (newStep != stepPosition)
     {

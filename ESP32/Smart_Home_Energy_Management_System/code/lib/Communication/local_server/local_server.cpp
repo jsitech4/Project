@@ -761,7 +761,6 @@ namespace local_server
     server.send(303);
   }
 
-
   void handleResetEnergy()
   {
     pzem_sensor::resetEnergy();

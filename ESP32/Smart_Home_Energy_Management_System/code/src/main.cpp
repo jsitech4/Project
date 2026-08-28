@@ -182,3 +182,41 @@ void loop()
   load_relay::update();
   yield();
 }
+
+// #include <Arduino.h>
+// #include <U8g2lib.h>
+
+// const uint8_t LCD_CS = 5;
+// const uint8_t LCD_CLK = 18;
+// const uint8_t LCD_MOSI = 23;
+
+// // ST7920 128x64 GLCD: software SPI
+// U8G2_ST7920_128X64_F_SW_SPI lcd(
+//     U8G2_R0,
+//     LCD_CLK,  // Clock
+//     LCD_MOSI, // Data
+//     LCD_CS,   // Chip select
+//     U8X8_PIN_NONE);
+
+// void setup()
+// {
+//   lcd.begin();
+//   delay(300);
+
+//   lcd.clearBuffer();
+
+//   lcd.setFont(u8g2_font_6x12_tf);
+//   lcd.drawStr(12, 14, "ESP32 GLCD TEST");
+
+//   lcd.drawFrame(0, 18, 128, 46);
+
+//   lcd.setFont(u8g2_font_ncenB08_tf);
+//   lcd.drawStr(23, 43, "WORKING!");
+
+//   lcd.sendBuffer();
+// }
+
+// void loop()
+// {
+//   // Keep display static.
+// }

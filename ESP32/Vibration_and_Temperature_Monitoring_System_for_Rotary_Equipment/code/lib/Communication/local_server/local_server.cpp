@@ -5,7 +5,8 @@
 #include "maintenance_manager/maintenance_manager.h"
 #include "temp_sensor/temp_sensor.h"
 #include "current_sensor/current_sensor.h"
-#include "vibration_sensor/vibration_sensor.h"
+#include "vibration_sensor_one/vibration_sensor_one.h"
+#include "vibration_sensor_two/vibration_sensor_two.h"
 #include "load_relay/load_relay.h"
 #include "sd_card/sd_card.h"
 

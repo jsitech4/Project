@@ -7,7 +7,8 @@
 #include "sd_card.h"
 #include "temp_sensor/temp_sensor.h"
 #include "current_sensor/current_sensor.h"
-#include "vibration_sensor/vibration_sensor.h"
+#include "vibration_sensor_one/vibration_sensor_one.h"
+#include "vibration_sensor_two/vibration_sensor_two.h"
 #include "load_relay/load_relay.h"
 #include "maintenance_manager/maintenance_manager.h"
 
@@ -199,17 +200,21 @@ namespace sd_card
     motorLine += ",";
     motorLine += temp_sensor::isValid() ? "1" : "0";
     motorLine += ",";
-    motorLine += String(current_sensor::getCurrentA(), 3);
+    motorLine += String(vibration_sensor_one::getVibrationRMS(), 3);
     motorLine += ",";
-    motorLine += String(current_sensor::getVoltageRMS(), 4);
+    motorLine += String(vibration_sensor_one::getX(), 3);
     motorLine += ",";
-    motorLine += String(vibration_sensor::getVibrationRMS(), 3);
+    motorLine += String(vibration_sensor_one::getY(), 3);
     motorLine += ",";
-    motorLine += String(vibration_sensor::getX(), 3);
+    motorLine += String(vibration_sensor_one::getZ(), 3);
     motorLine += ",";
-    motorLine += String(vibration_sensor::getY(), 3);
+    motorLine += String(vibration_sensor_two::getVibrationRMS(), 3);
     motorLine += ",";
-    motorLine += String(vibration_sensor::getZ(), 3);
+    motorLine += String(vibration_sensor_two::getX(), 3);
+    motorLine += ",";
+    motorLine += String(vibration_sensor_two::getY(), 3);
+    motorLine += ",";
+    motorLine += String(vibration_sensor_two::getZ(), 3);
     motorLine += ",";
     motorLine += load_relay::isOn() ? "1" : "0";
     motorLine += ",";

@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-namespace vibration_sensor
+namespace vibration_sensor_two
 {
   void begin();
   void update();
