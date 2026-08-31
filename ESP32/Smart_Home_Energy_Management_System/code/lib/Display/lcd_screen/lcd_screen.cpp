@@ -40,9 +40,9 @@ namespace lcd_screen
   unsigned long lastRelayMove = 0;
   unsigned long lastSystemMove = 0;
 
-  const unsigned long menuMoveInterval = 150;
-  const unsigned long relayMoveInterval = 100;
-  const unsigned long systemMoveInterval = 120;
+  const unsigned long menuMoveInterval = 160;
+  const unsigned long relayMoveInterval = 110;
+  const unsigned long systemMoveInterval = 90;
 
   int selectedItem = 0;
   int relayIndex = 0;

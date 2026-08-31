@@ -33,7 +33,7 @@ namespace load_relay
 
   bool dirty = true;
 
-  const unsigned long relaySettleDelayMs = 10;
+  const unsigned long relaySettleDelayMs = 20;
 
   int activeRelay = -1;
   uint8_t activeStage = 0;

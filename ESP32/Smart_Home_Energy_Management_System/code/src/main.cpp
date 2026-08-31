@@ -22,17 +22,17 @@
 
 unsigned long lastLoadUpdate = 0;
 unsigned long lastSettingsLcdUpdate = 0;
-const unsigned long loadInterval = 3000;
-const unsigned long settingsLcdInterval = 50;
+const unsigned long loadInterval = 3150;
+const unsigned long settingsLcdInterval = 60;
 bool showConsumption = false;
 
 bool bootCheckActive = true;
 unsigned long bootCheckStart = 0;
 unsigned long bootButtonStart = 0;
 
-const unsigned long bootWindow = 5000;
-const unsigned long bootHoldTime = 3000;
-const unsigned long runtimeHoldTime = 5000;
+const unsigned long bootWindow = 4400;
+const unsigned long bootHoldTime = 3400;
+const unsigned long runtimeHoldTime = 5600;
 
 void handleBootSetupWindow()
 {
@@ -183,40 +183,3 @@ void loop()
   yield();
 }
 
-// #include <Arduino.h>
-// #include <U8g2lib.h>
-
-// const uint8_t LCD_CS = 5;
-// const uint8_t LCD_CLK = 18;
-// const uint8_t LCD_MOSI = 23;
-
-// // ST7920 128x64 GLCD: software SPI
-// U8G2_ST7920_128X64_F_SW_SPI lcd(
-//     U8G2_R0,
-//     LCD_CLK,  // Clock
-//     LCD_MOSI, // Data
-//     LCD_CS,   // Chip select
-//     U8X8_PIN_NONE);
-
-// void setup()
-// {
-//   lcd.begin();
-//   delay(300);
-
-//   lcd.clearBuffer();
-
-//   lcd.setFont(u8g2_font_6x12_tf);
-//   lcd.drawStr(12, 14, "ESP32 GLCD TEST");
-
-//   lcd.drawFrame(0, 18, 128, 46);
-
-//   lcd.setFont(u8g2_font_ncenB08_tf);
-//   lcd.drawStr(23, 43, "WORKING!");
-
-//   lcd.sendBuffer();
-// }
-
-// void loop()
-// {
-//   // Keep display static.
-// }

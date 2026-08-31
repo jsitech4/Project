@@ -2,8 +2,7 @@
 #include <Wire.h>
 #include "Pins.h"
 #include "temp_sensor/temp_sensor.h"
-#include "vibration_sensor_one/vibration_sensor_one.h"
-#include "vibration_sensor_two/vibration_sensor_two.h"
+#include "vibration_sensor/vibration_sensor.h"
 #include "current_sensor/current_sensor.h"
 #include "rotary_encoder/rotary_encoder.h"
 #include "buzzer/buzzer.h"
@@ -50,8 +49,7 @@ void setup()
   led_indicator::begin();
 
   temp_sensor::begin();
-  vibration_sensor_one::begin();
-  vibration_sensor_two::begin();
+  vibration_sensor::begin();
   current_sensor::begin();
 
   maintenance_manager::begin();
@@ -68,8 +66,7 @@ void loop()
   rotary_encoder::update();
   temp_sensor::update();
   current_sensor::update();
-  vibration_sensor_one::update();
-  vibration_sensor_two::update();
+  vibration_sensor::update();
   maintenance_manager::update();
   load_relay::update();
   buzzer::update();

@@ -4,9 +4,9 @@
 #include <Adafruit_ADXL345_U.h>
 #include <math.h>
 #include "Pins.h"
-#include "vibration_sensor_two.h"
+#include "vibration_sensor.h"
 
-namespace vibration_sensor_two
+namespace vibration_sensor
 {
   static Adafruit_ADXL345_Unified adxl = Adafruit_ADXL345_Unified(12345);
 
