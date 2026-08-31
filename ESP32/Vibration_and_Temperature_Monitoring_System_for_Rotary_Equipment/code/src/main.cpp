@@ -27,71 +27,14 @@ static void printSerialReport()
   {
     return;
   }
-
   lastSerialReport = now;
-
   maintenance_manager::Snapshot snap = maintenance_manager::getSnapshot();
-
-  Serial.println();
-  // Serial.println("========== MOTOR PM STATUS ==========");
-  // Serial.print("Uptime: ");
-  // Serial.print(now / 1000);
-  // Serial.println(" s");
-
-  // Serial.print("Temp: ");
-  if (snap.tempValid)
-  {
-    // Serial.print(snap.temperatureC, 2);
-    // Serial.println(" C");
-  }
-  else
-  {
-    // Serial.println("N/A");
-  }
-
-  // Serial.print("Current: ");
-  // Serial.print(snap.currentA, 3);
-  // Serial.println(" A");
-
-  // Serial.print("Vibration RMS: ");
-  // Serial.print(snap.vibrationRmsG, 3);
-  // Serial.println(" g");
-
-  // Serial.print("Risk: ");
-  // Serial.print(snap.riskScore, 1);
-  // Serial.println(" %");
-
-  // Serial.print("Health: ");
-  // Serial.print(snap.healthScore, 1);
-  // Serial.println(" %");
-
-  // Serial.print("Level: ");
-  // Serial.println(maintenance_manager::getLevelText());
-
-  // Serial.print("Relay: ");
-  // Serial.println(load_relay::isOn() ? "ON" : "OFF");
-
-  // Serial.print("Storage Backend: ");
-  // Serial.println(sd_card::getBackendName());
-
-  // Serial.print("SD Ready: ");
-  // Serial.println(sd_card::isSdReady() ? "YES" : "NO");
-
-  // Serial.print("Internal Ready: ");
-  // Serial.println(sd_card::isInternalReady() ? "YES" : "NO");
-
-  // Serial.print("Dashboard: http://");
-  // Serial.println(local_server::getIp());
-  // Serial.println("=====================================");
 }
 
 void setup()
 {
   Serial.begin(115200);
   delay(300);
-
-  // Serial.println();
-  // Serial.println("Booting Industrial Motor Predictive Maintenance System...");
 
   Pins::begin();
   Wire.begin(Pins::I2C_SDA, Pins::I2C_SCL);
@@ -116,41 +59,23 @@ void setup()
 
   sd_card::logEvent("BOOT", "Predictive maintenance firmware started.");
   buzzer::beep(120);
-
-  // Serial.println("System started successfully.");
-  // Serial.print("Dashboard SSID: ");
-  // Serial.println(local_server::getSsid());
-  // Serial.print("Dashboard IP: http://");
-  // Serial.println(local_server::getIp());
-  // Serial.print("Storage Backend: ");
-  // Serial.println(sd_card::getBackendName());
 }
 
 void loop()
 {
   rotary_encoder::update();
-
   temp_sensor::update();
-
   current_sensor::update();
   vibration_sensor::update();
-
   maintenance_manager::update();
   load_relay::update();
-
   buzzer::update();
   led_indicator::update();
-  // buzzer::startAlarm();
   lcd_screen::update();
-
   sd_card::update();
   local_server::update();
-
   error_handling::update();
   sleep_wake::update();
   reset::update();
-
-  // printSerialReport();
-
   yield();
 }

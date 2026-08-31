@@ -1,7 +1,6 @@
 #include "lcd_screen.h"
 #include <Arduino.h>
 #include <U8g2lib.h>
-#include <SPI.h>
 #include <string.h>
 
 #include "Pins.h"
@@ -16,7 +15,12 @@
 #include "gpio_expander/gpio_expander.h"
 #include "local_server/local_server.h"
 
-U8G2_ST7920_128X64_2_HW_SPI u8g2(U8G2_R2, Pins::LCD_CS, U8X8_PIN_NONE);
+U8G2_ST7920_128X64_F_SW_SPI lcd(
+    U8G2_R2,
+    Pins::LCD_CLK,
+    Pins::LCD_MOSI,
+    Pins::LCD_CS,
+    U8X8_PIN_NONE);
 
 namespace lcd_screen
 {
@@ -36,9 +40,9 @@ namespace lcd_screen
   unsigned long lastRelayMove = 0;
   unsigned long lastSystemMove = 0;
 
-  const unsigned long menuMoveInterval = 150;
-  const unsigned long relayMoveInterval = 100;
-  const unsigned long systemMoveInterval = 120;
+  const unsigned long menuMoveInterval = 160;
+  const unsigned long relayMoveInterval = 110;
+  const unsigned long systemMoveInterval = 90;
 
   int selectedItem = 0;
   int relayIndex = 0;
@@ -63,46 +67,46 @@ namespace lcd_screen
 
   void drawCenteredText(int boxX, int boxY, int boxW, int boxH, const char *text)
   {
-    int textWidth = u8g2.getStrWidth(text);
+    int textWidth = lcd.getStrWidth(text);
     int x = boxX + (boxW - textWidth) / 2;
     int y = boxY + (boxH / 2) + 3;
 
-    u8g2.setCursor(x, y);
-    u8g2.print(text);
+    lcd.setCursor(x, y);
+    lcd.print(text);
   }
 
   void renderScreen(void (*drawFunction)())
   {
-    u8g2.firstPage();
+    lcd.firstPage();
     do
     {
       drawFunction();
-    } while (u8g2.nextPage());
+    } while (lcd.nextPage());
   }
 
   void drawHeader(const char *title)
   {
-    u8g2.setDrawColor(1);
-    u8g2.drawFrame(0, 0, 128, 64);
+    lcd.setDrawColor(1);
+    lcd.drawFrame(0, 0, 128, 64);
 
-    u8g2.setFont(u8g2_font_5x8_tr);
-    drawCenteredText(0, 0, 128, 9, "SMART HOME ENERGY");
-    drawCenteredText(0, 8, 128, 9, title);
+    lcd.setFont(u8g2_font_5x8_tr);
+    drawCenteredText(0, 0, 128, 12, "SMART HOME ENERGY");
+    drawCenteredText(0, 8, 128, 11, title);
 
-    u8g2.drawHLine(0, 18, 128);
+    lcd.drawHLine(0, 18, 128);
   }
 
   void drawRoundedFrame(int x, int y, int w, int h, int r)
   {
-    u8g2.drawHLine(x + r, y, w - 2 * r);
-    u8g2.drawHLine(x + r, y + h - 1, w - 2 * r);
-    u8g2.drawVLine(x, y + r, h - 2 * r);
-    u8g2.drawVLine(x + w - 1, y + r, h - 2 * r);
+    lcd.drawHLine(x + r, y, w - 2 * r);
+    lcd.drawHLine(x + r, y + h - 1, w - 2 * r);
+    lcd.drawVLine(x, y + r, h - 2 * r);
+    lcd.drawVLine(x + w - 1, y + r, h - 2 * r);
 
-    u8g2.drawCircle(x + r, y + r, r, U8G2_DRAW_UPPER_LEFT);
-    u8g2.drawCircle(x + w - r - 1, y + r, r, U8G2_DRAW_UPPER_RIGHT);
-    u8g2.drawCircle(x + r, y + h - r - 1, r, U8G2_DRAW_LOWER_LEFT);
-    u8g2.drawCircle(x + w - r - 1, y + h - r - 1, r, U8G2_DRAW_LOWER_RIGHT);
+    lcd.drawCircle(x + r, y + r, r, U8G2_DRAW_UPPER_LEFT);
+    lcd.drawCircle(x + w - r - 1, y + r, r, U8G2_DRAW_UPPER_RIGHT);
+    lcd.drawCircle(x + r, y + h - r - 1, r, U8G2_DRAW_LOWER_LEFT);
+    lcd.drawCircle(x + w - r - 1, y + h - r - 1, r, U8G2_DRAW_LOWER_RIGHT);
   }
 
   void drawSwitchStatus(int x, int y, int relayNum, bool onInverter, bool enabled)
@@ -111,9 +115,9 @@ namespace lcd_screen
 
     if (!enabled)
     {
-      u8g2.setFont(u8g2_font_5x8_tr);
-      u8g2.setCursor(x + 9, y + 4);
-      u8g2.print("OFF");
+      lcd.setFont(u8g2_font_5x8_tr);
+      lcd.setCursor(x + 9, y + 4);
+      lcd.print("OFF");
       return;
     }
 
@@ -122,49 +126,49 @@ namespace lcd_screen
 
     if (onInverter)
     {
-      u8g2.drawDisc(x + 25, y, 4);
+      lcd.drawDisc(x + 25, y, 4);
 
-      u8g2.setFont(u8g2_font_4x6_tr);
-      uint8_t w = u8g2.getStrWidth(buf);
+      lcd.setFont(u8g2_font_4x6_tr);
+      uint8_t w = lcd.getStrWidth(buf);
 
-      u8g2.setCursor(x + 25 - (w / 2), y + 3);
-      u8g2.setDrawColor(0);
-      u8g2.print(buf);
+      lcd.setCursor(x + 25 - (w / 2), y + 3);
+      lcd.setDrawColor(0);
+      lcd.print(buf);
 
-      u8g2.setDrawColor(1);
-      u8g2.setFont(u8g2_font_5x8_tr);
-      u8g2.setCursor(x + 2, y + 4);
-      u8g2.print("INV");
+      lcd.setDrawColor(1);
+      lcd.setFont(u8g2_font_5x8_tr);
+      lcd.setCursor(x + 2, y + 4);
+      lcd.print("INV");
     }
     else
     {
-      u8g2.drawDisc(x + 7, y, 4);
+      lcd.drawDisc(x + 7, y, 4);
 
-      u8g2.setFont(u8g2_font_4x6_tr);
-      uint8_t w = u8g2.getStrWidth(buf);
+      lcd.setFont(u8g2_font_4x6_tr);
+      uint8_t w = lcd.getStrWidth(buf);
 
-      u8g2.setCursor(x + 7 - (w / 2), y + 3);
-      u8g2.setDrawColor(0);
-      u8g2.print(buf);
+      lcd.setCursor(x + 7 - (w / 2), y + 3);
+      lcd.setDrawColor(0);
+      lcd.print(buf);
 
-      u8g2.setDrawColor(1);
-      u8g2.setFont(u8g2_font_5x8_tr);
-      u8g2.setCursor(x + 13, y + 4);
-      u8g2.print("GRD");
+      lcd.setDrawColor(1);
+      lcd.setFont(u8g2_font_5x8_tr);
+      lcd.setCursor(x + 13, y + 4);
+      lcd.print("GRD");
     }
   }
 
   void drawValueBox(int x, int y, const char *title, const char *value)
   {
-    u8g2.setDrawColor(1);
-    u8g2.drawBox(x, y, 50, 9);
-    u8g2.drawFrame(x, y, 50, 20);
+    lcd.setDrawColor(1);
+    lcd.drawBox(x, y, 50, 9);
+    lcd.drawFrame(x, y, 50, 20);
 
-    u8g2.setDrawColor(0);
-    u8g2.setFont(u8g2_font_5x8_tr);
+    lcd.setDrawColor(0);
+    lcd.setFont(u8g2_font_5x8_tr);
     drawCenteredText(x, y, 50, 9, title);
 
-    u8g2.setDrawColor(1);
+    lcd.setDrawColor(1);
     drawCenteredText(x, y + 10, 50, 10, value);
   }
 
@@ -202,13 +206,13 @@ namespace lcd_screen
 
   void drawSettingsScreen()
   {
-    u8g2.setDrawColor(1);
-    u8g2.setFont(u8g2_font_ncenB08_tr);
+    lcd.setDrawColor(1);
+    lcd.setFont(u8g2_font_ncenB08_tr);
 
     drawCenteredText(0, 0, 128, 11, "SETTINGS");
-    u8g2.drawHLine(33, 12, 63);
+    lcd.drawHLine(33, 12, 63);
 
-    u8g2.setFont(u8g2_font_5x8_tr);
+    lcd.setFont(u8g2_font_5x8_tr);
 
     for (int i = 0; i < totalItems; i++)
     {
@@ -216,26 +220,26 @@ namespace lcd_screen
 
       if (i == selectedItem)
       {
-        u8g2.drawBox(5, y - 8, 118, 10);
-        u8g2.setDrawColor(0);
+        lcd.drawBox(5, y - 8, 118, 10);
+        lcd.setDrawColor(0);
       }
 
-      u8g2.setCursor(10, y);
-      u8g2.print(menuItems[i]);
+      lcd.setCursor(10, y);
+      lcd.print(menuItems[i]);
 
-      u8g2.setDrawColor(1);
+      lcd.setDrawColor(1);
     }
   }
 
   void drawRelaySetupScreen()
   {
-    u8g2.setDrawColor(1);
-    u8g2.setFont(u8g2_font_6x10_tr);
+    lcd.setDrawColor(1);
+    lcd.setFont(u8g2_font_6x10_tr);
 
     drawCenteredText(0, 0, 128, 11, "RELAY POWER SETUP");
-    u8g2.drawHLine(13, 12, 100);
+    lcd.drawHLine(13, 12, 100);
 
-    u8g2.setFont(u8g2_font_5x8_tr);
+    lcd.setFont(u8g2_font_5x8_tr);
 
     for (int i = 0; i < 6; i++)
     {
@@ -243,31 +247,31 @@ namespace lcd_screen
 
       if (i == relayIndex)
       {
-        u8g2.drawBox(0, y - 7, 128, 8);
-        u8g2.setDrawColor(0);
+        lcd.drawBox(0, y - 7, 128, 8);
+        lcd.setDrawColor(0);
       }
 
-      u8g2.setCursor(5, y);
-      u8g2.print("Load ");
-      u8g2.print(i + 1);
+      lcd.setCursor(5, y);
+      lcd.print("Load ");
+      lcd.print(i + 1);
 
-      u8g2.setCursor(72, y);
-      u8g2.print(config_manager::getRelayPower(i));
-      u8g2.print("W");
+      lcd.setCursor(72, y);
+      lcd.print(config_manager::getRelayPower(i));
+      lcd.print("W");
 
-      u8g2.setDrawColor(1);
+      lcd.setDrawColor(1);
     }
   }
 
   void drawSystemSettingsScreen()
   {
-    u8g2.setDrawColor(1);
-    u8g2.setFont(u8g2_font_6x10_tr);
+    lcd.setDrawColor(1);
+    lcd.setFont(u8g2_font_6x10_tr);
 
     drawCenteredText(0, 0, 128, 11, "SYSTEM SETUP");
-    u8g2.drawHLine(20, 12, 90);
+    lcd.drawHLine(20, 12, 90);
 
-    u8g2.setFont(u8g2_font_5x8_tr);
+    lcd.setFont(u8g2_font_5x8_tr);
 
     for (int i = 0; i < systemItemCount; i++)
     {
@@ -275,36 +279,36 @@ namespace lcd_screen
 
       if (i == systemIndex)
       {
-        u8g2.drawBox(0, y - 8, 128, 11);
-        u8g2.setDrawColor(0);
+        lcd.drawBox(0, y - 8, 128, 11);
+        lcd.setDrawColor(0);
       }
 
-      u8g2.setCursor(5, y);
-      u8g2.print(systemItems[i]);
+      lcd.setCursor(5, y);
+      lcd.print(systemItems[i]);
 
-      u8g2.setCursor(82, y);
+      lcd.setCursor(82, y);
 
       if (i == 0)
       {
-        u8g2.print(config_manager::getInverterPower());
-        u8g2.print("W");
+        lcd.print(config_manager::getInverterPower());
+        lcd.print("W");
       }
       else if (i == 1)
       {
-        u8g2.print(config_manager::getSystemPower());
-        u8g2.print("W");
+        lcd.print(config_manager::getSystemPower());
+        lcd.print("W");
       }
       else if (i == 2)
       {
-        u8g2.print(config_manager::getLoadMarginPercent());
-        u8g2.print("%");
+        lcd.print(config_manager::getLoadMarginPercent());
+        lcd.print("%");
       }
       else
       {
-        u8g2.print("OK");
+        lcd.print("OK");
       }
 
-      u8g2.setDrawColor(1);
+      lcd.setDrawColor(1);
     }
   }
 
@@ -312,25 +316,25 @@ namespace lcd_screen
   {
     drawHeader("SOURCE STATUS");
 
-    u8g2.setFont(u8g2_font_6x10_tr);
-    u8g2.setCursor(8, 30);
-    u8g2.print("GRID: ");
-    u8g2.print(nepa_sense::isAvailable() ? "AVAILABLE" : "OFF");
+    lcd.setFont(u8g2_font_6x10_tr);
+    lcd.setCursor(8, 30);
+    lcd.print("GRID: ");
+    lcd.print(nepa_sense::isAvailable() ? "AVAILABLE" : "OFF");
 
-    u8g2.setCursor(8, 43);
-    u8g2.print("INV : ");
-    u8g2.print(inverter_sense::isAvailable() ? "AVAILABLE" : "OFF");
+    lcd.setCursor(8, 43);
+    lcd.print("INV : ");
+    lcd.print(inverter_sense::isAvailable() ? "AVAILABLE" : "OFF");
 
-    u8g2.setCursor(8, 56);
-    u8g2.print("PCA : ");
-    u8g2.print(gpio_expander::isReady() ? "READY" : "ERROR");
+    lcd.setCursor(8, 56);
+    lcd.print("PCA : ");
+    lcd.print(gpio_expander::isReady() ? "READY" : "ERROR");
   }
 
   void drawWifiInfoScreen()
   {
     drawHeader("WIFI SERVER");
 
-    u8g2.setFont(u8g2_font_5x8_tr);
+    lcd.setFont(u8g2_font_5x8_tr);
     drawCenteredText(0, 24, 128, 10, "SSID: SHEMS-Controller");
     drawCenteredText(0, 36, 128, 10, "PASS: 12345678");
     drawCenteredText(0, 48, 128, 10, local_server::getIpAddress());
@@ -433,8 +437,7 @@ namespace lcd_screen
 
   void begin()
   {
-    SPI.begin(Pins::LCD_CLK, -1, Pins::LCD_MOSI, Pins::LCD_CS);
-    u8g2.begin();
+    lcd.begin();
   }
 
   void update(const char *command)

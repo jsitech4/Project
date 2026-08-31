@@ -22,17 +22,17 @@
 
 unsigned long lastLoadUpdate = 0;
 unsigned long lastSettingsLcdUpdate = 0;
-const unsigned long loadInterval = 3000;
-const unsigned long settingsLcdInterval = 50;
+const unsigned long loadInterval = 3150;
+const unsigned long settingsLcdInterval = 60;
 bool showConsumption = false;
 
 bool bootCheckActive = true;
 unsigned long bootCheckStart = 0;
 unsigned long bootButtonStart = 0;
 
-const unsigned long bootWindow = 5000;
-const unsigned long bootHoldTime = 3000;
-const unsigned long runtimeHoldTime = 5000;
+const unsigned long bootWindow = 4400;
+const unsigned long bootHoldTime = 3400;
+const unsigned long runtimeHoldTime = 5600;
 
 void handleBootSetupWindow()
 {
@@ -182,3 +182,4 @@ void loop()
   load_relay::update();
   yield();
 }
+
