@@ -4,7 +4,6 @@
 #include "Pins.h"
 #include "lcd_screen.h"
 #include "temp_sensor/temp_sensor.h"
-#include "current_sensor/current_sensor.h"
 #include "vibration_sensor/vibration_sensor.h"
 #include "load_relay/load_relay.h"
 #include "sd_card/sd_card.h"
@@ -56,8 +55,8 @@ namespace lcd_screen
     {
       printFixed(0, 0, "   MOTOR LIVE DATA  ");
       printFixed(0, 1, String("Temp: ") + (temp_sensor::isValid() ? String(temp_sensor::getTemperatureC(), 1) + " C" : "N/A"));
-      printFixed(0, 2, String("Curr: ") + String(current_sensor::getCurrentA(), 2) + " A");
-      printFixed(0, 3, String("Vib : ") + String(vibration_sensor::getVibrationRMS(), 3) + " g");
+      printFixed(0, 2, String("Vib : ") + String(vibration_sensor::getSensor1VibrationRMS(), 3) + " g");
+      printFixed(0, 3, String("Vib : ") + String(vibration_sensor::getSensor2VibrationRMS(), 3) + " g");
     }
     else if (screen == 1)
     {
@@ -83,10 +82,10 @@ namespace lcd_screen
     }
     else
     {
-      printFixed(0, 0, "    ACCELERATION g   ");
-      printFixed(0, 1, String("X: ") + String(snap.xG, 2));
-      printFixed(0, 2, String("Y: ") + String(snap.yG, 2));
-      printFixed(0, 3, String("Z: ") + String(snap.zG, 2));
+      printFixed(0, 0, String("Sensor 1:") + " " + String("Sensor 2:"));
+      printFixed(0, 1, String("X1: ") + String(vibration_sensor::getSensor1X(), 2) + " " + String("X2: ") + String(vibration_sensor::getSensor2X(), 2));
+      printFixed(0, 2, String("Y1: ") + String(vibration_sensor::getSensor1Y(), 2) + " " + String("Y2: ") + String(vibration_sensor::getSensor2Y(), 2));
+      printFixed(0, 3, String("Z1: ") + String(vibration_sensor::getSensor1Z(), 2) + " " + String("Z2: ") + String(vibration_sensor::getSensor2Z(), 2));
     }
   }
 

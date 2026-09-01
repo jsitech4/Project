@@ -16,22 +16,35 @@ namespace maintenance_manager
   struct Snapshot
   {
     unsigned long uptimeMs;
+
     float temperatureC;
+
     float vibration1RmsG;
     float vibration2RmsG;
-    float xG;
-    float yG;
-    float zG;
+
+    float vibration1XG;
+    float vibration1YG;
+    float vibration1ZG;
+
+    float vibration2XG;
+    float vibration2YG;
+    float vibration2ZG;
+
     float riskScore;
     float healthScore;
     float forecastMinutes;
+
     float tempRatePerMin;
     float vibration1RatePerMin;
     float vibration2RatePerMin;
+
     bool tempValid;
-    bool vibrationReady;
+    bool vibration1Ready;
+    bool vibration2Ready;
+
     bool relayOn;
     bool relayFault;
+
     State state;
   };
 
@@ -56,9 +69,12 @@ namespace maintenance_manager
   void clearFault();
 
   void setTemperatureLimits(float warningC, float faultC);
+
   void setVibrationLimits(float warningG, float faultG);
+
   float getTemperatureWarningLimit();
   float getTemperatureFaultLimit();
+
   float getVibrationWarningLimit();
   float getVibrationFaultLimit();
 }

@@ -388,9 +388,23 @@ namespace maintenance_manager
     snap.vibration1RmsG = vibration1G;
     snap.vibration2RmsG = vibration2G;
 
-    snap.xG = vibration_sensor::getSensor1X();
-    snap.yG = vibration_sensor::getSensor1Y();
-    snap.zG = vibration_sensor::getSensor1Z();
+    snap.vibration1XG =
+        vibration_sensor::getSensor1X();
+
+    snap.vibration1YG =
+        vibration_sensor::getSensor1Y();
+
+    snap.vibration1ZG =
+        vibration_sensor::getSensor1Z();
+
+    snap.vibration2XG =
+        vibration_sensor::getSensor2X();
+
+    snap.vibration2YG =
+        vibration_sensor::getSensor2Y();
+
+    snap.vibration2ZG =
+        vibration_sensor::getSensor2Z();
 
     snap.tempValid = tempValid;
 

@@ -9,25 +9,28 @@ namespace vibration_sensor
   void update();
 
   // Sensor 1
+  bool isSensor1Ready();
+
   float getSensor1X();
   float getSensor1Y();
   float getSensor1Z();
+
   float getSensor1VibrationRMS();
-  float getSensor1BaseMagnitude();
-  bool isSensor1Ready();
-  void recalibrateSensor1();
 
   // Sensor 2
+  bool isSensor2Ready();
+
   float getSensor2X();
   float getSensor2Y();
   float getSensor2Z();
-  float getSensor2VibrationRMS();
-  float getSensor2BaseMagnitude();
-  bool isSensor2Ready();
-  void recalibrateSensor2();
 
-  // Overall status
-  bool isReady();
+  float getSensor2VibrationRMS();
+
+  // Baselines
+  float getSensor1BaseMagnitude();
+  float getSensor2BaseMagnitude();
+
+  void recalibrateBaseline();
 }
 
 #endif

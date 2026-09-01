@@ -404,16 +404,28 @@ setInterval(loadLogs,10000);
     json += String(vibration_sensor::getSensor2VibrationRMS(), 3);
     json += ",";
 
-    json += "\"x_g\":";
-    json += String(snap.xG, 3);
+    json += "\"vibration1_x_g\":";
+    json += String(snap.vibration1XG, 4);
     json += ",";
 
-    json += "\"y_g\":";
-    json += String(snap.yG, 3);
+    json += "\"vibration1_y_g\":";
+    json += String(snap.vibration1YG, 4);
     json += ",";
 
-    json += "\"z_g\":";
-    json += String(snap.zG, 3);
+    json += "\"vibration1_z_g\":";
+    json += String(snap.vibration1ZG, 4);
+    json += ",";
+
+    json += "\"vibration2_x_g\":";
+    json += String(snap.vibration2XG, 4);
+    json += ",";
+
+    json += "\"vibration2_y_g\":";
+    json += String(snap.vibration2YG, 4);
+    json += ",";
+
+    json += "\"vibration2_z_g\":";
+    json += String(snap.vibration2ZG, 4);
     json += ",";
 
     json += "\"risk_score\":";
