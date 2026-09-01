@@ -3,7 +3,6 @@
 #include "Pins.h"
 #include "temp_sensor/temp_sensor.h"
 #include "vibration_sensor/vibration_sensor.h"
-#include "current_sensor/current_sensor.h"
 #include "rotary_encoder/rotary_encoder.h"
 #include "buzzer/buzzer.h"
 #include "load_relay/load_relay.h"
@@ -107,8 +106,6 @@ void setup()
 
   temp_sensor::begin();
   vibration_sensor::begin();
-  current_sensor::begin();
-
   maintenance_manager::begin();
   sd_card::begin();
   local_server::begin();
@@ -129,28 +126,18 @@ void setup()
 void loop()
 {
   rotary_encoder::update();
-
   temp_sensor::update();
-
-  current_sensor::update();
   vibration_sensor::update();
-
   maintenance_manager::update();
   load_relay::update();
-
   buzzer::update();
   led_indicator::update();
-  // buzzer::startAlarm();
   lcd_screen::update();
-
   sd_card::update();
   local_server::update();
-
   error_handling::update();
   sleep_wake::update();
   reset::update();
-
   // printSerialReport();
-
   yield();
 }

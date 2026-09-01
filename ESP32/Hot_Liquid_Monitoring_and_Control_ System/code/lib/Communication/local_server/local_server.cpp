@@ -4,7 +4,6 @@
 #include "local_server.h"
 #include "maintenance_manager/maintenance_manager.h"
 #include "temp_sensor/temp_sensor.h"
-#include "current_sensor/current_sensor.h"
 #include "vibration_sensor/vibration_sensor.h"
 #include "load_relay/load_relay.h"
 #include "sd_card/sd_card.h"
@@ -131,14 +130,14 @@ canvas{width:100%;height:260px;display:block}
     </div>
 
     <div class="card span3">
-      <div class="label">Current</div>
-      <div class="value" id="current">-- <span class="unit">A</span></div>
-      <p class="small">ZMCT103C load current estimate</p>
+      <div class="label">Vibration Sensor 1 RMS</div>
+      <div class="value" id="vibration1">-- <span class="unit">g</span></div>
+      <p class="small">ADXL345 vibration severity</p>
     </div>
 
     <div class="card span3">
-      <div class="label">Vibration RMS</div>
-      <div class="value" id="vibration">-- <span class="unit">g</span></div>
+      <div class="label">Vibration Sensor 2 RMS</div>
+      <div class="value" id="vibration2">-- <span class="unit">g</span></div>
       <p class="small">ADXL345 vibration severity</p>
     </div>
 
@@ -189,7 +188,7 @@ canvas{width:100%;height:260px;display:block}
     <div class="card span12">
       <div class="label">Trend Graph</div>
       <canvas id="chart" width="1000" height="260"></canvas>
-      <p class="small">Blue: current, orange: temperature, green: vibration.</p>
+      <p class="small"> orange: temperature, blue: vibration sensor 1, green: vibration sensor 2.</p>
     </div>
 
     <div class="card span12">
@@ -271,8 +270,10 @@ async function loadStatus(){
     const s=await r.json();
 
     document.getElementById('temp').innerHTML=s.temp_valid?fmt(s.temperature_c,1)+' <span class="unit">°C</span>':'N/A';
-    document.getElementById('current').innerHTML=fmt(s.current_a,2)+' <span class="unit">A</span>';
-    document.getElementById('vibration').innerHTML=fmt(s.vibration_rms_g,3)+' <span class="unit">g</span>';
+
+    document.getElementById('vibration1').innerHTML=fmt(s.vibration1_rms_g,3)+' <span class="unit">g</span>';
+
+    document.getElementById('vibration2').innerHTML=fmt(s.vibration2_rms_g,3)+' <span class="unit">g</span>';
 
     const lev=document.getElementById('level');
     lev.textContent=s.level;
@@ -299,7 +300,11 @@ async function loadStatus(){
     document.getElementById('y').innerHTML=fmt(s.y_g,2)+' <span class="unit">g</span>';
     document.getElementById('z').innerHTML=fmt(s.z_g,2)+' <span class="unit">g</span>';
 
-    points.push({current:Number(s.current_a)||0,temp:Number(s.temperature_c)||0,vib:Number(s.vibration_rms_g)||0});
+    points.push({
+    temp: Number(s.temperature_c) || 0,
+    vib1: Number(s.vibration1_rms_g) || 0,
+    vib2: Number(s.vibration2_rms_g) || 0
+  });
     if(points.length>70)points.shift();
     drawChart();
   }catch(e){}
@@ -331,9 +336,9 @@ function drawChart(){
     ctx.stroke();
   }
 
-  drawLine(ctx,points.map(p=>p.current),0,6,'#2563eb');
   drawLine(ctx,points.map(p=>p.temp),20,90,'#ea580c');
-  drawLine(ctx,points.map(p=>p.vib),0,3,'#16a34a');
+  drawLine(ctx,points.map(p=>p.vib1),0,3,'#2563eb');
+  drawLine(ctx,points.map(p=>p.vib2),0,3,'#16a34a');
 }
 
 function drawLine(ctx,arr,min,max,color){
@@ -391,16 +396,12 @@ setInterval(loadLogs,10000);
     json += snap.tempValid ? "true" : "false";
     json += ",";
 
-    json += "\"current_a\":";
-    json += String(snap.currentA, 3);
+    json += "\"vibration1_rms_g\":";
+    json += String(vibration_sensor::getSensor1VibrationRMS(), 3);
     json += ",";
 
-    json += "\"current_vrms\":";
-    json += String(current_sensor::getVoltageRMS(), 4);
-    json += ",";
-
-    json += "\"vibration_rms_g\":";
-    json += String(snap.vibrationRmsG, 3);
+    json += "\"vibration2_rms_g\":";
+    json += String(vibration_sensor::getSensor2VibrationRMS(), 3);
     json += ",";
 
     json += "\"x_g\":";

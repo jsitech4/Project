@@ -17,8 +17,8 @@ namespace maintenance_manager
   {
     unsigned long uptimeMs;
     float temperatureC;
-    float currentA;
-    float vibrationRmsG;
+    float vibration1RmsG;
+    float vibration2RmsG;
     float xG;
     float yG;
     float zG;
@@ -26,8 +26,8 @@ namespace maintenance_manager
     float healthScore;
     float forecastMinutes;
     float tempRatePerMin;
-    float currentRatePerMin;
-    float vibrationRatePerMin;
+    float vibration1RatePerMin;
+    float vibration2RatePerMin;
     bool tempValid;
     bool vibrationReady;
     bool relayOn;
@@ -55,12 +55,8 @@ namespace maintenance_manager
 
   void clearFault();
 
-  void setCurrentLimits(float warningA, float faultA);
   void setTemperatureLimits(float warningC, float faultC);
   void setVibrationLimits(float warningG, float faultG);
-
-  float getCurrentWarningLimit();
-  float getCurrentFaultLimit();
   float getTemperatureWarningLimit();
   float getTemperatureFaultLimit();
   float getVibrationWarningLimit();
