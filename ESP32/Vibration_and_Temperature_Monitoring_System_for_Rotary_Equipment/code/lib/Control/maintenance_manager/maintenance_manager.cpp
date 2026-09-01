@@ -1,18 +1,14 @@
 #include <Arduino.h>
 #include <math.h>
 #include "maintenance_manager.h"
-#include "current_sensor/current_sensor.h"
 #include "temp_sensor/temp_sensor.h"
-#include "vibration_sensor_one/vibration_sensor_one.h"
-#include "vibration_sensor_two/vibration_sensor_two.h"
+#include "vibration_sensor/vibration_sensor.h"
 #include "load_relay/load_relay.h"
 #include "buzzer/buzzer.h"
 #include "error_handling/error_handling.h"
 
 namespace maintenance_manager
 {
-  static float currentWarnA = 3.5f;
-  static float currentFaultA = 5.0f;
   static float tempWarnC = 60.0f;
   static float tempFaultC = 70.0f;
   static float vibrationWarnG = 1.2f;
@@ -29,8 +25,10 @@ namespace maintenance_manager
   static unsigned long lastWarningBeep = 0;
 
   static float prevTemp = NAN;
-  static float prevCurrent = NAN;
-  static float prevVibration = NAN;
+
+  static float prevVibration1 = NAN;
+  static float prevVibration2 = NAN;
+
   static String worstMetric = "none";
   static String recommendation = "System normal. Continue monitoring.";
 
@@ -80,105 +78,157 @@ namespace maintenance_manager
     return minutes;
   }
 
-  static void updateTrend(float tempC, bool tempValid, float currentA, float vibrationG)
+  static void updateTrend(
+      float tempC,
+      bool tempValid,
+      float vibration1G,
+      float vibration2G)
   {
     unsigned long now = millis();
 
     if (lastTrendTime == 0)
     {
       lastTrendTime = now;
+
       prevTemp = tempC;
-      prevCurrent = currentA;
-      prevVibration = vibrationG;
+      prevVibration1 = vibration1G;
+      prevVibration2 = vibration2G;
+
       snap.tempRatePerMin = 0.0f;
-      snap.currentRatePerMin = 0.0f;
-      snap.vibrationRatePerMin = 0.0f;
+      snap.vibration1RatePerMin = 0.0f;
+      snap.vibration2RatePerMin = 0.0f;
+
       return;
     }
 
-    float dtMin = (now - lastTrendTime) / 60000.0f;
+    float dtMin =
+        (now - lastTrendTime) / 60000.0f;
 
     if (dtMin < 0.2f)
       return;
 
     if (tempValid && !isnan(prevTemp))
-      snap.tempRatePerMin = (tempC - prevTemp) / dtMin;
+      snap.tempRatePerMin =
+          (tempC - prevTemp) / dtMin;
     else
       snap.tempRatePerMin = 0.0f;
 
-    if (!isnan(prevCurrent))
-      snap.currentRatePerMin = (currentA - prevCurrent) / dtMin;
+    if (!isnan(prevVibration1))
+      snap.vibration1RatePerMin =
+          (vibration1G - prevVibration1) / dtMin;
     else
-      snap.currentRatePerMin = 0.0f;
+      snap.vibration1RatePerMin = 0.0f;
 
-    if (!isnan(prevVibration))
-      snap.vibrationRatePerMin = (vibrationG - prevVibration) / dtMin;
+    if (!isnan(prevVibration2))
+      snap.vibration2RatePerMin =
+          (vibration2G - prevVibration2) / dtMin;
     else
-      snap.vibrationRatePerMin = 0.0f;
+      snap.vibration2RatePerMin = 0.0f;
 
     lastTrendTime = now;
+
     prevTemp = tempC;
-    prevCurrent = currentA;
-    prevVibration = vibrationG;
+    prevVibration1 = vibration1G;
+    prevVibration2 = vibration2G;
   }
 
-  static void updateForecast(float tempC, bool tempValid, float currentA, float vibrationG)
+  static void updateForecast(
+      float tempC,
+      bool tempValid,
+      float vibration1G,
+      float vibration2G)
   {
     float forecast = -1.0f;
 
-    float t1 = tempValid ? minutesToLimit(tempC, snap.tempRatePerMin, tempFaultC) : -1.0f;
-    float t2 = minutesToLimit(currentA, snap.currentRatePerMin, currentFaultA);
-    float t3 = minutesToLimit(vibrationG, snap.vibrationRatePerMin, vibrationFaultG);
+    float t1 =
+        tempValid
+            ? minutesToLimit(
+                  tempC,
+                  snap.tempRatePerMin,
+                  tempFaultC)
+            : -1.0f;
+
+    float t2 =
+        minutesToLimit(
+            vibration1G,
+            snap.vibration1RatePerMin,
+            vibrationFaultG);
+
+    float t3 =
+        minutesToLimit(
+            vibration2G,
+            snap.vibration2RatePerMin,
+            vibrationFaultG);
 
     if (t1 >= 0.0f)
       forecast = t1;
-    if (t2 >= 0.0f && (forecast < 0.0f || t2 < forecast))
+
+    if (t2 >= 0.0f &&
+        (forecast < 0.0f || t2 < forecast))
       forecast = t2;
-    if (t3 >= 0.0f && (forecast < 0.0f || t3 < forecast))
+
+    if (t3 >= 0.0f &&
+        (forecast < 0.0f || t3 < forecast))
       forecast = t3;
 
     snap.forecastMinutes = forecast;
   }
 
-  static void updateRecommendation(float tempSeverity, float currentSeverity, float vibrationSeverity)
+  static void updateRecommendation(
+      float tempSeverity,
+      float vibration1Severity,
+      float vibration2Severity)
   {
-    if (tempSeverity >= currentSeverity && tempSeverity >= vibrationSeverity)
+    if (tempSeverity >= vibration1Severity &&
+        tempSeverity >= vibration2Severity)
     {
       worstMetric = "temperature";
 
       if (tempSeverity >= 90.0f)
-        recommendation = "Over-temperature fault. Stop motor and inspect cooling, load, and bearing friction.";
+        recommendation =
+            "Over-temperature fault. Stop motor and inspect cooling, load, and bearing friction.";
       else if (tempSeverity >= 60.0f)
-        recommendation = "Temperature rising. Check ventilation, load level, lubrication, and motor casing heat.";
+        recommendation =
+            "Temperature rising. Check ventilation, load level, lubrication, and motor casing heat.";
       else
-        recommendation = "Temperature normal. Continue monitoring.";
+        recommendation =
+            "Temperature normal. Continue monitoring.";
     }
-    else if (currentSeverity >= tempSeverity && currentSeverity >= vibrationSeverity)
+    else if (vibration1Severity >= vibration2Severity)
     {
-      worstMetric = "current";
+      worstMetric = "vibration_sensor_1";
 
-      if (currentSeverity >= 90.0f)
-        recommendation = "Over-current fault. Inspect load, supply, winding condition, and mechanical jam.";
-      else if (currentSeverity >= 60.0f)
-        recommendation = "Current is high. Check motor loading, supply quality, and driven equipment friction.";
+      if (vibration1Severity >= 90.0f)
+        recommendation =
+            "High vibration fault on Sensor 1. Inspect bearing, alignment, mounting, shaft balance, and coupling.";
+      else if (vibration1Severity >= 60.0f)
+        recommendation =
+            "Vibration Sensor 1 is increasing. Plan bearing/alignment inspection before failure.";
       else
-        recommendation = "Current normal. Continue monitoring.";
+        recommendation =
+            "Vibration Sensor 1 normal. Continue monitoring.";
     }
     else
     {
-      worstMetric = "vibration";
+      worstMetric = "vibration_sensor_2";
 
-      if (vibrationSeverity >= 90.0f)
-        recommendation = "High vibration fault. Inspect bearing, alignment, mounting, shaft balance, and coupling.";
-      else if (vibrationSeverity >= 60.0f)
-        recommendation = "Vibration is increasing. Plan bearing/alignment inspection before failure.";
+      if (vibration2Severity >= 90.0f)
+        recommendation =
+            "High vibration fault on Sensor 2. Inspect bearing, alignment, mounting, shaft balance, and coupling.";
+      else if (vibration2Severity >= 60.0f)
+        recommendation =
+            "Vibration Sensor 2 is increasing. Plan bearing/alignment inspection before failure.";
       else
-        recommendation = "Vibration normal. Continue monitoring.";
+        recommendation =
+            "Vibration Sensor 2 normal. Continue monitoring.";
     }
 
-    if (snap.forecastMinutes >= 0.0f && snap.forecastMinutes <= 60.0f && !faultLatched)
+    if (snap.forecastMinutes >= 0.0f &&
+        snap.forecastMinutes <= 60.0f &&
+        !faultLatched)
     {
-      recommendation += " Predicted fault window is under one hour.";
+      recommendation +=
+          " Predicted fault window is under one hour.";
     }
   }
 
@@ -209,18 +259,51 @@ namespace maintenance_manager
 
     float tempC = temp_sensor::getTemperatureC();
     bool tempValid = temp_sensor::isValid();
-    float currentA = current_sensor::getCurrentA();
-    float vibrationG = vibration_sensor::getVibrationRMS();
 
-    updateTrend(tempC, tempValid, currentA, vibrationG);
-    updateForecast(tempC, tempValid, currentA, vibrationG);
+    float vibration1G =
+        vibration_sensor::getSensor1VibrationRMS();
+
+    float vibration2G =
+        vibration_sensor::getSensor2VibrationRMS();
+
+    updateTrend(
+        tempC,
+        tempValid,
+        vibration1G,
+        vibration2G);
+    updateForecast(
+        tempC,
+        tempValid,
+        vibration1G,
+        vibration2G);
 
     float tempSeverity = tempValid ? severity(tempC, tempWarnC, tempFaultC) : 0.0f;
-    float currentSeverity = severity(currentA, currentWarnA, currentFaultA);
-    float vibrationSeverity = vibration_sensor::isReady() ? severity(vibrationG, vibrationWarnG, vibrationFaultG) : 0.0f;
 
-    float weightedRisk = (tempSeverity * 0.30f) + (currentSeverity * 0.30f) + (vibrationSeverity * 0.40f);
-    float maxRisk = max(tempSeverity, max(currentSeverity, vibrationSeverity));
+    float vibration1Severity =
+        vibration_sensor::isSensor1Ready()
+            ? severity(
+                  vibration1G,
+                  vibrationWarnG,
+                  vibrationFaultG)
+            : 0.0f;
+
+    float vibration2Severity =
+        vibration_sensor::isSensor2Ready()
+            ? severity(
+                  vibration2G,
+                  vibrationWarnG,
+                  vibrationFaultG)
+            : 0.0f;
+
+    float weightedRisk =
+        (tempSeverity * 0.30f) +
+        (vibration1Severity * 0.35f) +
+        (vibration2Severity * 0.35f);
+
+    float maxRisk =
+        max(
+            tempSeverity,
+            max(vibration1Severity, vibration2Severity));
 
     float trendBoost = 0.0f;
 
@@ -241,10 +324,18 @@ namespace maintenance_manager
 
     if (tempValid && tempC >= tempFaultC)
       hardFault = true;
-    if (currentA >= currentFaultA)
+
+    if (vibration_sensor::isSensor1Ready() &&
+        vibration1G >= vibrationFaultG)
+    {
       hardFault = true;
-    if (vibration_sensor::isReady() && vibrationG >= vibrationFaultG)
+    }
+
+    if (vibration_sensor::isSensor2Ready() &&
+        vibration2G >= vibrationFaultG)
+    {
       hardFault = true;
+    }
 
     if (hardFault)
     {
@@ -260,10 +351,18 @@ namespace maintenance_manager
 
       if (tempValid && tempC >= tempWarnC)
         safe = false;
-      if (currentA >= currentWarnA)
+
+      if (vibration_sensor::isSensor1Ready() &&
+          vibration1G >= vibrationWarnG)
+      {
         safe = false;
-      if (vibration_sensor::isReady() && vibrationG >= vibrationWarnG)
+      }
+
+      if (vibration_sensor::isSensor2Ready() &&
+          vibration2G >= vibrationWarnG)
+      {
         safe = false;
+      }
 
       if (safe && safeCounter < 10)
         safeCounter++;
@@ -285,18 +384,30 @@ namespace maintenance_manager
 
     snap.uptimeMs = now;
     snap.temperatureC = tempC;
-    snap.currentA = currentA;
-    snap.vibrationRmsG = vibrationG;
-    snap.xG = vibration_sensor::getX();
-    snap.yG = vibration_sensor::getY();
-    snap.zG = vibration_sensor::getZ();
+
+    snap.vibration1RmsG = vibration1G;
+    snap.vibration2RmsG = vibration2G;
+
+    snap.xG = vibration_sensor::getSensor1X();
+    snap.yG = vibration_sensor::getSensor1Y();
+    snap.zG = vibration_sensor::getSensor1Z();
+
     snap.tempValid = tempValid;
-    snap.vibrationReady = vibration_sensor::isReady();
+
+    snap.vibration1Ready =
+        vibration_sensor::isSensor1Ready();
+
+    snap.vibration2Ready =
+        vibration_sensor::isSensor2Ready();
+
     snap.relayOn = load_relay::isOn();
     snap.relayFault = load_relay::isFault();
     snap.state = state;
 
-    updateRecommendation(tempSeverity, currentSeverity, vibrationSeverity);
+    updateRecommendation(
+        tempSeverity,
+        vibration1Severity,
+        vibration2Severity);
 
     if (faultLatched)
     {
@@ -398,15 +509,6 @@ namespace maintenance_manager
     error_handling::setCodeError(false);
   }
 
-  void setCurrentLimits(float warningA, float faultA)
-  {
-    if (warningA > 0.0f && faultA > warningA)
-    {
-      currentWarnA = warningA;
-      currentFaultA = faultA;
-    }
-  }
-
   void setTemperatureLimits(float warningC, float faultC)
   {
     if (faultC > warningC)
@@ -423,16 +525,6 @@ namespace maintenance_manager
       vibrationWarnG = warningG;
       vibrationFaultG = faultG;
     }
-  }
-
-  float getCurrentWarningLimit()
-  {
-    return currentWarnA;
-  }
-
-  float getCurrentFaultLimit()
-  {
-    return currentFaultA;
   }
 
   float getTemperatureWarningLimit()
