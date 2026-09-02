@@ -1,10 +1,10 @@
-#ifndef SD_CARD_H
-#define SD_CARD_H
+#ifndef STORAGE_H
+#define STORAGE_H
 
 #include <Arduino.h>
 #include <FS.h>
 
-namespace sd_card
+namespace storage
 {
   void begin();
   void update();

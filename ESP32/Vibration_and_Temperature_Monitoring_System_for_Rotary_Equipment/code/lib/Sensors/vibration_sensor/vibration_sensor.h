@@ -29,8 +29,8 @@ namespace vibration_sensor
   // Baselines
   float getSensor1BaseMagnitude();
   float getSensor2BaseMagnitude();
-
-  void recalibrateBaseline();
+  void recalibrateSensor1();
+  void recalibrateSensor2();
 }
 
 #endif

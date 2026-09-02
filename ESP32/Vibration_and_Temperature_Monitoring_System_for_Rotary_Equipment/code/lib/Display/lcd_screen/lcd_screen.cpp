@@ -6,7 +6,7 @@
 #include "temp_sensor/temp_sensor.h"
 #include "vibration_sensor/vibration_sensor.h"
 #include "load_relay/load_relay.h"
-#include "sd_card/sd_card.h"
+#include "storage/storage.h"
 #include "rotary_encoder/rotary_encoder.h"
 #include "maintenance_manager/maintenance_manager.h"
 #include "local_server/local_server.h"
@@ -70,19 +70,18 @@ namespace lcd_screen
       printFixed(0, 0, "   FUTURE ANALYSIS  ");
       printFixed(0, 1, String("Worst: ") + maintenance_manager::getWorstMetric());
       printFixed(0, 2, String("Forecast: ") + forecastShort(maintenance_manager::getForecastMinutes()));
-      printFixed(0, 3, String("Backend : ") + String(sd_card::getBackendName()));
+      printFixed(0, 3, String("Backend : ") + String(storage::getBackendName()));
     }
     else if (screen == 3)
     {
       printFixed(0, 0, "    SYSTEM STATUS   ");
       printFixed(0, 1, String("Relay: ") + (load_relay::isOn() ? "ON" : "OFF"));
       printFixed(0, 2, String("Fault: ") + (maintenance_manager::isFault() ? "YES" : "NO"));
-      // printFixed(0, 2, String("SD:") + (sd_card::isSdReady() ? "READY" : "NO") + " INT:" + (sd_card::isInternalReady() ? "OK" : "NO"));
       printFixed(0, 3, String("IP: ") + local_server::getIp());
     }
     else
     {
-      printFixed(0, 0, String("Sensor 1:") + " " + String("Sensor 2:"));
+      printFixed(0, 0, String("Sensor 1 ") + "  " + String("Sensor 2"));
       printFixed(0, 1, String("X1: ") + String(vibration_sensor::getSensor1X(), 2) + " " + String("X2: ") + String(vibration_sensor::getSensor2X(), 2));
       printFixed(0, 2, String("Y1: ") + String(vibration_sensor::getSensor1Y(), 2) + " " + String("Y2: ") + String(vibration_sensor::getSensor2Y(), 2));
       printFixed(0, 3, String("Z1: ") + String(vibration_sensor::getSensor1Z(), 2) + " " + String("Z2: ") + String(vibration_sensor::getSensor2Z(), 2));

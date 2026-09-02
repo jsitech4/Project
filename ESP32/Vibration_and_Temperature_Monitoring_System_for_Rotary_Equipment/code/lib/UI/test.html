@@ -1,10 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Industrial Motor Predictive Maintenance Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Industrial Motor Predictive Maintenance</title>
+
   <style>
     :root {
       --bg: #eef3f8;
@@ -16,8 +19,8 @@
       --warn: #ca8a04;
       --bad: #dc2626;
       --orange: #ea580c;
-      --line: rgba(100, 116, 139, 0.22);
-      --shadow: 0 14px 35px rgba(15, 23, 42, 0.12);
+      --line: rgba(100, 116, 139, .22);
+      --shadow: 0 14px 35px rgba(15, 23, 42, .12);
     }
 
     [data-theme="dark"] {
@@ -26,229 +29,217 @@
       --text: #e5edf8;
       --muted: #98a2b3;
       --accent: #60a5fa;
-      --line: rgba(148, 163, 184, 0.18);
-      --shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+      --good: #22c55e;
+      --warn: #eab308;
+      --bad: #ef4444;
+      --orange: #fb923c;
+      --line: rgba(148, 163, 184, .18);
+      --shadow: 0 14px 35px rgba(0, 0, 0, .35);
     }
 
     * {
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       margin: 0;
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      background: radial-gradient(circle at top left, rgba(37, 99, 235, .14), transparent 32%), var(--bg);
+      background: var(--bg);
       color: var(--text);
-      display: flex;
-      justify-content: center;
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
     }
 
-    .page {
-      width: 100%;
-      max-width: 1220px;
+    .container {
+      width: min(1400px, 94%);
       margin: 0 auto;
+      padding: 28px 0 40px;
     }
+
+    /* HEADER */
 
     .header {
-      padding: 22px 18px;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      gap: 14px;
-      max-width: 1180px;
-      margin: auto;
-      flex-wrap: wrap;
-      text-align: center;
+      gap: 20px;
+      margin-bottom: 25px;
     }
 
-    .title {
-      flex: 1 1 560px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .title h1 {
+    .title-area h1 {
       margin: 0;
-      font-size: 25px;
-      letter-spacing: -0.4px;
+      font-size: 30px;
+      line-height: 1.2;
+      font-weight: 750;
     }
 
-    .title p {
-      margin: 6px auto 0;
+    .title-area p {
+      margin: 8px 0 0;
       color: var(--muted);
-      line-height: 1.4;
-      max-width: 760px;
+      font-size: 14px;
     }
 
-    .top-actions {
+    .header-right {
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      flex: 1 1 100%;
+      gap: 12px;
     }
 
-    .toggle,
-    .pill {
-      border: 0;
+    .backend-pill {
+      padding: 9px 14px;
       border-radius: 999px;
-      padding: 10px 14px;
       background: var(--card);
-      color: var(--text);
       box-shadow: var(--shadow);
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 650;
     }
 
     .theme-btn {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border: 0;
       border-radius: 50%;
       background: var(--card);
       color: var(--text);
-      box-shadow: var(--shadow);
       cursor: pointer;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 20px;
-      line-height: 1;
+      font-size: 18px;
+      box-shadow: var(--shadow);
     }
 
-    .container {
-      max-width: 1180px;
-      margin: auto;
-      padding: 0 16px 30px;
-    }
+    /* GRID */
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 16px;
-      justify-content: center;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
     }
 
     .card {
       background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 18px;
+      border-radius: 18px;
+      padding: 20px;
       box-shadow: var(--shadow);
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      min-width: 0;
     }
 
-    .span3 {
+    .span-3 {
       grid-column: span 3;
     }
 
-    .span4 {
+    .span-4 {
       grid-column: span 4;
     }
 
-    .span5 {
-      grid-column: span 5;
-    }
-
-    .span6 {
+    .span-6 {
       grid-column: span 6;
     }
 
-    .span7 {
-      grid-column: span 7;
-    }
-
-    .span8 {
+    .span-8 {
       grid-column: span 8;
     }
 
-    .span12 {
+    .span-12 {
       grid-column: span 12;
     }
 
-    .label {
-      font-size: 13px;
+    /* SENSOR CARDS */
+
+    .card-title {
       color: var(--muted);
-      margin-bottom: 8px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .04em;
+      font-size: 13px;
+      font-weight: 650;
+      margin-bottom: 10px;
     }
 
-    .value {
-      font-size: 29px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
+    .metric {
+      font-size: 30px;
+      font-weight: 750;
     }
 
     .unit {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--muted);
       font-weight: 500;
     }
 
-    .small {
+    .sensor-sub {
+      margin-top: 8px;
+      font-size: 12px;
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-      max-width: 760px;
     }
 
+    /* STATUS */
+
     .status {
-      display: inline-block;
-      padding: 9px 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 13px;
       border-radius: 999px;
-      font-weight: 800;
-      font-size: 13px;
-      background: #e5e7eb;
-      color: #111827;
+      font-size: 14px;
+      font-weight: 750;
     }
 
     .status.NORMAL {
-      background: #dcfce7;
-      color: #166534;
+      background: rgba(22, 163, 74, .12);
+      color: var(--good);
     }
 
     .status.WARNING {
-      background: #fef9c3;
-      color: #854d0e;
+      background: rgba(202, 138, 4, .13);
+      color: var(--warn);
     }
 
-    .status.CRITICAL {
-      background: #ffedd5;
-      color: #9a3412;
-    }
-
+    .status.CRITICAL,
     .status.FAULT {
-      background: #fee2e2;
-      color: #991b1b;
+      background: rgba(220, 38, 38, .13);
+      color: var(--bad);
+    }
+
+    /* SECTION TITLES */
+
+    .section-title {
+      margin: 0 0 18px;
+      font-size: 18px;
+      font-weight: 750;
+    }
+
+    /* SCORE */
+
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 9px;
+    }
+
+    .score-label {
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .score-value {
+      font-size: 20px;
+      font-weight: 750;
     }
 
     .bar {
-      width: 100%;
-      max-width: 520px;
-      height: 12px;
-      background: rgba(100, 116, 139, .22);
+      height: 10px;
+      background: rgba(148, 163, 184, .18);
       border-radius: 999px;
       overflow: hidden;
-      margin-top: 10px;
+      margin-bottom: 20px;
     }
 
     .fill {
       height: 100%;
       width: 0%;
-      background: var(--accent);
-      transition: width .35s ease;
       border-radius: 999px;
+      transition: width .35s ease;
     }
 
     .fill.good {
@@ -263,455 +254,1329 @@
       background: var(--bad);
     }
 
-    .fill.orange {
-      background: var(--orange);
+    /* ANALYSIS */
+
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
     }
 
-    .actions {
+    .analysis-box {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+    }
+
+    .analysis-label {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .analysis-value {
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 650;
+    }
+
+    /* MOTOR CONTROL */
+
+    .control-buttons {
       display: flex;
-      justify-content: center;
-      gap: 10px;
       flex-wrap: wrap;
-      width: 100%;
+      gap: 10px;
     }
 
-    .btn {
+    button.control {
       border: 0;
-      border-radius: 14px;
-      padding: 11px 14px;
-      font-weight: 800;
-      background: var(--accent);
-      color: white;
+      border-radius: 10px;
+      padding: 11px 17px;
       cursor: pointer;
+      font-weight: 700;
+      color: white;
     }
 
-    .btn.secondary {
-      background: #64748b;
-    }
-
-    .btn.danger {
-      background: var(--bad);
-    }
-
-    .btn.good {
+    .btn-on {
       background: var(--good);
     }
 
-    pre {
-      width: 100%;
-      background: rgba(100, 116, 139, .12);
-      border: 1px solid var(--line);
-      border-radius: 16px;
+    .btn-off {
+      background: var(--bad);
+    }
+
+    .btn-clear {
+      background: var(--accent);
+    }
+
+    .btn-log {
+      background: #64748b;
+    }
+
+    .relay-state {
+      margin-top: 15px;
       padding: 12px;
-      overflow: auto;
-      max-height: 330px;
-      font-size: 12px;
-      white-space: pre-wrap;
-      text-align: left;
-    }
-
-    .metric-row {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      border-top: 1px solid var(--line);
-      padding: 12px 0;
-      text-align: left;
-    }
-
-    .metric-row:first-of-type {
-      border-top: 0;
-    }
-
-    .metric-row strong {
-      font-size: 14px;
-    }
-
-    .metric-row span {
-      color: var(--muted);
+      background: rgba(148, 163, 184, .10);
+      border-radius: 10px;
       font-size: 13px;
-      text-align: right;
+      font-weight: 650;
     }
 
-    .footer {
-      margin-top: 16px;
+    /* ACCELERATION */
+
+    .accel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .axis {
+      padding: 15px;
+      border-radius: 13px;
+      border: 1px solid var(--line);
       text-align: center;
+    }
+
+    .axis-label {
       color: var(--muted);
       font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .axis-value {
+      font-size: 20px;
+      font-weight: 750;
+    }
+
+    /* CHART */
+
+    .chart-wrapper {
+      width: 100%;
+      overflow: hidden;
     }
 
     canvas {
       width: 100%;
-      height: 260px;
+      height: 300px;
       display: block;
     }
 
-    @media (max-width: 900px) {
+    /* LOGS */
 
-      .span3,
-      .span4,
-      .span5,
-      .span6,
-      .span7,
-      .span8 {
-        grid-column: span 12;
+    .log {
+      background: #0b1220;
+      color: #dbeafe;
+      border-radius: 12px;
+      padding: 15px;
+      min-height: 170px;
+      max-height: 300px;
+      overflow: auto;
+      white-space: pre-wrap;
+      font-family:
+        "Cascadia Code",
+        "Consolas",
+        monospace;
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .log-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 13px;
+    }
+
+    .download {
+      display: inline-block;
+      text-decoration: none;
+      padding: 9px 13px;
+      border-radius: 9px;
+      background: var(--accent);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* BACKEND INFO */
+
+    .backend-info {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 14px;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:1050px) {
+
+      .span-3 {
+        grid-column: span 6;
       }
 
-      .value {
-        font-size: 24px;
+      .span-4 {
+        grid-column: span 6;
+      }
+
+      .span-8 {
+        grid-column: span 12;
+      }
+    }
+
+    @media(max-width:700px) {
+
+      .container {
+        width: 92%;
+        padding-top: 18px;
       }
 
       .header {
-        padding: 16px;
+        align-items: flex-start;
       }
 
-      .title h1 {
-        font-size: 20px;
+      .title-area h1 {
+        font-size: 23px;
       }
 
-      .metric-row {
+      .header-right {
         flex-direction: column;
-        text-align: center;
+        align-items: flex-end;
       }
 
-      .metric-row span {
-        text-align: center;
+      .span-3,
+      .span-4,
+      .span-6,
+      .span-8,
+      .span-12 {
+        grid-column: span 12;
       }
+
+      .analysis-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .accel-grid {
+        grid-template-columns: 1fr;
+      }
+
     }
   </style>
+
 </head>
 
 <body>
-  <div class="page">
+
+  <div class="container">
+
+    <!-- HEADER -->
+
     <div class="header">
-      <div class="title">
+
+      ```
+      <div class="title-area">
         <h1>Industrial Motor Predictive Maintenance</h1>
-        <p>Live condition monitoring, risk scoring, future fault estimate, SD/Internal backend logging.</p>
+        <p>Real-time condition monitoring and predictive fault analysis</p>
       </div>
-      <div class="top-actions">
-        <span class="pill" id="backendPill">Backend: SD CARD</span>
-        <button class="theme-btn" id="themeIcon" onclick="toggleTheme()" aria-label="Toggle dark and light mode"
-          title="Toggle theme">🌙</button>
+
+      <div class="header-right">
+
+        <div class="backend-pill" id="backendPill">
+          Backend: Internal
+        </div>
+
+        <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">
+          <span id="themeIcon">🌙</span>
+        </button>
+
       </div>
+      ```
+
     </div>
 
-    <div class="container">
-      <div class="grid">
-        <div class="card span3">
-          <div class="label">Temperature</div>
-          <div class="value" id="temp">-- <span class="unit">°C</span></div>
-          <p class="small">DS18B20 motor body temperature</p>
+    <!-- MAIN GRID -->
+
+    <div class="grid">
+
+      ```
+      <!-- TEMPERATURE -->
+
+      <div class="card span-3">
+
+        <div class="card-title">
+          Motor Temperature
         </div>
 
-        <div class="card span3">
-          <div class="label">Current</div>
-          <div class="value" id="current">-- <span class="unit">A</span></div>
-          <p class="small">ZMCT103C load current estimate</p>
+        <div class="metric" id="temp">
+          48.5 <span class="unit">°C</span>
         </div>
 
-        <div class="card span3">
-          <div class="label">Vibration RMS</div>
-          <div class="value" id="vibration">-- <span class="unit">g</span></div>
-          <p class="small">ADXL345 vibration severity</p>
+        <div class="sensor-sub">
+          DS18B20 motor-body temperature
         </div>
 
-        <div class="card span3">
-          <div class="label">Condition</div>
-          <span class="status NORMAL" id="level">NORMAL</span>
-          <p class="small" id="backend">SD ready | Internal ready</p>
-        </div>
-
-        <div class="card span6">
-          <div class="label">Risk Score</div>
-          <div class="value" id="risk">-- <span class="unit">%</span></div>
-          <div class="bar">
-            <div class="fill good" id="riskFill"></div>
-          </div>
-          <p class="small">Higher score means higher probability of fault based on current values and trend.</p>
-        </div>
-
-        <div class="card span6">
-          <div class="label">Motor Health</div>
-          <div class="value" id="health">-- <span class="unit">%</span></div>
-          <div class="bar">
-            <div class="fill good" id="healthFill"></div>
-          </div>
-          <p class="small" id="forecast">Forecast: --</p>
-        </div>
-
-        <div class="card span7">
-          <div class="label">Future Analysis / Recommendation</div>
-          <div class="value" id="worst" style="font-size:20px">Worst Metric: --</div>
-          <p class="small" id="recommendation">Waiting for data...</p>
-          <div class="metric-row"><strong>Maintenance Decision</strong><span id="decision">--</span></div>
-          <div class="metric-row"><strong>Estimated Time-To-Fault</strong><span id="ttf">--</span></div>
-          <div class="metric-row"><strong>Shutdown Status</strong><span id="shutdown">--</span></div>
-        </div>
-
-        <div class="card span5">
-          <div class="label">Motor Control</div>
-          <p class="small" id="relay">Relay: ON | Fault: NO</p>
-          <div class="actions">
-            <button class="btn good" onclick="setRelay(true)">Relay ON</button>
-            <button class="btn secondary" onclick="setRelay(false)">Relay OFF</button>
-            <button class="btn danger" onclick="clearFault()">Clear Fault</button>
-          </div>
-          <p class="small">Preview mode: buttons simulate dashboard behaviour. On ESP32-S3 they call real API endpoints.
-          </p>
-        </div>
-
-        <div class="card span4">
-          <div class="label">Acceleration X</div>
-          <div class="value" id="x">-- <span class="unit">g</span></div>
-        </div>
-        <div class="card span4">
-          <div class="label">Acceleration Y</div>
-          <div class="value" id="y">-- <span class="unit">g</span></div>
-        </div>
-        <div class="card span4">
-          <div class="label">Acceleration Z</div>
-          <div class="value" id="z">-- <span class="unit">g</span></div>
-        </div>
-
-        <div class="card span12">
-          <div class="label">Trend Graph</div>
-          <canvas id="chart" width="1000" height="260"></canvas>
-          <p class="small">Blue: current, orange: temperature, green: vibration. This preview simulates live trend data.
-          </p>
-        </div>
-
-        <div class="card span12">
-          <div class="label">Recent Motor Data Log</div>
-          <pre id="motorLog">Loading...</pre>
-          <div class="actions">
-            <button class="btn secondary" onclick="refreshLogs()">Refresh Logs</button>
-            <button class="btn" onclick="alert('On the ESP32 dashboard this downloads /motor_log.csv')">Download Motor
-              CSV</button>
-            <button class="btn" onclick="alert('On the ESP32 dashboard this downloads /analysis_log.csv')">Download
-              Analysis CSV</button>
-            <button class="btn" onclick="alert('On the ESP32 dashboard this downloads /event_log.csv')">Download Events
-              CSV</button>
-          </div>
-        </div>
-
-        <div class="card span6">
-          <div class="label">Recent Analysis Log</div>
-          <pre id="analysisLog">Loading...</pre>
-        </div>
-        <div class="card span6">
-          <div class="label">Recent Event Log</div>
-          <pre id="eventLog">Loading...</pre>
-        </div>
       </div>
-      <div class="footer">ESP32-S3 WROOM-1U Predictive Maintenance Dashboard Preview</div>
+
+
+      <!-- VIBRATION 1 -->
+
+      <div class="card span-3">
+
+        <div class="card-title">
+          Vibration Sensor 1 RMS
+        </div>
+
+        <div class="metric" id="vibration1">
+          0.842 <span class="unit">g</span>
+        </div>
+
+        <div class="sensor-sub">
+          ADXL345 · Address 0x53
+        </div>
+
+      </div>
+
+
+      <!-- VIBRATION 2 -->
+
+      <div class="card span-3">
+
+        <div class="card-title">
+          Vibration Sensor 2 RMS
+        </div>
+
+        <div class="metric" id="vibration2">
+          0.791 <span class="unit">g</span>
+        </div>
+
+        <div class="sensor-sub">
+          ADXL345 · Address 0x1D
+        </div>
+
+      </div>
+
+
+      <!-- CONDITION -->
+
+      <div class="card span-3">
+
+        <div class="card-title">
+          Overall Condition
+        </div>
+
+        <div class="status NORMAL" id="level">
+          NORMAL
+        </div>
+
+        <div class="sensor-sub">
+          Current predictive-maintenance state
+        </div>
+
+      </div>
+
+
+      <!-- SCORES -->
+
+      <div class="card span-4">
+
+        <h2 class="section-title">
+          Condition Score
+        </h2>
+
+        <div class="score-row">
+          <span class="score-label">
+            Risk Score
+          </span>
+
+          <span class="score-value">
+            <span id="risk">22.4</span>
+            <span class="unit">%</span>
+          </span>
+        </div>
+
+        <div class="bar">
+          <div id="riskFill" class="fill good" style="width:22.4%"></div>
+        </div>
+
+
+        <div class="score-row">
+          <span class="score-label">
+            Motor Health
+          </span>
+
+          <span class="score-value">
+            <span id="health">77.6</span>
+            <span class="unit">%</span>
+          </span>
+        </div>
+
+        <div class="bar">
+          <div id="healthFill" class="fill good" style="width:77.6%"></div>
+        </div>
+
+        <div class="backend-info" id="backend">
+          Backend: Internal | SD: ready | Internal: ready
+        </div>
+
+      </div>
+
+
+      <!-- FUTURE ANALYSIS -->
+
+      <div class="card span-8">
+
+        <h2 class="section-title">
+          Future Analysis / Recommendation
+        </h2>
+
+        <div class="analysis-grid">
+
+          <div class="analysis-box">
+
+            <div class="analysis-label">
+              Worst Metric
+            </div>
+
+            <div class="analysis-value" id="worst">
+              Worst Metric: Vibration
+            </div>
+
+          </div>
+
+
+          <div class="analysis-box">
+
+            <div class="analysis-label">
+              Recommendation
+            </div>
+
+            <div class="analysis-value" id="recommendation">
+              Continue operation and monitor vibration trend.
+            </div>
+
+          </div>
+
+
+          <div class="analysis-box">
+
+            <div class="analysis-label">
+              Maintenance Decision
+            </div>
+
+            <div class="analysis-value" id="decision">
+              Continue operation
+            </div>
+
+          </div>
+
+
+          <div class="analysis-box">
+
+            <div class="analysis-label">
+              Estimated Time-To-Fault
+            </div>
+
+            <div class="analysis-value" id="ttf">
+              Forecast: No rising fault trend detected
+            </div>
+
+          </div>
+
+
+          <div class="analysis-box">
+
+            <div class="analysis-label">
+              Shutdown Status
+            </div>
+
+            <div class="analysis-value" id="shutdown">
+              No shutdown active
+            </div>
+
+          </div>
+
+
+          <div class="analysis-box">
+
+            <div class="analysis-label">
+              Forecast
+            </div>
+
+            <div class="analysis-value" id="forecast">
+              Forecast: No rising fault trend detected
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- MOTOR CONTROL -->
+
+      <div class="card span-4">
+
+        <h2 class="section-title">
+          Motor Control
+        </h2>
+
+        <div class="control-buttons">
+
+          <button class="control btn-on" onclick="motorOn()">
+            Relay ON
+          </button>
+
+          <button class="control btn-off" onclick="motorOff()">
+            Relay OFF
+          </button>
+
+          <button class="control btn-clear" onclick="clearFault()">
+            Clear Fault
+          </button>
+
+          <button class="control btn-log" onclick="logNow()">
+            Log Now
+          </button>
+
+        </div>
+
+        <div class="relay-state" id="relay">
+          Relay: ON | Requested: ON | Fault: NO
+        </div>
+
+      </div>
+
+
+      <!-- ACCELERATION -->
+
+      <div class="card span-4">
+
+        <h2 class="section-title">
+          Acceleration
+        </h2>
+
+        <div class="accel-grid">
+
+          <div class="axis">
+
+            <div class="axis-label">
+              X Axis
+            </div>
+
+            <div class="axis-value" id="x">
+              0.12 <span class="unit">g</span>
+            </div>
+
+          </div>
+
+
+          <div class="axis">
+
+            <div class="axis-label">
+              Y Axis
+            </div>
+
+            <div class="axis-value" id="y">
+              -0.08 <span class="unit">g</span>
+            </div>
+
+          </div>
+
+
+          <div class="axis">
+
+            <div class="axis-label">
+              Z Axis
+            </div>
+
+            <div class="axis-value" id="z">
+              1.01 <span class="unit">g</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="sensor-sub">
+          Acceleration shown from Vibration Sensor 1
+        </div>
+
+      </div>
+
+
+      <!-- TREND -->
+
+      <div class="card span-8">
+
+        <h2 class="section-title">
+          Condition Trend
+        </h2>
+
+        <div class="chart-wrapper">
+          <canvas id="chart" width="900" height="300"></canvas>
+        </div>
+
+        <div class="sensor-sub">
+          Orange = Temperature · Blue = Vibration 1 · Green = Vibration 2
+        </div>
+
+      </div>
+
+
+      <!-- MOTOR LOG -->
+
+      <div class="card span-4">
+
+        <h2 class="section-title">
+          Recent Motor Data Log
+        </h2>
+
+        <div class="log" id="motorLog">2026-09-02 16:02:10,TEMP,48.5
+          ```
+
+          2026-09-02 16:02:10,VIB1,0.842
+          2026-09-02 16:02:10,VIB2,0.791
+          2026-09-02 16:02:12,TEMP,48.7
+          2026-09-02 16:02:12,VIB1,0.861
+          2026-09-02 16:02:12,VIB2,0.805</div>
+
+        ```
+        <div class="log-actions">
+
+          <a class="download" href="/download/motor_log.csv">
+            Download CSV
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- ANALYSIS LOG -->
+
+      <div class="card span-4">
+
+        <h2 class="section-title">
+          Recent Analysis Log
+        </h2>
+
+        <div class="log" id="analysisLog">2026-09-02 16:02:10,RISK,22.4
+          ```
+
+          2026-09-02 16:02:10,HEALTH,77.6
+          2026-09-02 16:02:10,STATE,NORMAL
+          2026-09-02 16:02:10,WORST_METRIC,Vibration
+          2026-09-02 16:02:10,FORECAST,N/A</div>
+
+        ```
+        <div class="log-actions">
+
+          <a class="download" href="/download/analysis_log.csv">
+            Download CSV
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- EVENT LOG -->
+
+      <div class="card span-4">
+
+        <h2 class="section-title">
+          Recent Event Log
+        </h2>
+
+        <div class="log" id="eventLog">2026-09-02 15:55:03,SYSTEM,Motor PM system started
+          ```
+
+          2026-09-02 15:55:04,STORAGE,Internal storage ready
+          2026-09-02 15:55:05,SENSOR,Vibration sensor 1 ready
+          2026-09-02 15:55:05,SENSOR,Vibration sensor 2 ready
+          2026-09-02 15:55:06,SYSTEM,Monitoring started</div>
+
+        ```
+        <div class="log-actions">
+
+          <a class="download" href="/download/event_log.csv">
+            Download CSV
+          </a>
+
+        </div>
+
+      </div>
+      ```
+
     </div>
+
   </div>
 
   <script>
-    let t = 0;
-    let relayOn = true;
-    let faultLatched = false;
-    let backend = 'SD CARD';
-    let motorRows = ['millis,temp_c,current_a,vibration_rms_g,relay_on,fault'];
-    let analysisRows = ['millis,health_score,risk_score,level,worst_metric,forecast_minutes,recommendation'];
-    let eventRows = ['millis,event,message'];
+
     let points = [];
 
-    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
+
+    /* =========================
+       THEME
+    ========================= */
+
+    document.documentElement.setAttribute(
+      "data-theme",
+      localStorage.getItem("theme") || "light"
+    );
+
     updateThemeIcon();
 
+
     function updateThemeIcon() {
-      const icon = document.getElementById('themeIcon');
-      if (!icon) return;
-      icon.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+
+      const icon =
+        document.getElementById("themeIcon");
+
+      if (!icon)
+        return;
+
+      icon.textContent =
+        document.documentElement.getAttribute("data-theme") === "dark"
+          ? "☀️"
+          : "🌙";
     }
+
 
     function toggleTheme() {
+
       const d = document.documentElement;
-      const theme = d.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      d.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
+
+      const theme =
+        d.getAttribute("data-theme") === "dark"
+          ? "light"
+          : "dark";
+
+      d.setAttribute("data-theme", theme);
+
+      localStorage.setItem(
+        "theme",
+        theme
+      );
+
       updateThemeIcon();
-    }
 
-    function fmt(v, d) { return Number(v).toFixed(d); }
-    function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
-
-    function setFill(id, v, reverse = false) {
-      const e = document.getElementById(id);
-      e.style.width = clamp(v, 0, 100) + '%';
-      let cls;
-      if (reverse) cls = v >= 75 ? 'good' : v >= 50 ? 'warn' : 'bad';
-      else cls = v >= 75 ? 'bad' : v >= 50 ? 'warn' : 'good';
-      e.className = 'fill ' + cls;
-    }
-
-    function forecastText(minutes) {
-      if (minutes < 0) return 'No rising fault trend detected';
-      if (minutes < 1) return 'Fault condition is active or imminent';
-      if (minutes < 60) return fmt(minutes, 1) + ' minutes to estimated fault limit';
-      return fmt(minutes / 60, 1) + ' hours to estimated fault limit';
-    }
-
-    function generateData() {
-      t += 1;
-      const temp = 43 + Math.sin(t / 10) * 4 + Math.max(0, t - 80) * 0.08;
-      const current = 1.75 + Math.sin(t / 7) * 0.22 + Math.max(0, t - 95) * 0.018;
-      const vibration = 0.42 + Math.sin(t / 5) * 0.07 + Math.max(0, t - 60) * 0.018;
-      const x = 0.02 + Math.sin(t / 3) * 0.05;
-      const y = 0.01 + Math.cos(t / 4) * 0.04;
-      const z = 1.00 + Math.sin(t / 8) * 0.03;
-
-      const tempRisk = clamp((temp / 70) * 100, 0, 100);
-      const currentRisk = clamp((current / 5) * 100, 0, 100);
-      const vibRisk = clamp((vibration / 2.5) * 100, 0, 100);
-      const risk = clamp(Math.max(tempRisk, currentRisk, vibRisk) * 0.7 + ((tempRisk + currentRisk + vibRisk) / 3) * 0.3, 0, 100);
-      const health = clamp(100 - risk, 0, 100);
-
-      let level = 'NORMAL';
-      if (risk >= 90 || faultLatched) level = 'FAULT';
-      else if (risk >= 75) level = 'CRITICAL';
-      else if (risk >= 55) level = 'WARNING';
-
-      let worst = 'Temperature';
-      if (currentRisk >= tempRisk && currentRisk >= vibRisk) worst = 'Current';
-      if (vibRisk >= tempRisk && vibRisk >= currentRisk) worst = 'Vibration';
-
-      let forecast = -1;
-      if (level === 'WARNING') forecast = 240;
-      if (level === 'CRITICAL') forecast = 45;
-      if (level === 'FAULT') forecast = 0;
-
-      if (level === 'FAULT') {
-        relayOn = false;
-        faultLatched = true;
-      }
-
-      return { temp, current, vibration, x, y, z, risk, health, level, worst, forecast };
-    }
-
-    function recommendation(s) {
-      if (s.level === 'FAULT') return 'Fault level reached. Motor has been shut down. Inspect motor immediately before restarting.';
-      if (s.level === 'CRITICAL') return 'Critical trend detected. Schedule urgent inspection. Check bearing, load condition, cooling, and supply current.';
-      if (s.level === 'WARNING') return 'Early warning trend detected. Continue monitoring and prepare maintenance check if trend continues.';
-      return 'Motor condition is normal. Continue regular monitoring and logging.';
-    }
-
-    function decision(s) {
-      if (s.level === 'FAULT') return 'Stop motor and inspect immediately';
-      if (s.level === 'CRITICAL') return 'Plan urgent maintenance';
-      if (s.level === 'WARNING') return 'Monitor closely';
-      return 'Continue operation';
-    }
-
-    function updateUI() {
-      const s = generateData();
-      document.getElementById('temp').innerHTML = fmt(s.temp, 1) + ' <span class="unit">°C</span>';
-      document.getElementById('current').innerHTML = fmt(s.current, 2) + ' <span class="unit">A</span>';
-      document.getElementById('vibration').innerHTML = fmt(s.vibration, 3) + ' <span class="unit">g</span>';
-
-      const lev = document.getElementById('level');
-      lev.textContent = s.level;
-      lev.className = 'status ' + s.level;
-
-      document.getElementById('risk').innerHTML = fmt(s.risk, 1) + ' <span class="unit">%</span>';
-      document.getElementById('health').innerHTML = fmt(s.health, 1) + ' <span class="unit">%</span>';
-      setFill('riskFill', s.risk, false);
-      setFill('healthFill', s.health, true);
-
-      document.getElementById('forecast').textContent = 'Forecast: ' + forecastText(s.forecast);
-      document.getElementById('worst').textContent = 'Worst Metric: ' + s.worst;
-      document.getElementById('recommendation').textContent = recommendation(s);
-      document.getElementById('decision').textContent = decision(s);
-      document.getElementById('ttf').textContent = forecastText(s.forecast);
-      document.getElementById('shutdown').textContent = faultLatched ? 'Relay forced OFF by protection logic' : 'No shutdown active';
-      document.getElementById('relay').textContent = 'Relay: ' + (relayOn ? 'ON' : 'OFF') + ' | Fault: ' + (faultLatched ? 'YES' : 'NO');
-      document.getElementById('backend').textContent = backend + ' ready | Internal ready';
-      document.getElementById('backendPill').textContent = 'Backend: ' + backend;
-
-      document.getElementById('x').innerHTML = fmt(s.x, 2) + ' <span class="unit">g</span>';
-      document.getElementById('y').innerHTML = fmt(s.y, 2) + ' <span class="unit">g</span>';
-      document.getElementById('z').innerHTML = fmt(s.z, 2) + ' <span class="unit">g</span>';
-
-      points.push({ current: s.current, temp: s.temp, vib: s.vibration });
-      if (points.length > 70) points.shift();
-
-      if (t % 3 === 0) addLogs(s);
       drawChart();
     }
 
-    function addLogs(s) {
-      const ms = t * 1000;
-      motorRows.push(`${ms},${fmt(s.temp, 2)},${fmt(s.current, 3)},${fmt(s.vibration, 3)},${relayOn ? 1 : 0},${faultLatched ? 1 : 0}`);
-      analysisRows.push(`${ms},${fmt(s.health, 1)},${fmt(s.risk, 1)},${s.level},${s.worst},${fmt(s.forecast, 1)},${recommendation(s)}`);
-      if (s.level === 'WARNING' || s.level === 'CRITICAL' || s.level === 'FAULT') {
-        eventRows.push(`${ms},${s.level},${recommendation(s)}`);
-      }
-      refreshLogs();
+
+    /* =========================
+       HELPERS
+    ========================= */
+
+    function fmt(v, d) {
+
+      v = Number(v);
+
+      if (!isFinite(v))
+        return "--";
+
+      return v.toFixed(d);
     }
 
-    function refreshLogs() {
-      document.getElementById('motorLog').textContent = motorRows.slice(-12).join('\n');
-      document.getElementById('analysisLog').textContent = analysisRows.slice(-10).join('\n');
-      document.getElementById('eventLog').textContent = eventRows.slice(-10).join('\n');
+
+    function clamp(v, a, b) {
+
+      return Math.max(
+        a,
+        Math.min(b, v)
+      );
     }
 
-    function setRelay(state) {
-      if (faultLatched && state) {
-        alert('Fault is active. Clear fault first before turning relay ON.');
-        return;
+
+    function setFill(id, v, reverse) {
+
+      const e =
+        document.getElementById(id);
+
+      v =
+        clamp(
+          Number(v) || 0,
+          0,
+          100
+        );
+
+      e.style.width =
+        v + "%";
+
+      let cls;
+
+      if (reverse) {
+
+        cls =
+          v >= 75
+            ? "good"
+            : v >= 50
+              ? "warn"
+              : "bad";
+
+      } else {
+
+        cls =
+          v >= 75
+            ? "bad"
+            : v >= 50
+              ? "warn"
+              : "good";
       }
-      relayOn = state;
-      eventRows.push(`${t * 1000},RELAY,Relay manually requested ${state ? 'ON' : 'OFF'} from dashboard`);
-      refreshLogs();
-      updateUI();
+
+      e.className =
+        "fill " + cls;
     }
+
+
+    function decision(level) {
+
+      if (level === "FAULT")
+        return "Stop motor and inspect immediately";
+
+      if (level === "CRITICAL")
+        return "Plan urgent maintenance";
+
+      if (level === "WARNING")
+        return "Monitor closely";
+
+      return "Continue operation";
+    }
+
+
+    /* =========================
+       DEMO DATA
+    ========================= */
+
+    function demoStatus() {
+
+      const temperature =
+        48 +
+        Math.sin(Date.now() / 8000) * 2;
+
+      const vib1 =
+        0.75 +
+        Math.sin(Date.now() / 2500) * 0.12;
+
+      const vib2 =
+        0.70 +
+        Math.sin(Date.now() / 3200) * 0.10;
+
+      const risk =
+        20 +
+        Math.abs(Math.sin(Date.now() / 5000)) * 8;
+
+      const health =
+        100 - risk;
+
+      return {
+
+        temp_valid: true,
+
+        temperature_c: temperature,
+
+        vibration1_rms_g: vib1,
+
+        vibration2_rms_g: vib2,
+
+        vibration1_x_g:
+          0.12 + Math.sin(Date.now() / 1500) * 0.08,
+
+        vibration1_y_g:
+          -0.08 + Math.sin(Date.now() / 1800) * 0.05,
+
+        vibration1_z_g:
+          1.01 + Math.sin(Date.now() / 2200) * 0.04,
+
+        risk_score: risk,
+
+        health_score: health,
+
+        forecast_minutes: -1,
+
+        forecast_text:
+          "No rising fault trend detected",
+
+        level: "NORMAL",
+
+        worst_metric: "Vibration",
+
+        recommendation:
+          "Continue operation and monitor vibration trend.",
+
+        relay_on: true,
+
+        relay_requested: true,
+
+        fault: false,
+
+        sd_ready: true,
+
+        internal_ready: true,
+
+        backend: "Internal"
+
+      };
+    }
+
+
+    /* =========================
+       LOAD STATUS
+    ========================= */
+
+    async function loadStatus() {
+
+      try {
+
+        /*
+          When connected to the ESP32,
+          replace this demo section with:
+
+          const r = await fetch("/api/status");
+          const s = await r.json();
+        */
+
+        const s =
+          demoStatus();
+
+
+        document.getElementById("temp").innerHTML =
+          s.temp_valid
+            ? fmt(
+              s.temperature_c,
+              1
+            ) +
+            ' <span class="unit">°C</span>'
+            : "N/A";
+
+
+        document.getElementById("vibration1").innerHTML =
+          fmt(
+            s.vibration1_rms_g,
+            3
+          ) +
+          ' <span class="unit">g</span>';
+
+
+        document.getElementById("vibration2").innerHTML =
+          fmt(
+            s.vibration2_rms_g,
+            3
+          ) +
+          ' <span class="unit">g</span>';
+
+
+        const lev =
+          document.getElementById("level");
+
+        lev.textContent =
+          s.level;
+
+        lev.className =
+          "status " + s.level;
+
+
+        document.getElementById("backend").textContent =
+          "Backend: " +
+          s.backend +
+          " | SD: " +
+          (s.sd_ready
+            ? "ready"
+            : "not ready") +
+          " | Internal: " +
+          (s.internal_ready
+            ? "ready"
+            : "not ready");
+
+
+        document.getElementById("backendPill").textContent =
+          "Backend: " +
+          s.backend;
+
+
+        document.getElementById("risk").innerHTML =
+          fmt(
+            s.risk_score,
+            1
+          ) +
+          ' <span class="unit">%</span>';
+
+
+        document.getElementById("health").innerHTML =
+          fmt(
+            s.health_score,
+            1
+          ) +
+          ' <span class="unit">%</span>';
+
+
+        setFill(
+          "riskFill",
+          s.risk_score,
+          false
+        );
+
+
+        setFill(
+          "healthFill",
+          s.health_score,
+          true
+        );
+
+
+        document.getElementById("forecast").textContent =
+          "Forecast: " +
+          s.forecast_text;
+
+
+        document.getElementById("worst").textContent =
+          "Worst Metric: " +
+          s.worst_metric;
+
+
+        document.getElementById("recommendation").textContent =
+          s.recommendation;
+
+
+        document.getElementById("decision").textContent =
+          decision(
+            s.level
+          );
+
+
+        document.getElementById("ttf").textContent =
+          s.forecast_text;
+
+
+        document.getElementById("shutdown").textContent =
+          s.fault
+            ? "Relay forced OFF by protection logic"
+            : "No shutdown active";
+
+
+        document.getElementById("relay").textContent =
+          "Relay: " +
+          (s.relay_on
+            ? "ON"
+            : "OFF") +
+          " | Requested: " +
+          (s.relay_requested
+            ? "ON"
+            : "OFF") +
+          " | Fault: " +
+          (s.fault
+            ? "YES"
+            : "NO");
+
+
+        document.getElementById("x").innerHTML =
+          fmt(
+            s.vibration1_x_g,
+            2
+          ) +
+          ' <span class="unit">g</span>';
+
+
+        document.getElementById("y").innerHTML =
+          fmt(
+            s.vibration1_y_g,
+            2
+          ) +
+          ' <span class="unit">g</span>';
+
+
+        document.getElementById("z").innerHTML =
+          fmt(
+            s.vibration1_z_g,
+            2
+          ) +
+          ' <span class="unit">g</span>';
+
+
+        points.push({
+
+          temp:
+            Number(
+              s.temperature_c
+            ) || 0,
+
+          vib1:
+            Number(
+              s.vibration1_rms_g
+            ) || 0,
+
+          vib2:
+            Number(
+              s.vibration2_rms_g
+            ) || 0
+
+        });
+
+
+        if (points.length > 70)
+          points.shift();
+
+
+        drawChart();
+
+      }
+
+      catch (e) {
+
+        console.error(
+          "Status error:",
+          e
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       MOTOR COMMANDS
+    ========================= */
+
+    function motorOn() {
+
+      /*
+        ESP32 version:
+
+        fetch("/api/relay?state=on");
+
+        For this browser preview,
+        just update the interface.
+      */
+
+      document.getElementById("relay").textContent =
+        "Relay: ON | Requested: ON | Fault: NO";
+    }
+
+
+    function motorOff() {
+
+      document.getElementById("relay").textContent =
+        "Relay: OFF | Requested: OFF | Fault: NO";
+    }
+
 
     function clearFault() {
-      faultLatched = false;
-      relayOn = true;
-      t = 0;
-      eventRows.push(`${Date.now()},CLEAR_FAULT,Fault cleared from dashboard preview`);
-      refreshLogs();
-      updateUI();
+
+      document.getElementById("level").textContent =
+        "NORMAL";
+
+      document.getElementById("level").className =
+        "status NORMAL";
+
+      document.getElementById("shutdown").textContent =
+        "No shutdown active";
     }
+
+
+    function logNow() {
+
+      console.log(
+        "Log Now command"
+      );
+
+    }
+
+
+    /* =========================
+       LOGS
+    ========================= */
+
+    async function loadLogs() {
+
+      /*
+        ESP32 version:
+
+        const r =
+          await fetch("/api/logs");
+
+        const s =
+          await r.json();
+
+        Then update the three
+        log elements.
+      */
+
+    }
+
+
+    /* =========================
+       CHART
+    ========================= */
 
     function drawChart() {
-      const c = document.getElementById('chart');
-      const ctx = c.getContext('2d');
-      const w = c.width, h = c.height;
-      ctx.clearRect(0, 0, w, h);
-      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--line');
+
+      const c =
+        document.getElementById(
+          "chart"
+        );
+
+      const ctx =
+        c.getContext("2d");
+
+      const w =
+        c.width;
+
+      const h =
+        c.height;
+
+
+      ctx.clearRect(
+        0,
+        0,
+        w,
+        h
+      );
+
+
+      ctx.strokeStyle =
+        getComputedStyle(
+          document.documentElement
+        )
+          .getPropertyValue(
+            "--line"
+          );
+
+
       ctx.lineWidth = 1;
+
+
       for (let i = 0; i < 5; i++) {
-        const y = 30 + i * 45;
-        ctx.beginPath(); ctx.moveTo(30, y); ctx.lineTo(w - 20, y); ctx.stroke();
+
+        const y =
+          30 + i * 55;
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+          30,
+          y
+        );
+
+        ctx.lineTo(
+          w - 20,
+          y
+        );
+
+        ctx.stroke();
+
       }
-      drawLine(ctx, points.map(p => p.current), 0, 6, '#2563eb');
-      drawLine(ctx, points.map(p => p.temp), 20, 80, '#ea580c');
-      drawLine(ctx, points.map(p => p.vib), 0, 3, '#16a34a');
+
+
+      drawLine(
+        ctx,
+        points.map(
+          p => p.temp
+        ),
+        20,
+        90,
+        "#ea580c"
+      );
+
+
+      drawLine(
+        ctx,
+        points.map(
+          p => p.vib1
+        ),
+        0,
+        3,
+        "#2563eb"
+      );
+
+
+      drawLine(
+        ctx,
+        points.map(
+          p => p.vib2
+        ),
+        0,
+        3,
+        "#16a34a"
+      );
+
     }
 
-    function drawLine(ctx, arr, min, max, color) {
-      if (arr.length < 2) return;
-      const w = ctx.canvas.width, h = ctx.canvas.height;
-      ctx.strokeStyle = color;
+
+    function drawLine(
+      ctx,
+      arr,
+      min,
+      max,
+      color
+    ) {
+
+      if (arr.length < 2)
+        return;
+
+
+      const w =
+        ctx.canvas.width;
+
+      const h =
+        ctx.canvas.height;
+
+
+      ctx.strokeStyle =
+        color;
+
       ctx.lineWidth = 3;
+
       ctx.beginPath();
-      arr.forEach((v, i) => {
-        const x = 30 + (i / 69) * (w - 55);
-        const y = h - 25 - ((v - min) / (max - min)) * (h - 55);
-        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-      });
+
+
+      arr.forEach(
+        (v, i) => {
+
+          const x =
+            30 +
+            (i / 69) *
+            (w - 55);
+
+
+          const y =
+            h -
+            25 -
+            (
+              (v - min) /
+              (max - min)
+            ) *
+            (h - 55);
+
+
+          if (i === 0)
+            ctx.moveTo(x, y);
+          else
+            ctx.lineTo(x, y);
+
+        }
+      );
+
+
       ctx.stroke();
+
     }
 
-    refreshLogs();
-    updateUI();
-    setInterval(updateUI, 1500);
+
+    /* =========================
+       START
+    ========================= */
+
+    loadStatus();
+
+    setInterval(
+      loadStatus,
+      2000
+    );
+
   </script>
+
 </body>
 
 </html>

@@ -9,10 +9,6 @@
 
 namespace vibration_sensor
 {
-  // =========================================================
-  // SENSOR 1
-  // =========================================================
-
   static Adafruit_ADXL345_Unified adxl1 =
       Adafruit_ADXL345_Unified(12345);
 
@@ -31,10 +27,6 @@ namespace vibration_sensor
 
   static unsigned long lastSample1 = 0;
   static unsigned long lastCycle1 = 0;
-
-  // =========================================================
-  // SENSOR 2
-  // =========================================================
 
   static Adafruit_ADXL345_Unified adxl2 =
       Adafruit_ADXL345_Unified(67890);
@@ -55,17 +47,9 @@ namespace vibration_sensor
   static unsigned long lastSample2 = 0;
   static unsigned long lastCycle2 = 0;
 
-  // =========================================================
-  // CONFIGURATION
-  // =========================================================
-
   static const uint8_t samplesTarget = 20;
   static const unsigned long samplePeriodMs = 2;
   static const unsigned long cycleIntervalMs = 100;
-
-  // =========================================================
-  // SENSOR 1 INTERNAL FUNCTIONS
-  // =========================================================
 
   static float readSensor1Magnitude()
   {
@@ -103,10 +87,6 @@ namespace vibration_sensor
     lastCycle1 = millis();
   }
 
-  // =========================================================
-  // SENSOR 2 INTERNAL FUNCTIONS
-  // =========================================================
-
   static float readSensor2Magnitude()
   {
     sensors_event_t event;
@@ -143,20 +123,11 @@ namespace vibration_sensor
     lastCycle2 = millis();
   }
 
-  // =========================================================
-  // BEGIN
-  // =========================================================
-
   void begin()
   {
     Wire.begin(
         Pins::I2C_SDA,
         Pins::I2C_SCL);
-
-    // -----------------------------------------------------
-    // SENSOR 1
-    // ADXL345 address = 0x53
-    // -----------------------------------------------------
 
     ready1 = adxl1.begin(0x53);
 
@@ -170,11 +141,6 @@ namespace vibration_sensor
 
       startSampling1();
     }
-
-    // -----------------------------------------------------
-    // SENSOR 2
-    // ADXL345 address = 0x1D
-    // -----------------------------------------------------
 
     ready2 = adxl2.begin(0x1D);
 
@@ -190,17 +156,9 @@ namespace vibration_sensor
     }
   }
 
-  // =========================================================
-  // UPDATE
-  // =========================================================
-
   void update()
   {
     unsigned long now = millis();
-
-    // =====================================================
-    // SENSOR 1
-    // =====================================================
 
     if (ready1)
     {
@@ -231,10 +189,6 @@ namespace vibration_sensor
         }
       }
     }
-
-    // =====================================================
-    // SENSOR 2
-    // =====================================================
 
     if (ready2)
     {
@@ -267,10 +221,6 @@ namespace vibration_sensor
     }
   }
 
-  // =========================================================
-  // SENSOR 1 GETTERS
-  // =========================================================
-
   float getSensor1X()
   {
     return x1;
@@ -300,10 +250,6 @@ namespace vibration_sensor
   {
     return ready1;
   }
-
-  // =========================================================
-  // SENSOR 2 GETTERS
-  // =========================================================
 
   float getSensor2X()
   {
@@ -335,10 +281,6 @@ namespace vibration_sensor
     return ready2;
   }
 
-  // =========================================================
-  // SENSOR 1 CALIBRATION
-  // =========================================================
-
   void recalibrateSensor1()
   {
     if (!ready1)
@@ -359,10 +301,6 @@ namespace vibration_sensor
         sum / count;
   }
 
-  // =========================================================
-  // SENSOR 2 CALIBRATION
-  // =========================================================
-
   void recalibrateSensor2()
   {
     if (!ready2)
@@ -382,10 +320,6 @@ namespace vibration_sensor
     baseMagnitude2 =
         sum / count;
   }
-
-  // =========================================================
-  // OVERALL STATUS
-  // =========================================================
 
   bool isReady()
   {

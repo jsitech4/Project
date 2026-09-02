@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <math.h>
+
 #include "maintenance_manager.h"
 #include "temp_sensor/temp_sensor.h"
 #include "vibration_sensor/vibration_sensor.h"
@@ -9,14 +10,19 @@
 
 namespace maintenance_manager
 {
+
   static float tempWarnC = 60.0f;
   static float tempFaultC = 70.0f;
+
   static float vibrationWarnG = 1.2f;
   static float vibrationFaultG = 2.5f;
 
   static Snapshot snap;
+
   static State state = STATE_NORMAL;
+
   static bool faultLatched = false;
+
   static uint8_t faultCounter = 0;
   static uint8_t safeCounter = 0;
 
@@ -25,23 +31,32 @@ namespace maintenance_manager
   static unsigned long lastWarningBeep = 0;
 
   static float prevTemp = NAN;
-
   static float prevVibration1 = NAN;
   static float prevVibration2 = NAN;
 
   static String worstMetric = "none";
-  static String recommendation = "System normal. Continue monitoring.";
 
-  static float limitFloat(float value, float low, float high)
+  static String recommendation =
+      "System normal. Continue monitoring.";
+
+  static float limitFloat(
+      float value,
+      float low,
+      float high)
   {
     if (value < low)
       return low;
+
     if (value > high)
       return high;
+
     return value;
   }
 
-  static float severity(float value, float warning, float fault)
+  static float severity(
+      float value,
+      float warning,
+      float fault)
   {
     if (fault <= warning)
       return 0.0f;
@@ -51,18 +66,31 @@ namespace maintenance_manager
 
     if (value < warning)
     {
-      return limitFloat((value / warning) * 35.0f, 0.0f, 35.0f);
+      return limitFloat(
+          (value / warning) * 35.0f,
+          0.0f,
+          35.0f);
     }
 
     if (value < fault)
     {
-      return 40.0f + ((value - warning) / (fault - warning)) * 45.0f;
+      return 40.0f +
+             ((value - warning) /
+              (fault - warning)) *
+                 45.0f;
     }
 
-    return limitFloat(90.0f + ((value - fault) / fault) * 10.0f, 90.0f, 100.0f);
+    return limitFloat(
+        90.0f +
+            ((value - fault) / fault) * 10.0f,
+        90.0f,
+        100.0f);
   }
 
-  static float minutesToLimit(float value, float ratePerMin, float limit)
+  static float minutesToLimit(
+      float value,
+      float ratePerMin,
+      float limit)
   {
     if (ratePerMin <= 0.001f)
       return -1.0f;
@@ -70,10 +98,14 @@ namespace maintenance_manager
     if (value >= limit)
       return 0.0f;
 
-    float minutes = (limit - value) / ratePerMin;
+    float minutes =
+        (limit - value) / ratePerMin;
 
-    if (minutes < 0.0f || minutes > 9999.0f)
+    if (minutes < 0.0f ||
+        minutes > 9999.0f)
+    {
       return -1.0f;
+    }
 
     return minutes;
   }
@@ -108,22 +140,34 @@ namespace maintenance_manager
       return;
 
     if (tempValid && !isnan(prevTemp))
+    {
       snap.tempRatePerMin =
           (tempC - prevTemp) / dtMin;
+    }
     else
+    {
       snap.tempRatePerMin = 0.0f;
+    }
 
     if (!isnan(prevVibration1))
+    {
       snap.vibration1RatePerMin =
           (vibration1G - prevVibration1) / dtMin;
+    }
     else
+    {
       snap.vibration1RatePerMin = 0.0f;
+    }
 
     if (!isnan(prevVibration2))
+    {
       snap.vibration2RatePerMin =
           (vibration2G - prevVibration2) / dtMin;
+    }
     else
+    {
       snap.vibration2RatePerMin = 0.0f;
+    }
 
     lastTrendTime = now;
 
@@ -165,11 +209,15 @@ namespace maintenance_manager
 
     if (t2 >= 0.0f &&
         (forecast < 0.0f || t2 < forecast))
+    {
       forecast = t2;
+    }
 
     if (t3 >= 0.0f &&
         (forecast < 0.0f || t3 < forecast))
+    {
       forecast = t3;
+    }
 
     snap.forecastMinutes = forecast;
   }
@@ -185,42 +233,60 @@ namespace maintenance_manager
       worstMetric = "temperature";
 
       if (tempSeverity >= 90.0f)
+      {
         recommendation =
             "Over-temperature fault. Stop motor and inspect cooling, load, and bearing friction.";
+      }
       else if (tempSeverity >= 60.0f)
+      {
         recommendation =
             "Temperature rising. Check ventilation, load level, lubrication, and motor casing heat.";
+      }
       else
+      {
         recommendation =
             "Temperature normal. Continue monitoring.";
+      }
     }
     else if (vibration1Severity >= vibration2Severity)
     {
       worstMetric = "vibration_sensor_1";
 
       if (vibration1Severity >= 90.0f)
+      {
         recommendation =
             "High vibration fault on Sensor 1. Inspect bearing, alignment, mounting, shaft balance, and coupling.";
+      }
       else if (vibration1Severity >= 60.0f)
+      {
         recommendation =
             "Vibration Sensor 1 is increasing. Plan bearing/alignment inspection before failure.";
+      }
       else
+      {
         recommendation =
             "Vibration Sensor 1 normal. Continue monitoring.";
+      }
     }
     else
     {
       worstMetric = "vibration_sensor_2";
 
       if (vibration2Severity >= 90.0f)
+      {
         recommendation =
             "High vibration fault on Sensor 2. Inspect bearing, alignment, mounting, shaft balance, and coupling.";
+      }
       else if (vibration2Severity >= 60.0f)
+      {
         recommendation =
             "Vibration Sensor 2 is increasing. Plan bearing/alignment inspection before failure.";
+      }
       else
+      {
         recommendation =
             "Vibration Sensor 2 normal. Continue monitoring.";
+      }
     }
 
     if (snap.forecastMinutes >= 0.0f &&
@@ -235,17 +301,25 @@ namespace maintenance_manager
   void begin()
   {
     memset(&snap, 0, sizeof(snap));
+
     snap.healthScore = 100.0f;
     snap.forecastMinutes = -1.0f;
+
     state = STATE_NORMAL;
+
     faultLatched = false;
+
     faultCounter = 0;
     safeCounter = 0;
+
     lastUpdate = 0;
     lastTrendTime = 0;
     lastWarningBeep = 0;
+
     worstMetric = "none";
-    recommendation = "System normal. Continue monitoring.";
+
+    recommendation =
+        "System normal. Continue monitoring.";
   }
 
   void update()
@@ -257,8 +331,11 @@ namespace maintenance_manager
 
     lastUpdate = now;
 
-    float tempC = temp_sensor::getTemperatureC();
-    bool tempValid = temp_sensor::isValid();
+    float tempC =
+        temp_sensor::getTemperatureC();
+
+    bool tempValid =
+        temp_sensor::isValid();
 
     float vibration1G =
         vibration_sensor::getSensor1VibrationRMS();
@@ -271,13 +348,20 @@ namespace maintenance_manager
         tempValid,
         vibration1G,
         vibration2G);
+
     updateForecast(
         tempC,
         tempValid,
         vibration1G,
         vibration2G);
 
-    float tempSeverity = tempValid ? severity(tempC, tempWarnC, tempFaultC) : 0.0f;
+    float tempSeverity =
+        tempValid
+            ? severity(
+                  tempC,
+                  tempWarnC,
+                  tempFaultC)
+            : 0.0f;
 
     float vibration1Severity =
         vibration_sensor::isSensor1Ready()
@@ -303,7 +387,9 @@ namespace maintenance_manager
     float maxRisk =
         max(
             tempSeverity,
-            max(vibration1Severity, vibration2Severity));
+            max(
+                vibration1Severity,
+                vibration2Severity));
 
     float trendBoost = 0.0f;
 
@@ -317,22 +403,43 @@ namespace maintenance_manager
         trendBoost = 5.0f;
     }
 
-    snap.riskScore = limitFloat((weightedRisk * 0.45f) + (maxRisk * 0.55f) + trendBoost, 0.0f, 100.0f);
-    snap.healthScore = limitFloat(100.0f - snap.riskScore, 0.0f, 100.0f);
+    snap.riskScore =
+        limitFloat(
+            (weightedRisk * 0.45f) +
+                (maxRisk * 0.55f) +
+                trendBoost,
+            0.0f,
+            100.0f);
+
+    snap.healthScore =
+        limitFloat(
+            100.0f - snap.riskScore,
+            0.0f,
+            100.0f);
 
     bool hardFault = false;
 
-    if (tempValid && tempC >= tempFaultC)
-      hardFault = true;
-
-    if (vibration_sensor::isSensor1Ready() &&
-        vibration1G >= vibrationFaultG)
+    if (tempValid &&
+        tempC >= tempFaultC)
     {
       hardFault = true;
     }
 
-    if (vibration_sensor::isSensor2Ready() &&
-        vibration2G >= vibrationFaultG)
+    bool sensor1VibrationFault =
+        vibration_sensor::isSensor1Ready() &&
+        vibration1G >= vibrationFaultG;
+
+    bool sensor2VibrationFault =
+        vibration_sensor::isSensor2Ready() &&
+        vibration2G >= vibrationFaultG;
+
+    bool vibrationAndFault =
+        vibration_sensor::isSensor1Ready() &&
+        vibration_sensor::isSensor2Ready() &&
+        sensor1VibrationFault &&
+        sensor2VibrationFault;
+
+    if (vibrationAndFault)
     {
       hardFault = true;
     }
@@ -341,6 +448,7 @@ namespace maintenance_manager
     {
       if (faultCounter < 5)
         faultCounter++;
+
       safeCounter = 0;
     }
     else
@@ -349,8 +457,11 @@ namespace maintenance_manager
 
       bool safe = true;
 
-      if (tempValid && tempC >= tempWarnC)
+      if (tempValid &&
+          tempC >= tempWarnC)
+      {
         safe = false;
+      }
 
       if (vibration_sensor::isSensor1Ready() &&
           vibration1G >= vibrationWarnG)
@@ -364,29 +475,46 @@ namespace maintenance_manager
         safe = false;
       }
 
-      if (safe && safeCounter < 10)
+      if (safe &&
+          safeCounter < 10)
+      {
         safeCounter++;
+      }
       else if (!safe)
+      {
         safeCounter = 0;
+      }
     }
 
     if (faultCounter >= 2)
       faultLatched = true;
 
     if (faultLatched)
+    {
       state = STATE_FAULT;
+    }
     else if (snap.riskScore >= 75.0f)
+    {
       state = STATE_CRITICAL;
+    }
     else if (snap.riskScore >= 50.0f)
+    {
       state = STATE_WARNING;
+    }
     else
+    {
       state = STATE_NORMAL;
+    }
 
     snap.uptimeMs = now;
+
     snap.temperatureC = tempC;
 
-    snap.vibration1RmsG = vibration1G;
-    snap.vibration2RmsG = vibration2G;
+    snap.vibration1RmsG =
+        vibration1G;
+
+    snap.vibration2RmsG =
+        vibration2G;
 
     snap.vibration1XG =
         vibration_sensor::getSensor1X();
@@ -406,7 +534,8 @@ namespace maintenance_manager
     snap.vibration2ZG =
         vibration_sensor::getSensor2Z();
 
-    snap.tempValid = tempValid;
+    snap.tempValid =
+        tempValid;
 
     snap.vibration1Ready =
         vibration_sensor::isSensor1Ready();
@@ -414,9 +543,14 @@ namespace maintenance_manager
     snap.vibration2Ready =
         vibration_sensor::isSensor2Ready();
 
-    snap.relayOn = load_relay::isOn();
-    snap.relayFault = load_relay::isFault();
-    snap.state = state;
+    snap.relayOn =
+        load_relay::isOn();
+
+    snap.relayFault =
+        load_relay::isFault();
+
+    snap.state =
+        state;
 
     updateRecommendation(
         tempSeverity,
@@ -426,22 +560,34 @@ namespace maintenance_manager
     if (faultLatched)
     {
       load_relay::trip();
+
       buzzer::startAlarm();
+
       error_handling::setCodeError(true);
     }
     else
     {
       error_handling::setCodeError(false);
+
       load_relay::update();
 
-      if (state == STATE_CRITICAL || state == STATE_WARNING)
+      if (state == STATE_CRITICAL ||
+          state == STATE_WARNING)
       {
-        unsigned long beepInterval = state == STATE_CRITICAL ? 2500UL : 7000UL;
+        unsigned long beepInterval =
+            state == STATE_CRITICAL
+                ? 2500UL
+                : 7000UL;
 
-        if (now - lastWarningBeep >= beepInterval)
+        if (now - lastWarningBeep >=
+            beepInterval)
         {
           lastWarningBeep = now;
-          buzzer::beep(state == STATE_CRITICAL ? 120 : 60);
+
+          buzzer::beep(
+              state == STATE_CRITICAL
+                  ? 120
+                  : 60);
         }
       }
       else
@@ -473,7 +619,8 @@ namespace maintenance_manager
 
   bool isFault()
   {
-    return state == STATE_FAULT || faultLatched;
+    return state == STATE_FAULT ||
+           faultLatched;
   }
 
   float getRiskScore()
@@ -495,10 +642,13 @@ namespace maintenance_manager
   {
     if (state == STATE_FAULT)
       return "FAULT";
+
     if (state == STATE_CRITICAL)
       return "CRITICAL";
+
     if (state == STATE_WARNING)
       return "WARNING";
+
     return "NORMAL";
   }
 
@@ -515,15 +665,23 @@ namespace maintenance_manager
   void clearFault()
   {
     faultCounter = 0;
+
     safeCounter = 0;
+
     faultLatched = false;
+
     state = STATE_NORMAL;
+
     load_relay::clearFault();
+
     buzzer::stopAlarm();
+
     error_handling::setCodeError(false);
   }
 
-  void setTemperatureLimits(float warningC, float faultC)
+  void setTemperatureLimits(
+      float warningC,
+      float faultC)
   {
     if (faultC > warningC)
     {
@@ -532,9 +690,12 @@ namespace maintenance_manager
     }
   }
 
-  void setVibrationLimits(float warningG, float faultG)
+  void setVibrationLimits(
+      float warningG,
+      float faultG)
   {
-    if (warningG > 0.0f && faultG > warningG)
+    if (warningG > 0.0f &&
+        faultG > warningG)
     {
       vibrationWarnG = warningG;
       vibrationFaultG = faultG;
@@ -560,4 +721,5 @@ namespace maintenance_manager
   {
     return vibrationFaultG;
   }
+
 }
