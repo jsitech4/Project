@@ -495,21 +495,17 @@ canvas{
 <div class="title">
 
 <h1>
-Industrial Motor Predictive Maintenance
+Vibration and Temperature Monitoring System
 </h1>
 
 <p>
-Live condition monitoring, risk scoring,
-future fault estimate, SD/Internal backend logging.
+M.Sc. Electronics & Computer Engineering | Ibrahim Jubril Tayo |  23310211444
 </p>
 
 </div>
 
 <div class="top-actions">
 
-<span class="pill" id="backendPill">
-Backend: --
-</span>
 
 <button
     class="theme-btn"
@@ -592,9 +588,7 @@ Condition
 NORMAL
 </span>
 
-<p class="small" id="backend">
-Backend: --
-</p>
+
 
 </div>
 
@@ -900,8 +894,7 @@ Loading...
 
 
 <div class="footer">
-
-ESP32-S3 WROOM-1U Predictive Maintenance Dashboard
+Lagos State University
 
 </div>
 
@@ -1109,26 +1102,10 @@ async function loadStatus(){
             'status ' + s.level;
 
 
-        document.getElementById(
-            'backend'
-        ).textContent =
-            'Backend: ' +
-            s.backend +
-            ' | SD: ' +
-            (s.sd_ready
-                ? 'ready'
-                : 'not ready') +
-            ' | Internal: ' +
-            (s.internal_ready
-                ? 'ready'
-                : 'not ready');
 
 
-        document.getElementById(
-            'backendPill'
-        ).textContent =
-            'Backend: ' +
-            s.backend;
+
+
 
 
         document.getElementById(

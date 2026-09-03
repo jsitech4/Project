@@ -82,9 +82,9 @@ namespace lcd_screen
     else
     {
       printFixed(0, 0, String("Sensor 1 ") + "  " + String("Sensor 2"));
-      printFixed(0, 1, String("X1: ") + String(vibration_sensor::getSensor1X(), 2) + " " + String("X2: ") + String(vibration_sensor::getSensor2X(), 2));
-      printFixed(0, 2, String("Y1: ") + String(vibration_sensor::getSensor1Y(), 2) + " " + String("Y2: ") + String(vibration_sensor::getSensor2Y(), 2));
-      printFixed(0, 3, String("Z1: ") + String(vibration_sensor::getSensor1Z(), 2) + " " + String("Z2: ") + String(vibration_sensor::getSensor2Z(), 2));
+      printFixed(0, 1, String("X1: ") + String(vibration_sensor::getSensor1X(), 2) + "  " + String("X2: ") + String(vibration_sensor::getSensor2X(), 2));
+      printFixed(0, 2, String("Y1: ") + String(vibration_sensor::getSensor1Y(), 2) + "  " + String("Y2: ") + String(vibration_sensor::getSensor2Y(), 2));
+      printFixed(0, 3, String("Z1: ") + String(vibration_sensor::getSensor1Z(), 2) + "  " + String("Z2: ") + String(vibration_sensor::getSensor2Z(), 2));
     }
   }
 
@@ -95,11 +95,7 @@ namespace lcd_screen
     lcd.init();
     lcd.backlight();
     lcd.clear();
-
-    printFixed(0, 0, "Predictive Maint.");
-    printFixed(0, 1, "Industrial Motor");
-    // printFixed(0, 2, "ESP32-S3 WROOM-1U");
-    printFixed(0, 3, "Starting system...");
+    printFixed(0, 2, "Starting system...");
   }
 
   void update()
