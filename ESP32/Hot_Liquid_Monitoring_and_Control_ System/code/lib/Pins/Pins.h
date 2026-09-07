@@ -17,6 +17,14 @@ namespace Pins
   extern const uint8_t SD_SCK;
   extern const uint8_t SD_MISO;
 
+  extern const uint8_t SPI_CS;
+  extern const uint8_t SPI_MOSI;
+  extern const uint8_t SPI_SCK;
+  extern const uint8_t SPI_MISO;
+
+  extern const uint8_t ULTRASONIC_TRIG;
+  extern const uint8_t ULTRASONIC_ECHO;
+
   extern const uint8_t BUZZER;
 
   extern const uint8_t ENCODER_CLK;

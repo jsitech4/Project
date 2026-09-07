@@ -15,6 +15,14 @@ namespace Pins
   const uint8_t SD_SCK = 12;
   const uint8_t SD_MISO = 13;
 
+  const uint8_t SPI_CS = 35;
+  const uint8_t SPI_MOSI = 36;
+  const uint8_t SPI_SCK = 38;
+  const uint8_t SPI_MISO = 37;
+
+  const uint8_t ULTRASONIC_TRIG = 6;
+  const uint8_t ULTRASONIC_ECHO = 7;
+
   const uint8_t BUZZER = 14;
 
   const uint8_t ENCODER_CLK = 16;

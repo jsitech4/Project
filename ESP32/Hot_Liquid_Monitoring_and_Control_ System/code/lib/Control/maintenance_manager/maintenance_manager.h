@@ -5,34 +5,28 @@
 
 namespace maintenance_manager
 {
-  enum State
+  enum RelayLatchMode
   {
-    STATE_NORMAL = 0,
-    STATE_WARNING = 1,
-    STATE_CRITICAL = 2,
-    STATE_FAULT = 3
+    LATCH_OFF = 0,
+    LATCH_AT_FULL = 1,
+    LATCH_AT_LOW = 2
   };
 
   struct Snapshot
   {
     unsigned long uptimeMs;
     float temperatureC;
-    float vibration1RmsG;
-    float vibration2RmsG;
+    float distanceCm;
+    float levelPercent;
+    float currentA;
+    float vibrationRmsG;
     float xG;
     float yG;
     float zG;
-    float riskScore;
-    float healthScore;
-    float forecastMinutes;
-    float tempRatePerMin;
-    float vibration1RatePerMin;
-    float vibration2RatePerMin;
     bool tempValid;
+    bool levelValid;
     bool vibrationReady;
     bool relayOn;
-    bool relayFault;
-    State state;
   };
 
   void begin();
@@ -40,27 +34,12 @@ namespace maintenance_manager
 
   Snapshot getSnapshot();
 
-  bool isNormal();
-  bool isWarning();
-  bool isCritical();
-  bool isFault();
-
-  float getRiskScore();
-  float getHealthScore();
-  float getForecastMinutes();
-
-  String getLevelText();
-  String getWorstMetric();
-  String getRecommendation();
-
-  void clearFault();
-
-  void setTemperatureLimits(float warningC, float faultC);
-  void setVibrationLimits(float warningG, float faultG);
-  float getTemperatureWarningLimit();
-  float getTemperatureFaultLimit();
-  float getVibrationWarningLimit();
-  float getVibrationFaultLimit();
+  float getLevelPercent();
+  void setLevelThresholds(float fullPercent, float lowPercent);
+  float getFullLevelPercent();
+  float getLowLevelPercent();
+  void setRelayLatchMode(RelayLatchMode mode);
+  RelayLatchMode getRelayLatchMode();
 }
 
 #endif

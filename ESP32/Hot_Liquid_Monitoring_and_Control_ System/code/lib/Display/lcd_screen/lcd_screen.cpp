@@ -4,10 +4,8 @@
 #include "Pins.h"
 #include "lcd_screen.h"
 #include "temp_sensor/temp_sensor.h"
-#include "current_sensor/current_sensor.h"
-#include "vibration_sensor/vibration_sensor.h"
+#include "ultrasonic_sensor/ultrasonic_sensor.h"
 #include "load_relay/load_relay.h"
-#include "sd_card/sd_card.h"
 #include "rotary_encoder/rotary_encoder.h"
 #include "maintenance_manager/maintenance_manager.h"
 #include "local_server/local_server.h"
@@ -20,7 +18,7 @@ namespace lcd_screen
   static unsigned long lastScreenChange = 0;
 
   static uint8_t screen = 0;
-  static const uint8_t screenCount = 5;
+  static const uint8_t screenCount = 4;
 
   static void printFixed(uint8_t col, uint8_t row, const String &text)
   {
@@ -37,56 +35,44 @@ namespace lcd_screen
     lcd.print(out);
   }
 
-  static String forecastShort(float minutes)
-  {
-    if (minutes < 0.0f)
-      return "No trend";
-
-    if (minutes < 60.0f)
-      return String(minutes, 0) + " min";
-
-    return String(minutes / 60.0f, 1) + " hr";
-  }
-
   static void drawScreen()
   {
     maintenance_manager::Snapshot snap = maintenance_manager::getSnapshot();
 
     if (screen == 0)
     {
-      printFixed(0, 0, "   MOTOR LIVE DATA  ");
+      printFixed(0, 0, "  LIQUID LIVE DATA  ");
       printFixed(0, 1, String("Temp: ") + (temp_sensor::isValid() ? String(temp_sensor::getTemperatureC(), 1) + " C" : "N/A"));
-      printFixed(0, 2, String("Curr: ") + String(current_sensor::getCurrentA(), 2) + " A");
-      printFixed(0, 3, String("Vib : ") + String(vibration_sensor::getVibrationRMS(), 3) + " g");
+      printFixed(0, 2, String("Level: ") + String(snap.levelPercent, 0) + "%");
+      printFixed(0, 3, String("Valve: ") + (load_relay::isOn() ? "OPEN" : "CLOSED"));
     }
     else if (screen == 1)
     {
-      printFixed(0, 0, "  PREDICTIVE STATUS ");
-      printFixed(0, 1, String("Level: ") + maintenance_manager::getLevelText());
-      printFixed(0, 2, String("Risk : ") + String(maintenance_manager::getRiskScore(), 1) + "%");
-      printFixed(0, 3, String("Health: ") + String(maintenance_manager::getHealthScore(), 1) + "%");
+      printFixed(0, 0, "   TANK STATUS     ");
+      printFixed(0, 1, String("Level: ") + String(snap.levelPercent, 0) + "%");
+      printFixed(0, 2, String("Dist : ") + String(snap.distanceCm, 1) + " cm");
+      printFixed(0, 3, String("Temp : ") + String(snap.temperatureC, 1) + " C");
     }
     else if (screen == 2)
     {
-      printFixed(0, 0, "   FUTURE ANALYSIS  ");
-      printFixed(0, 1, String("Worst: ") + maintenance_manager::getWorstMetric());
-      printFixed(0, 2, String("Forecast: ") + forecastShort(maintenance_manager::getForecastMinutes()));
-      printFixed(0, 3, String("Backend : ") + String(sd_card::getBackendName()));
+      printFixed(0, 0, "   TANK CONTROL     ");
+      printFixed(0, 1, "Valve follows relay");
+      printFixed(0, 2, String("Relay: ") + (load_relay::isOn() ? "ON" : "OFF"));
+      printFixed(0, 3, String("IP: ") + local_server::getIp());
     }
     else if (screen == 3)
     {
-      printFixed(0, 0, "    SYSTEM STATUS   ");
+      printFixed(0, 0, "    SENSOR STATUS   ");
       printFixed(0, 1, String("Relay: ") + (load_relay::isOn() ? "ON" : "OFF"));
-      printFixed(0, 2, String("Fault: ") + (maintenance_manager::isFault() ? "YES" : "NO"));
-      // printFixed(0, 2, String("SD:") + (sd_card::isSdReady() ? "READY" : "NO") + " INT:" + (sd_card::isInternalReady() ? "OK" : "NO"));
-      printFixed(0, 3, String("IP: ") + local_server::getIp());
+      printFixed(0, 2, String("PT100: ") + (snap.tempValid ? "READY" : "WAIT"));
+      printFixed(0, 3, String("Level: ") + (snap.levelValid ? "READY" : "WAIT"));
     }
     else
     {
-      printFixed(0, 0, "    ACCELERATION g   ");
-      printFixed(0, 1, String("X: ") + String(snap.xG, 2));
-      printFixed(0, 2, String("Y: ") + String(snap.yG, 2));
-      printFixed(0, 3, String("Z: ") + String(snap.zG, 2));
+      printFixed(0, 0, "     NETWORK IP     ");
+      printFixed(0, 1, local_server::getIp());
+      printFixed(0, 2, "Valve follows relay");
+      printFixed(0, 3, "Use dashboard control");
     }
   }
 
@@ -98,8 +84,8 @@ namespace lcd_screen
     lcd.backlight();
     lcd.clear();
 
-    printFixed(0, 0, "Predictive Maint.");
-    printFixed(0, 1, "Industrial Motor");
+    printFixed(0, 0, "Hot Liquid Monitor");
+    printFixed(0, 1, "PT100 + Ultrasonic");
     // printFixed(0, 2, "ESP32-S3 WROOM-1U");
     printFixed(0, 3, "Starting system...");
   }

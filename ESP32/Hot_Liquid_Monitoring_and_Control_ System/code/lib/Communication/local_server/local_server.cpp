@@ -4,9 +4,9 @@
 #include "local_server.h"
 #include "maintenance_manager/maintenance_manager.h"
 #include "temp_sensor/temp_sensor.h"
-#include "vibration_sensor/vibration_sensor.h"
+#include "ultrasonic_sensor/ultrasonic_sensor.h"
 #include "load_relay/load_relay.h"
-#include "sd_card/sd_card.h"
+#include "storage/storage.h"
 
 namespace local_server
 {
@@ -14,7 +14,7 @@ namespace local_server
   static bool running = false;
   static String ipAddress = "0.0.0.0";
 
-  static const char *apSsid = "MOTOR_PM_SYSTEM";
+  static const char *apSsid = "Hot Liquid Monitoring and Control System";
   static const char *apPassword = "12345678";
 
   static String jsonEscape(const String &input)
@@ -41,20 +41,6 @@ namespace local_server
     return out;
   }
 
-  static String forecastText(float minutes)
-  {
-    if (minutes < 0.0f)
-      return "No rising fault trend detected";
-
-    if (minutes < 1.0f)
-      return "Fault condition is active or imminent";
-
-    if (minutes < 60.0f)
-      return String(minutes, 1) + " minutes to estimated fault limit";
-
-    return String(minutes / 60.0f, 1) + " hours to estimated fault limit";
-  }
-
   static void sendCors()
   {
     server.sendHeader("Access-Control-Allow-Origin", "*");
@@ -67,7 +53,7 @@ namespace local_server
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Industrial Motor Predictive Maintenance</title>
+<title>Hot Liquid Monitoring and Control System</title>
 <style>
 :root{--bg:#eef3f8;--card:#fff;--text:#18212f;--muted:#667085;--accent:#2563eb;--good:#16a34a;--warn:#ca8a04;--bad:#dc2626;--orange:#ea580c;--line:rgba(100,116,139,.22);--shadow:0 14px 35px rgba(15,23,42,.12)}
 [data-theme=dark]{--bg:#0b1220;--card:#111c2f;--text:#e5edf8;--muted:#98a2b3;--accent:#60a5fa;--line:rgba(148,163,184,.18);--shadow:0 14px 35px rgba(0,0,0,.35)}
@@ -91,10 +77,11 @@ body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;background
 .unit{font-size:14px;color:var(--muted);font-weight:500}
 .small{color:var(--muted);font-size:13px;line-height:1.5;max-width:760px}
 .status{display:inline-block;padding:9px 13px;border-radius:999px;font-weight:800;font-size:13px;background:#e5e7eb;color:#111827}
-.status.NORMAL{background:#dcfce7;color:#166534}.status.WARNING{background:#fef9c3;color:#854d0e}.status.CRITICAL{background:#ffedd5;color:#9a3412}.status.FAULT{background:#fee2e2;color:#991b1b}
+.status.NORMAL{background:#dcfce7;color:#166534}.status.WARNING{background:#fef9c3;color:#854d0e}
 .bar{width:100%;max-width:520px;height:12px;background:rgba(100,116,139,.22);border-radius:999px;overflow:hidden;margin-top:10px}
 .fill{height:100%;width:0%;background:var(--accent);transition:width .35s ease;border-radius:999px}
 .fill.good{background:var(--good)}.fill.warn{background:var(--warn)}.fill.bad{background:var(--bad)}.fill.orange{background:var(--orange)}
+.tank-wrap{display:flex;align-items:center;justify-content:center;gap:28px;width:100%;padding:8px 0 14px}.tank{position:relative;width:170px;height:250px;border:4px solid var(--text);border-radius:18px 18px 28px 28px;background:rgba(148,163,184,.10);overflow:hidden;box-shadow:inset 0 0 0 2px rgba(255,255,255,.35)}.tank:before{content:'';position:absolute;left:24px;right:24px;top:12px;height:7px;border:2px solid var(--text);border-radius:8px}.liquid{position:absolute;left:0;right:0;bottom:0;height:0%;background:linear-gradient(180deg,#38bdf8,#0284c7);transition:height .5s ease}.liquid:before{content:'';position:absolute;left:-10%;top:-8px;width:120%;height:16px;border-radius:50%;background:rgba(186,230,253,.72)}.tank-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;font-size:27px;font-weight:800;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.5)}.valve{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:150px}.valve-body{width:74px;height:74px;border:5px solid var(--text);transform:rotate(45deg);background:var(--bad);transition:background .25s ease}.valve-body.open{background:var(--good)}.valve-stem{width:8px;height:38px;background:var(--text);margin-top:-32px;z-index:1}.valve-title{font-size:18px;font-weight:800}.valve-state{font-size:13px;color:var(--muted)}
 .actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;width:100%}
 .btn{border:0;border-radius:14px;padding:11px 14px;font-weight:800;background:var(--accent);color:#fff;cursor:pointer}
 .btn.secondary{background:#64748b}.btn.danger{background:var(--bad)}.btn.good{background:var(--good)}
@@ -112,8 +99,8 @@ canvas{width:100%;height:260px;display:block}
 <div class="page">
 <div class="header">
   <div class="title">
-    <h1>Industrial Motor Predictive Maintenance</h1>
-    <p>Live condition monitoring, risk scoring, future fault estimate, SD/Internal backend logging.</p>
+    <h1>Hot Liquid Monitoring and Control System</h1>
+    <p>Live tank level, PT100 temperature, and valve control.</p>
   </div>
   <div class="top-actions">
     <span class="pill" id="backendPill">Backend: --</span>
@@ -126,19 +113,19 @@ canvas{width:100%;height:260px;display:block}
     <div class="card span3">
       <div class="label">Temperature</div>
       <div class="value" id="temp">-- <span class="unit">°C</span></div>
-      <p class="small">DS18B20 motor body temperature</p>
+      <p class="small">PT100 through MAX31865, 3-wire mode</p>
     </div>
 
     <div class="card span3">
-      <div class="label">Vibration Sensor 1 RMS</div>
-      <div class="value" id="vibration1">-- <span class="unit">g</span></div>
-      <p class="small">ADXL345 vibration severity</p>
+      <div class="label">Ultrasonic Distance</div>
+      <div class="value" id="distance">-- <span class="unit">cm</span></div>
+      <p class="small">Sensor distance from the liquid surface</p>
     </div>
 
     <div class="card span3">
-      <div class="label">Vibration Sensor 2 RMS</div>
-      <div class="value" id="vibration2">-- <span class="unit">g</span></div>
-      <p class="small">ADXL345 vibration severity</p>
+      <div class="label">Tank Level</div>
+      <div class="value" id="levelPercent">-- <span class="unit">%</span></div>
+      <p class="small">Calibrated between 5 cm full and 40 cm empty</p>
     </div>
 
     <div class="card span3">
@@ -147,38 +134,45 @@ canvas{width:100%;height:260px;display:block}
       <p class="small" id="backend">Backend: --</p>
     </div>
 
-    <div class="card span6">
-      <div class="label">Risk Score</div>
-      <div class="value" id="risk">-- <span class="unit">%</span></div>
-      <div class="bar"><div class="fill good" id="riskFill"></div></div>
-      <p class="small">Higher score means higher probability of fault based on current values and trend.</p>
+    <div class="card span12">
+      <div class="label">Tank And Valve</div>
+      <div class="tank-wrap">
+        <div class="tank"><div class="liquid" id="liquidFill"></div><div class="tank-label" id="tankLabel">--%</div></div>
+        <div class="valve"><div class="valve-body" id="valveBody"></div><div class="valve-stem"></div><div class="valve-title">Outlet Valve</div><div class="valve-state" id="valveState">Relay OFF</div></div>
+      </div>
+      <div class="bar"><div class="fill good" id="tankFill"></div></div>
+      <p class="small">The valve symbol follows the physical relay state.</p>
     </div>
 
     <div class="card span6">
-      <div class="label">Motor Health</div>
-      <div class="value" id="health">-- <span class="unit">%</span></div>
-      <div class="bar"><div class="fill good" id="healthFill"></div></div>
-      <p class="small" id="forecast">Forecast: --</p>
+      <div class="label">Sensor Status</div>
+      <div class="value" id="sensorStatus">READY</div>
+      <p class="small" id="sensorStatusText">PT100 and ultrasonic online</p>
     </div>
 
     <div class="card span7">
-      <div class="label">Future Analysis / Recommendation</div>
+      <div class="label">Tank Recommendation</div>
       <div class="value" id="worst" style="font-size:20px">Worst Metric: --</div>
       <p class="small" id="recommendation">Waiting for data...</p>
       <div class="metric-row"><strong>Maintenance Decision</strong><span id="decision">--</span></div>
-      <div class="metric-row"><strong>Estimated Time-To-Fault</strong><span id="ttf">--</span></div>
-      <div class="metric-row"><strong>Shutdown Status</strong><span id="shutdown">--</span></div>
     </div>
 
     <div class="card span5">
-      <div class="label">Motor Control</div>
-      <p class="small" id="relay">Relay: --</p>
+      <div class="label">Valve Control</div>
+      <p class="small" id="relay">Valve relay: --</p>
       <div class="actions">
-        <button class="btn good" onclick="cmd('/api/relay?state=on')">Relay ON</button>
-        <button class="btn secondary" onclick="cmd('/api/relay?state=off')">Relay OFF</button>
-        <button class="btn danger" onclick="cmd('/api/clear_fault')">Clear Fault</button>
+        <button class="btn good" onclick="cmd('/api/relay?state=on')">Valve OPEN</button>
+        <button class="btn secondary" onclick="cmd('/api/relay?state=off')">Valve CLOSE</button>
       </div>
-      <p class="small">Relay ON will be blocked automatically while a fault is still active.</p>
+      <p class="small">The relay directly controls the valve output.</p>
+    </div>
+
+    <div class="card span12">
+      <div class="label">Tank Automation Settings</div>
+      <div class="metric-row"><strong>Full level threshold (%)</strong><span><input id="fullThreshold" type="number" min="1" max="100" step="1" value="90"></span></div>
+      <div class="metric-row"><strong>Low level threshold (%)</strong><span><input id="lowThreshold" type="number" min="0" max="99" step="1" value="20"></span></div>
+      <div class="metric-row"><strong>Relay latch trigger</strong><span><select id="latchMode"><option value="0">Disabled</option><option value="1">Latch at full level</option><option value="2">Latch at low level</option></select></span></div>
+      <div class="actions"><button class="btn good" onclick="saveSettings()">Save settings</button><span class="small" id="settingsMessage">Saved settings load automatically at boot.</span></div>
     </div>
 
     <div class="card span4"><div class="label">Acceleration X</div><div class="value" id="x">-- <span class="unit">g</span></div></div>
@@ -188,7 +182,7 @@ canvas{width:100%;height:260px;display:block}
     <div class="card span12">
       <div class="label">Trend Graph</div>
       <canvas id="chart" width="1000" height="260"></canvas>
-      <p class="small"> orange: temperature, blue: vibration sensor 1, green: vibration sensor 2.</p>
+      <p class="small">Orange: PT100 temperature, green: tank level.</p>
     </div>
 
     <div class="card span12">
@@ -249,13 +243,6 @@ function setFill(id,v,reverse){
   e.className='fill '+cls;
 }
 
-function decision(level){
-  if(level==='FAULT')return 'Stop motor and inspect immediately';
-  if(level==='CRITICAL')return 'Plan urgent maintenance';
-  if(level==='WARNING')return 'Monitor closely';
-  return 'Continue operation';
-}
-
 async function cmd(url){
   try{
     await fetch(url);
@@ -270,44 +257,48 @@ async function loadStatus(){
     const s=await r.json();
 
     document.getElementById('temp').innerHTML=s.temp_valid?fmt(s.temperature_c,1)+' <span class="unit">°C</span>':'N/A';
+    document.getElementById('distance').innerHTML=s.level_valid?fmt(s.distance_cm,1)+' <span class="unit">cm</span>':'N/A';
+    document.getElementById('levelPercent').innerHTML=s.level_valid?fmt(s.level_percent,0)+' <span class="unit">%</span>':'N/A';
+    document.getElementById('liquidFill').style.height=(s.level_valid?clamp(s.level_percent,0,100):0)+'%';
+    document.getElementById('tankFill').style.width=(s.level_valid?clamp(s.level_percent,0,100):0)+'%';
+    document.getElementById('tankLabel').textContent=s.level_valid?fmt(s.level_percent,0)+'%':'N/A';
 
-    document.getElementById('vibration1').innerHTML=fmt(s.vibration1_rms_g,3)+' <span class="unit">g</span>';
-
-    document.getElementById('vibration2').innerHTML=fmt(s.vibration2_rms_g,3)+' <span class="unit">g</span>';
-
-    const lev=document.getElementById('level');
-    lev.textContent=s.level;
-    lev.className='status '+s.level;
-
-    document.getElementById('backend').textContent='Backend: '+s.backend+' | SD: '+(s.sd_ready?'ready':'not ready')+' | Internal: '+(s.internal_ready?'ready':'not ready');
+    document.getElementById('backend').textContent='Backend: '+s.backend+' | Internal: '+(s.internal_ready?'ready':'not ready');
     document.getElementById('backendPill').textContent='Backend: '+s.backend;
 
-    document.getElementById('risk').innerHTML=fmt(s.risk_score,1)+' <span class="unit">%</span>';
-    document.getElementById('health').innerHTML=fmt(s.health_score,1)+' <span class="unit">%</span>';
-    setFill('riskFill',s.risk_score,false);
-    setFill('healthFill',s.health_score,true);
+    document.getElementById('sensorStatus').textContent=(s.temp_valid&&s.level_valid)?'READY':'WAITING';
+    document.getElementById('sensorStatusText').textContent=(s.temp_valid&&s.level_valid)?'PT100 and ultrasonic online':'Waiting for sensor readings';
 
-    document.getElementById('forecast').textContent='Forecast: '+s.forecast_text;
-    document.getElementById('worst').textContent='Worst Metric: '+s.worst_metric;
-    document.getElementById('recommendation').textContent=s.recommendation;
-    document.getElementById('decision').textContent=decision(s.level);
-    document.getElementById('ttf').textContent=s.forecast_text;
-    document.getElementById('shutdown').textContent=s.fault?'Relay forced OFF by protection logic':'No shutdown active';
+    document.getElementById('worst').textContent='Tank monitoring';
+    document.getElementById('recommendation').textContent='Live tank measurements are available.';
 
-    document.getElementById('relay').textContent='Relay: '+(s.relay_on?'ON':'OFF')+' | Requested: '+(s.relay_requested?'ON':'OFF')+' | Fault: '+(s.fault?'YES':'NO');
+    document.getElementById('relay').textContent='Valve relay: '+(s.relay_on?'ON':'OFF')+' | Requested: '+(s.relay_requested?'ON':'OFF');
+    document.getElementById('valveState').textContent=s.relay_on?'Relay ON / Valve OPEN':'Relay OFF / Valve CLOSED';
+    document.getElementById('valveBody').className='valve-body'+(s.relay_on?' open':'');
 
-    document.getElementById('x').innerHTML=fmt(s.x_g,2)+' <span class="unit">g</span>';
-    document.getElementById('y').innerHTML=fmt(s.y_g,2)+' <span class="unit">g</span>';
-    document.getElementById('z').innerHTML=fmt(s.z_g,2)+' <span class="unit">g</span>';
-
-    points.push({
-    temp: Number(s.temperature_c) || 0,
-    vib1: Number(s.vibration1_rms_g) || 0,
-    vib2: Number(s.vibration2_rms_g) || 0
-  });
+    points.push({temp:Number(s.temperature_c)||0,level:Number(s.level_percent)||0});
     if(points.length>70)points.shift();
     drawChart();
+    document.getElementById('fullThreshold').value=s.full_level_percent;
+    document.getElementById('lowThreshold').value=s.low_level_percent;
+    document.getElementById('latchMode').value=s.relay_latch_mode;
   }catch(e){}
+}
+
+async function saveSettings(){
+  const full=Number(document.getElementById('fullThreshold').value);
+  const low=Number(document.getElementById('lowThreshold').value);
+  const mode=document.getElementById('latchMode').value;
+  const message=document.getElementById('settingsMessage');
+  if(!Number.isFinite(full)||!Number.isFinite(low)||full<=low||full>100||low<0){
+    message.textContent='Full level must be higher than low level.';
+    return;
+  }
+  try{
+    const response=await fetch('/api/settings/save?full='+encodeURIComponent(full)+'&low='+encodeURIComponent(low)+'&mode='+encodeURIComponent(mode));
+    const result=await response.json();
+    message.textContent=result.ok?'Settings saved to internal flash.':'Settings were not saved.';
+  }catch(e){message.textContent='Dashboard could not save settings.';}
 }
 
 async function loadLogs(){
@@ -337,8 +328,7 @@ function drawChart(){
   }
 
   drawLine(ctx,points.map(p=>p.temp),20,90,'#ea580c');
-  drawLine(ctx,points.map(p=>p.vib1),0,3,'#2563eb');
-  drawLine(ctx,points.map(p=>p.vib2),0,3,'#16a34a');
+  drawLine(ctx,points.map(p=>p.level),0,100,'#16a34a');
 }
 
 function drawLine(ctx,arr,min,max,color){
@@ -378,8 +368,6 @@ setInterval(loadLogs,10000);
     sendCors();
 
     maintenance_manager::Snapshot snap = maintenance_manager::getSnapshot();
-    String forecast = forecastText(snap.forecastMinutes);
-
     String json;
     json.reserve(1200);
 
@@ -389,60 +377,24 @@ setInterval(loadLogs,10000);
     json += ",";
 
     json += "\"temperature_c\":";
-    json += String(snap.temperatureC, 2);
+    json += snap.tempValid ? String(snap.temperatureC, 2) : String("null");
     json += ",";
 
     json += "\"temp_valid\":";
     json += snap.tempValid ? "true" : "false";
     json += ",";
 
-    json += "\"vibration1_rms_g\":";
-    json += String(vibration_sensor::getSensor1VibrationRMS(), 3);
+    json += "\"distance_cm\":";
+    json += snap.levelValid ? String(snap.distanceCm, 1) : String("null");
     json += ",";
 
-    json += "\"vibration2_rms_g\":";
-    json += String(vibration_sensor::getSensor2VibrationRMS(), 3);
+    json += "\"level_percent\":";
+    json += snap.levelValid ? String(snap.levelPercent, 1) : String("null");
     json += ",";
 
-    json += "\"x_g\":";
-    json += String(snap.xG, 3);
+    json += "\"level_valid\":";
+    json += snap.levelValid ? "true" : "false";
     json += ",";
-
-    json += "\"y_g\":";
-    json += String(snap.yG, 3);
-    json += ",";
-
-    json += "\"z_g\":";
-    json += String(snap.zG, 3);
-    json += ",";
-
-    json += "\"risk_score\":";
-    json += String(snap.riskScore, 1);
-    json += ",";
-
-    json += "\"health_score\":";
-    json += String(snap.healthScore, 1);
-    json += ",";
-
-    json += "\"forecast_minutes\":";
-    json += String(snap.forecastMinutes, 1);
-    json += ",";
-
-    json += "\"forecast_text\":\"";
-    json += jsonEscape(forecast);
-    json += "\",";
-
-    json += "\"level\":\"";
-    json += jsonEscape(maintenance_manager::getLevelText());
-    json += "\",";
-
-    json += "\"worst_metric\":\"";
-    json += jsonEscape(maintenance_manager::getWorstMetric());
-    json += "\",";
-
-    json += "\"recommendation\":\"";
-    json += jsonEscape(maintenance_manager::getRecommendation());
-    json += "\",";
 
     json += "\"relay_on\":";
     json += load_relay::isOn() ? "true" : "false";
@@ -452,40 +404,40 @@ setInterval(loadLogs,10000);
     json += load_relay::getRequestedState() ? "true" : "false";
     json += ",";
 
-    json += "\"fault\":";
-    json += maintenance_manager::isFault() ? "true" : "false";
+    json += "\"full_level_percent\":";
+    json += String(maintenance_manager::getFullLevelPercent(), 1);
+    json += ",";
+
+    json += "\"low_level_percent\":";
+    json += String(maintenance_manager::getLowLevelPercent(), 1);
+    json += ",";
+
+    json += "\"relay_latch_mode\":";
+    json += String(static_cast<uint8_t>(maintenance_manager::getRelayLatchMode()));
     json += ",";
 
     json += "\"sd_ready\":";
-    json += sd_card::isSdReady() ? "true" : "false";
+    json += storage::isSdReady() ? "true" : "false";
     json += ",";
 
     json += "\"internal_ready\":";
-    json += sd_card::isInternalReady() ? "true" : "false";
+    json += storage::isInternalReady() ? "true" : "false";
     json += ",";
 
     json += "\"backend\":\"";
-    json += jsonEscape(sd_card::getBackendName());
-    json += "\",";
-
-    json += "\"internal_ready\":";
-    json += sd_card::isInternalReady() ? "true" : "false";
-    json += ",";
-
-    json += "\"backend\":\"";
-    json += jsonEscape(sd_card::getBackendName());
+    json += jsonEscape(storage::getBackendName());
     json += "\",";
 
     json += "\"motor_log_size\":";
-    json += String(sd_card::getFileSize(sd_card::getMotorLogFileName()));
+    json += String(storage::getFileSize(storage::getLiquidLogFileName()));
     json += ",";
 
     json += "\"analysis_log_size\":";
-    json += String(sd_card::getFileSize(sd_card::getAnalysisLogFileName()));
+    json += String(storage::getFileSize(storage::getAnalysisLogFileName()));
     json += ",";
 
     json += "\"event_log_size\":";
-    json += String(sd_card::getFileSize(sd_card::getEventLogFileName()));
+    json += String(storage::getFileSize(storage::getEventLogFileName()));
 
     json += "}";
 
@@ -502,15 +454,15 @@ setInterval(loadLogs,10000);
     json += "{";
 
     json += "\"motor_log\":\"";
-    json += jsonEscape(sd_card::readTail(sd_card::getMotorLogFileName(), 5000));
+    json += jsonEscape(storage::readTail(storage::getLiquidLogFileName(), 5000));
     json += "\",";
 
     json += "\"analysis_log\":\"";
-    json += jsonEscape(sd_card::readTail(sd_card::getAnalysisLogFileName(), 4000));
+    json += jsonEscape(storage::readTail(storage::getAnalysisLogFileName(), 4000));
     json += "\",";
 
     json += "\"event_log\":\"";
-    json += jsonEscape(sd_card::readTail(sd_card::getEventLogFileName(), 3000));
+    json += jsonEscape(storage::readTail(storage::getEventLogFileName(), 3000));
     json += "\"";
 
     json += "}";
@@ -530,24 +482,14 @@ setInterval(loadLogs,10000);
       if (state == "on")
       {
         load_relay::turnOn();
-        sd_card::logEvent("RELAY", "Relay requested ON from dashboard.");
+        storage::logEvent("RELAY", "Relay requested ON from dashboard.");
       }
       else if (state == "off")
       {
         load_relay::turnOff();
-        sd_card::logEvent("RELAY", "Relay requested OFF from dashboard.");
+        storage::logEvent("RELAY", "Relay requested OFF from dashboard.");
       }
     }
-
-    server.send(200, "application/json", "{\"ok\":true}");
-  }
-
-  static void handleClearFault()
-  {
-    sendCors();
-
-    maintenance_manager::clearFault();
-    sd_card::logEvent("FAULT", "Fault cleared from dashboard.");
 
     server.send(200, "application/json", "{\"ok\":true}");
   }
@@ -556,16 +498,42 @@ setInterval(loadLogs,10000);
   {
     sendCors();
 
-    sd_card::logNow();
+    storage::logNow();
 
     server.send(200, "application/json", "{\"ok\":true}");
+  }
+
+  static void handleSaveSettings()
+  {
+    sendCors();
+
+    if (!server.hasArg("full") || !server.hasArg("low") || !server.hasArg("mode"))
+    {
+      server.send(400, "application/json", "{\"ok\":false}");
+      return;
+    }
+
+    float fullPercent = server.arg("full").toFloat();
+    float lowPercent = server.arg("low").toFloat();
+    int mode = server.arg("mode").toInt();
+
+    if (fullPercent <= lowPercent || fullPercent > 100.0f || lowPercent < 0.0f || mode < 0 || mode > 2)
+    {
+      server.send(400, "application/json", "{\"ok\":false}");
+      return;
+    }
+
+    maintenance_manager::setLevelThresholds(fullPercent, lowPercent);
+    maintenance_manager::setRelayLatchMode(static_cast<maintenance_manager::RelayLatchMode>(mode));
+    bool saved = storage::saveTankSettings(fullPercent, lowPercent, static_cast<uint8_t>(mode));
+    server.send(saved ? 200 : 500, "application/json", saved ? "{\"ok\":true}" : "{\"ok\":false}");
   }
 
   static void streamCsv(const char *path)
   {
     sendCors();
 
-    File file = sd_card::openRead(path);
+    File file = storage::openRead(path);
 
     if (!file)
     {
@@ -579,17 +547,17 @@ setInterval(loadLogs,10000);
 
   static void handleMotorDownload()
   {
-    streamCsv(sd_card::getMotorLogFileName());
+    streamCsv(storage::getLiquidLogFileName());
   }
 
   static void handleAnalysisDownload()
   {
-    streamCsv(sd_card::getAnalysisLogFileName());
+    streamCsv(storage::getAnalysisLogFileName());
   }
 
   static void handleEventDownload()
   {
-    streamCsv(sd_card::getEventLogFileName());
+    streamCsv(storage::getEventLogFileName());
   }
 
   void begin()
@@ -603,8 +571,8 @@ setInterval(loadLogs,10000);
     server.on("/api/status", HTTP_GET, handleStatus);
     server.on("/api/logs", HTTP_GET, handleLogs);
     server.on("/api/relay", HTTP_GET, handleRelay);
-    server.on("/api/clear_fault", HTTP_GET, handleClearFault);
     server.on("/api/log_now", HTTP_GET, handleLogNow);
+    server.on("/api/settings/save", HTTP_GET, handleSaveSettings);
     server.on("/download/motor_log.csv", HTTP_GET, handleMotorDownload);
     server.on("/download/analysis_log.csv", HTTP_GET, handleAnalysisDownload);
     server.on("/download/event_log.csv", HTTP_GET, handleEventDownload);

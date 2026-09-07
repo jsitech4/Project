@@ -2,14 +2,14 @@
 #include <Wire.h>
 #include "Pins.h"
 #include "temp_sensor/temp_sensor.h"
-#include "vibration_sensor/vibration_sensor.h"
+#include "ultrasonic_sensor/ultrasonic_sensor.h"
+#include "current_sensor/current_sensor.h"
 #include "rotary_encoder/rotary_encoder.h"
 #include "buzzer/buzzer.h"
 #include "load_relay/load_relay.h"
 #include "lcd_screen/lcd_screen.h"
 #include "led_indicator/led_indicator.h"
-#include "sd_card/sd_card.h"
-#include "error_handling/error_handling.h"
+#include "storage/storage.h"
 #include "sleep_wake/sleep_wake.h"
 #include "reset/reset.h"
 #include "maintenance_manager/maintenance_manager.h"
@@ -56,17 +56,6 @@ static void printSerialReport()
   // Serial.print(snap.vibrationRmsG, 3);
   // Serial.println(" g");
 
-  // Serial.print("Risk: ");
-  // Serial.print(snap.riskScore, 1);
-  // Serial.println(" %");
-
-  // Serial.print("Health: ");
-  // Serial.print(snap.healthScore, 1);
-  // Serial.println(" %");
-
-  // Serial.print("Level: ");
-  // Serial.println(maintenance_manager::getLevelText());
-
   // Serial.print("Relay: ");
   // Serial.println(load_relay::isOn() ? "ON" : "OFF");
 
@@ -95,7 +84,6 @@ void setup()
   Pins::begin();
   Wire.begin(Pins::I2C_SDA, Pins::I2C_SCL);
 
-  error_handling::begin();
   sleep_wake::begin();
   reset::begin();
 
@@ -105,39 +93,47 @@ void setup()
   led_indicator::begin();
 
   temp_sensor::begin();
-  vibration_sensor::begin();
+  current_sensor::begin();
+  ultrasonic_sensor::begin(Pins::ULTRASONIC_TRIG, Pins::ULTRASONIC_ECHO);
+
   maintenance_manager::begin();
-  sd_card::begin();
+  storage::begin();
+  float fullLevel = maintenance_manager::getFullLevelPercent();
+  float lowLevel = maintenance_manager::getLowLevelPercent();
+  uint8_t latchMode = maintenance_manager::getRelayLatchMode();
+  if (storage::loadTankSettings(fullLevel, lowLevel, latchMode))
+  {
+    maintenance_manager::setLevelThresholds(fullLevel, lowLevel);
+    maintenance_manager::setRelayLatchMode(static_cast<maintenance_manager::RelayLatchMode>(latchMode));
+  }
   local_server::begin();
   lcd_screen::begin();
 
-  sd_card::logEvent("BOOT", "Predictive maintenance firmware started.");
+  storage::logEvent("BOOT", "Predictive maintenance firmware started.");
   buzzer::beep(120);
-
-  // Serial.println("System started successfully.");
-  // Serial.print("Dashboard SSID: ");
-  // Serial.println(local_server::getSsid());
-  // Serial.print("Dashboard IP: http://");
-  // Serial.println(local_server::getIp());
-  // Serial.print("Storage Backend: ");
-  // Serial.println(sd_card::getBackendName());
 }
 
 void loop()
 {
   rotary_encoder::update();
+
   temp_sensor::update();
-  vibration_sensor::update();
+  current_sensor::update();
+  ultrasonic_sensor::update();
   maintenance_manager::update();
   load_relay::update();
+
   buzzer::update();
   led_indicator::update();
   lcd_screen::update();
-  sd_card::update();
+
+  storage::update();
   local_server::update();
-  error_handling::update();
+
   sleep_wake::update();
   reset::update();
+
   // printSerialReport();
+
   yield();
 }

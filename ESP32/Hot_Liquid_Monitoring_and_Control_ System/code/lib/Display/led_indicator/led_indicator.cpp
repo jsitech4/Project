@@ -108,24 +108,6 @@ namespace led_indicator
     if (forcedMode)
       return;
 
-    if (maintenance_manager::isFault())
-    {
-      blinkUpdate(120);
-      return;
-    }
-
-    if (maintenance_manager::isCritical())
-    {
-      blinkUpdate(300);
-      return;
-    }
-
-    if (maintenance_manager::isWarning())
-    {
-      breathingUpdate(warningStepTime);
-      return;
-    }
-
     breathingUpdate(normalStepTime);
   }
 

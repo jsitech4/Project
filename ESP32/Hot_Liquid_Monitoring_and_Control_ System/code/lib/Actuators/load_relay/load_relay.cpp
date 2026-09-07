@@ -7,8 +7,7 @@ namespace load_relay
   static const bool RELAY_ACTIVE_HIGH = true;
 
   static bool relayOn = false;
-  static bool requestedState = true;
-  static bool faultLatched = false;
+  static bool requestedState = false;
 
   static void writeRelay(bool state)
   {
@@ -20,30 +19,19 @@ namespace load_relay
   void begin()
   {
     pinMode(Pins::RELAY, OUTPUT);
-    faultLatched = false;
-    requestedState = true;
+    requestedState = false;
     writeRelay(requestedState);
   }
 
   void update()
   {
-    if (faultLatched)
-    {
-      writeRelay(false);
-      return;
-    }
-
     writeRelay(requestedState);
   }
 
   void setOn(bool state)
   {
     requestedState = state;
-
-    if (!faultLatched)
-    {
-      writeRelay(requestedState);
-    }
+    writeRelay(requestedState);
   }
 
   void turnOn()
@@ -56,26 +44,9 @@ namespace load_relay
     setOn(false);
   }
 
-  void trip()
-  {
-    faultLatched = true;
-    writeRelay(false);
-  }
-
-  void clearFault()
-  {
-    faultLatched = false;
-    writeRelay(requestedState);
-  }
-
   bool isOn()
   {
     return relayOn;
-  }
-
-  bool isFault()
-  {
-    return faultLatched;
   }
 
   bool getRequestedState()

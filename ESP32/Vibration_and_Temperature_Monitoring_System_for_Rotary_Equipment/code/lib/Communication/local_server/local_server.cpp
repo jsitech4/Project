@@ -17,7 +17,7 @@ namespace local_server
 
   static String ipAddress = "0.0.0.0";
 
-  static const char *apSsid = "MOTOR_PM_SYSTEM";
+  static const char *apSsid = "V&T Monitoring System";
   static const char *apPassword = "12345678";
 
   static String jsonEscape(const String &input)
@@ -106,7 +106,7 @@ namespace local_server
 >
 
 <title>
-Industrial Motor Predictive Maintenance
+Vibration and Temperature Monitoring System
 </title>
 
 <style>
